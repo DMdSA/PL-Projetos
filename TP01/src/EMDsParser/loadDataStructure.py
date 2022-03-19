@@ -31,6 +31,8 @@ def loadData(file):
     fHandler.readline()                                 ## A primeira linha não fará parte da procura
     tknizer = tokenizer.getTokenizer()
     nWrongRegisters = 0
+    oldestDate = datetime.max
+    newestDate = datetime.min
     
     for line in fHandler:
 
@@ -44,6 +46,14 @@ def loadData(file):
             nWrongRegisters = nWrongRegisters + 1
             print("#> error: ", sys.exc_info()[0], " occored")
         year = (emdR.date).split('-')[0]
+
+        auxDate = datetime.strptime(emdR.date, '%Y-%m-%d')
+
+        if oldestDate > auxDate:
+            oldestDate = auxDate
+
+        if newestDate < auxDate:
+            newestDate = auxDate
 
         # RECOLHA REGEX -----
 
@@ -67,8 +77,10 @@ def loadData(file):
             else:
                 continue
 
-    fHandler.close()    
-    return (_years, nWrongRegisters)
+    fHandler.close()
+    oldestDate = oldestDate.strftime("%Y-%m-%d")
+    newestDate = newestDate.strftime("%Y-%m-%d") 
+    return (_years, nWrongRegisters, oldestDate, newestDate)
 
 
 
