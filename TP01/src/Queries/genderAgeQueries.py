@@ -53,21 +53,34 @@ import math
 
 def calculateGenderDetails(genderDetails):
 
-    allTimeFemales = 0
-    allTimeMales = 0
-    allTimeRatio = 0
+    ## argument details
+    detailsPerYear = genderDetails[0]
+    detailsRegisters = genderDetails[1]
+    ##
 
-    # { ano : (fem, masc) }
-    # Answer: ((allTimeFem, allTimeMasc), {ano: (fem, masc)})
+    ## sort the records by their name and concatenate them only by their gender
+    genderEMDS_M = []
+    genderEMDS_M = genderEMDS_M + detailsRegisters[emdLDS.fLT35] + detailsRegisters[emdLDS.fGET35]
+    genderEMDS_M.sort(key=lambda x: x.name)
+    genderEMDS_F = [] 
+    genderEMDS_F = genderEMDS_F + detailsRegisters[emdLDS.mLT35] + detailsRegisters[emdLDS.mGET35]
+    genderEMDS_F.sort(key=lambda x: x.name)
+
+    genderRecords = {"M": genderEMDS_M, "F": genderEMDS_F} 
+
+    ## calculation of numbers
 
     eachYear = {}
+    allTimeFemales = 0
+    allTimeMales = 0
+    # Answer: { Ano : {M : #n, F: #n}}
 
-    for year in genderDetails:
+    for year in detailsPerYear:
 
         currentYearFemales = 0
         currentYearMales = 0
 
-        currentYear = genderDetails[year]
+        currentYear = detailsPerYear[year]
 
         for genderDict in currentYear:
 
@@ -80,6 +93,8 @@ def calculateGenderDetails(genderDetails):
                     currentYearMales = currentYearMales + genderDict[gender]
 
         eachYear[year] = {"F" : currentYearFemales, "M" : currentYearMales}
+        
+
         #print("\n#> Identified [%d] females and [%d] males in [%s]" % (currentYearFemales, currentYearMales, year))
 
         # highestCF = math.gcd(currentYearFemales, currentYearMales)
@@ -95,9 +110,7 @@ def calculateGenderDetails(genderDetails):
     # print("\n#> All time ratio [%d:%d]" % ratioWomenMen)
     
     eachYear["allYears"] = {"F": allTimeFemales, "M": allTimeMales} 
-    return eachYear
+    return (eachYear, genderRecords)
 
 # Com esta informação dá para calcular PERCENTAGENS e RATIOS W:M && M:W
 # Para apresentar a amostragem considerada só é preciso ordená-la segundo um critério, visto que já se encontra agrupada
-
-#calculateGenderDetails(genderDetails)
