@@ -29,3 +29,5 @@ addresses = address.getAddress(emdDS[0])
 
 alineaB = genderAgeQueries.calculateGenderDetails(genderAge)
 #print(alineaB[1])
+
+#fodace
