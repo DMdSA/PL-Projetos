@@ -1,31 +1,25 @@
 
-from audioop import add
-from distutils.log import info
-
-
 def getAddress(dataset):
 
     perAddress = {}
     
-    for address in dataset:
+    for year in dataset:
+        
+        datasetLvl01 = dataset[year]
+        
+        for filter in datasetLvl01:
 
-            perAddress[address] = {}
-            currentAddresses = perAddress[address]
+            registers = datasetLvl01[filter]                   
 
-            lvl_address = dataset[address]                   
+            for emdR in registers:
 
-            for AgeGenderFilter in lvl_address:
+                if emdR.address not in perAddress:
 
-                lvl_genderAge = lvl_address[AgeGenderFilter]
+                    perAddress[emdR.address] = []
 
-                for emdR in lvl_genderAge:
-
-                        if emdR.address not in currentAddresses:
-                            currentAddresses[emdR.address] = []
-
-                        curAd = (currentAddresses[emdR.address])
-
-                        curAd.append(emdR)
+                curAd = (perAddress[emdR.address])
+                curAd.append(emdR)
+                
     return perAddress
      
 

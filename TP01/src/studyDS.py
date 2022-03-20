@@ -25,9 +25,7 @@ modalidades02 = modalities.getModalidades02(emdDS[0])
 
 addresses = address.getAddress(emdDS[0])
 #address01 = address.addressInfo(addresses, "Edinburg")
-#print(address01)
+print(addresses)
 
 alineaB = genderAgeQueries.calculateGenderDetails(genderAge)
 #print(alineaB[1])
-
-#fodace
