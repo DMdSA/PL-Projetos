@@ -55,18 +55,7 @@ def calculateGenderDetails(genderDetails):
 
     ## argument details
     detailsPerYear = genderDetails[0]
-    detailsRegisters = genderDetails[1]
     ##
-
-    ## sort the records by their name and concatenate them only by their gender
-    genderEMDS_M = []
-    genderEMDS_M = genderEMDS_M + detailsRegisters[emdLDS.fLT35] + detailsRegisters[emdLDS.fGET35]
-    genderEMDS_M.sort(key=lambda x: x.name)
-    genderEMDS_F = [] 
-    genderEMDS_F = genderEMDS_F + detailsRegisters[emdLDS.mLT35] + detailsRegisters[emdLDS.mGET35]
-    genderEMDS_F.sort(key=lambda x: x.name)
-
-    genderRecords = {"M": genderEMDS_M, "F": genderEMDS_F} 
 
     ## calculation of numbers
 
@@ -93,8 +82,8 @@ def calculateGenderDetails(genderDetails):
                     currentYearMales = currentYearMales + genderDict[gender]
 
         eachYear[year] = {"F" : currentYearFemales, "M" : currentYearMales}
-        
 
+    
         #print("\n#> Identified [%d] females and [%d] males in [%s]" % (currentYearFemales, currentYearMales, year))
 
         # highestCF = math.gcd(currentYearFemales, currentYearMales)
@@ -110,7 +99,7 @@ def calculateGenderDetails(genderDetails):
     # print("\n#> All time ratio [%d:%d]" % ratioWomenMen)
     
     eachYear["allYears"] = {"F": allTimeFemales, "M": allTimeMales} 
-    return (eachYear, genderRecords)
+    return (eachYear)
 
 # Com esta informação dá para calcular PERCENTAGENS e RATIOS W:M && M:W
 # Para apresentar a amostragem considerada só é preciso ordená-la segundo um critério, visto que já se encontra agrupada

@@ -96,7 +96,7 @@ def sortDataset(dataset):
             lvl_genderAge = lvl_years[AgeGenderFilter]     ## nível relativo a cada dicionário de filtro Age/Gender
 
             # Ordenar cada nível de filtro (i.e., cada lista com os EMD'S)
-            lvl_genderAge.sort(key=lambda x: (x.name, datetime.strptime(x.date, '%Y-%m-%d'), x.address))
+            lvl_genderAge.sort(key=lambda x: (datetime.strptime(x.date, '%Y-%m-%d'), x.name, x.address))
 
 
 
