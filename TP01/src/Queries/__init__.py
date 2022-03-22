@@ -3,4 +3,4 @@
 
 __version__ = '19/033/2022'
 
-__all__ = ["fit&Federated", "genderAgeQueries", "modalities", "address"]
+__all__ = ["fitFederated", "genderAgeQueries", "modalities", "address"]
