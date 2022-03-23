@@ -114,7 +114,7 @@ htmlEnd = '''
     '''
 
 ## Name of the file to be written
-htmlFILE = "datesInticators.html"
+htmlFILE = "datesIndicators.html"
 
 
 ## Concatena as strings HTML para formar o ficheiro final
@@ -122,10 +122,12 @@ htmlFILE = "datesInticators.html"
 def datesIndicatorsHtml(dataset):
 
     preparedInfo = prepareDataset(dataset)
+    dates = list(preparedInfo.keys())
+    dates.sort()
 
     fileHandler = open(htmlFILE, "wt", encoding="utf-8")
 
-    for year in preparedInfo:
+    for year in dates:
 
       for emd in preparedInfo[year]:
         

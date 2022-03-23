@@ -145,9 +145,12 @@ def genderIndicatorsHTML(dataset):
     global htmlStart
     global htmlEnd
     preparedInfo = prepareData(dataset)
+    dates = list(preparedInfo.keys())
+    dates.sort()
+
     fileHandler = open(htmlFILE, "wt", encoding="utf-8")
 
-    for year in preparedInfo:
+    for year in dates:
 
         htmlStart = htmlStart + "\n<h1> " + year + "</h1>\n"
 
