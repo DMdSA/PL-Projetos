@@ -5,6 +5,7 @@ import graphlib
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 aptosKey = "nAptos" 
 fedKey = "nFederados" 
 overallKey = "nRegistos"  
@@ -53,23 +54,35 @@ def findAptosDic(dataset):               #Criação do dataset de aptos e federa
     ((YearDic[year])[aptosListKey]).sort(key=lambda x: (x.name))   
     ((YearDic[year])[fedListKey]).sort(key=lambda x: (x.name))
 
+    #createPieGraphAptos(YearDic, '2020')
+    #createMultPieGraphAptos(YearDic)
+    #createMultPieGraphFed(YearDic)
+    #createBarGraphAptos(YearDic)
+    #createBarGraphFed(YearDic)
+
     return YearDic
 
-def createPieGraphAptos(YearDic):    # Grafico Pie para os Aptos
-        
-    for year in YearDic:
-        aptosArray = []             #Valores para o gráfico
-        aptosLabel = []             #Labels
+def createPieGraphAptos(YearDic, year):    # Grafico Pie para os Aptos
+    
+    aptosArray = []             #Valores para o gráfico
+    aptosLabel = []             #Labels
+
+    if year in YearDic:
         aptosLabel.append(str(year) + " Aptos")
         aptosLabel.append(str(year) +  " Não Aptos")
-        aptos = ((YearDic[year][aptosKey]))        #Aptos
-        nAptos = ((YearDic[year][overallKey])) - aptos   #Não Aptos
+        aptos = ((YearDic[year])[aptosKey])        #Aptos
+        nAptos = ((YearDic[year])[overallKey]) - aptos   #Não Aptos
 
         aptosArray.append(aptos)
         aptosArray.append(nAptos)
 
-    plt.pie(aptosArray, labels = aptosLabel, shadow = True)   #Funções para desenhar o grafico
-    plt.show()
+        fig = plt.figure()
+        plt.pie(aptosArray, labels = aptosLabel, shadow = True)   #Funções para desenhar o grafico
+        plt.show()
+        fig.savefig('apt_Pie_' + str(year) + '.png')
+    else:
+        print("#> Error generating Apt Pie Graph")
+    
 
 def createMultPieGraphAptos(YearDic):   #Multiplos Gráficos Pie
 
@@ -88,18 +101,19 @@ def createMultPieGraphAptos(YearDic):   #Multiplos Gráficos Pie
         aptosArray.append(nAptos)
 
         axes[i].pie(aptosArray, labels = aptosLabel, autopct='%1.1f%%', shadow = True, explode=(0, 0.1)) #Valores, Label, Percentagem, Sombra, Para o segundo valor ficar saído do gráfico
-        axes[i].set_title('Apt in Year ' + str(year), fontsize = 12)   
+        axes[i].set_title('Apt in Year ' + str(year), fontsize = 12)
+        fig.savefig('apt_Mult_Pie.png')
         i = i + 1
 
     plt.show()
 
         
-def createPieGraphFed(YearDic):   #Grafico Pie para federados
+def createPieGraphFed(YearDic, year):   #Grafico Pie para federados
 
     fedArray = []
     fedLabel = []
 
-    for year in YearDic:
+    if year in YearDic:
         fedLabel.append(str(year) + " Federados")
         fedLabel.append(str(year) +  " Não Federados")
         federated = ((YearDic[year][fedKey]))
@@ -108,8 +122,12 @@ def createPieGraphFed(YearDic):   #Grafico Pie para federados
         fedArray.append(federated)
         fedArray.append(nFederated)
 
-    plt.pie(fedArray, labels = fedLabel, shadow = True)
-    plt.show()
+        fig = plt.figure()
+        plt.pie(fedArray, labels = fedLabel, shadow = True)
+        plt.show()
+        fig.savefig('fed_Pie_' + str(year) + '.png')
+    else:
+        print("#> Error generating Fed. Pie Graph")
 
 
 def createMultPieGraphFed(YearDic): #Multiplos Graficos Pie para federados
@@ -130,6 +148,7 @@ def createMultPieGraphFed(YearDic): #Multiplos Graficos Pie para federados
 
         axes[i].pie(fedArray, labels = fedLabel, autopct='%1.1f%%', shadow = True, explode=(0, 0.1))
         axes[i].set_title('Fed. in Year ' + str(year), fontsize = 12)
+        fig.savefig('fed_Mult_Pie.png')
         i = i + 1
 
     plt.show()
@@ -148,6 +167,7 @@ def createBarGraphAptos(YearDic):   #Grafico de Barras Aptos
         aptosArray.append(aptos)
         nAptosArray.append(nAptos)
 
+    fig = plt.figure()
     X_axis = np.arange(len(years))
     
     plt.bar(X_axis - 0.2, aptosArray, 0.4, label = 'Aptos')
@@ -159,6 +179,7 @@ def createBarGraphAptos(YearDic):   #Grafico de Barras Aptos
     plt.title("Numbero de Registos Aptos")
     plt.legend()
     plt.show()
+    fig.savefig('apt_Bar_Graph.png')
 
 def createBarGraphFed(YearDic): #Grafico de barras Federados
 
@@ -174,7 +195,7 @@ def createBarGraphFed(YearDic): #Grafico de barras Federados
         FedArray.append(aptos)
         nFedArray.append(nAptos)
 
-    years.sort()
+    fig = plt.figure()
     X_axis = np.arange(len(years))
     
     plt.bar(X_axis - 0.2, FedArray, 0.4, label = 'Aptos')
@@ -186,3 +207,4 @@ def createBarGraphFed(YearDic): #Grafico de barras Federados
     plt.title("Numbero de Registos Aptos")
     plt.legend()
     plt.show()
+    fig.savefig('fed_Bar_Graph.png')
