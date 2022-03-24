@@ -1,6 +1,9 @@
 class emdRecord:
 
-    __slots__ = ["_id", "_date", "_name", "_surname", "_age", "_gender", "_address", "_modality", "_email", "_federated", "_medicalResult"]
+    __slots__ = ["_id", "_date", "_name", 
+                 "_surname", "_age", "_gender", 
+                 "_address", "_modality", "_email", 
+                 "_federated", "_medicalResult"]
 
     def __init__(self, argsList):
 
