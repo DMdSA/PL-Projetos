@@ -1,5 +1,8 @@
 from EMDsParser import loadDataStructure as emdLDS
 #from EMDsParser import *
+import graphlib
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 # Devolve um dicionário que, por cada ano, tem uma lista com 2 dicionáios: nºs de 'F', nºs de 'M'
@@ -99,7 +102,86 @@ def calculateGenderDetails(genderDetails):
     # print("\n#> All time ratio [%d:%d]" % ratioWomenMen)
     
     eachYear["allYears"] = {"F": allTimeFemales, "M": allTimeMales} 
+    print(eachYear)
+    allYearsPieGraph(eachYear)
     return (eachYear)
 
 # Com esta informação dá para calcular PERCENTAGENS e RATIOS W:M && M:W
 # Para apresentar a amostragem considerada só é preciso ordená-la segundo um critério, visto que já se encontra agrupada
+
+def createMultPieGender(genderDataSet):
+    fig, axes = plt.subplots(1, len(genderDataSet)-1)
+    i = 0
+    genderLabel = []
+    colors = ["#FC3EEB","#0098FF"]
+    genderLabel.append("Female")
+    genderLabel.append("Male")
+
+    for year in genderDataSet:
+        if year != "allYears":
+            genderArray = []
+
+            nFemale = ((genderDataSet[year])["F"])
+            nMale = ((genderDataSet[year])["M"])
+
+            genderArray.append(nFemale)
+            genderArray.append(nMale)
+
+            axes[i].pie(genderArray, labels = genderLabel, colors = colors, autopct='%1.1f%%', shadow = True, explode=(0, 0.1))
+            axes[i].set_title(str(year), fontsize = 12)
+            fig.savefig('gender_Mult_Pie.png')
+            i = i + 1
+
+    plt.show()
+
+
+def allYearsPieGraph(genderDataSet):
+    genderArray = []
+    genderLegend = []
+    colors = ["#FC3EEB","#0098FF"]  # [pink,blue]
+    
+    genderLegend.append("Female")
+    genderLegend.append("Male")
+    nFemale = ((genderDataSet["allYears"])["F"])
+    nMale = ((genderDataSet["allYears"])["M"])
+
+    genderArray.append(nFemale)
+    genderArray.append(nMale)
+
+    fig = plt.figure()
+    plt.pie(genderArray, labels = genderArray, colors = colors, autopct='%1.1f%%', shadow = True, explode=(0, 0.1))
+    plt.title("Número de Registos por Género")
+    plt.legend(genderLegend)
+    plt.show()
+    fig.savefig('Gender_allYears_Pie.png')
+    
+
+
+def createBarGraphGender(genderDataSet):   #Grafico de Barras Aptos
+
+    years = []
+    maleArray = []
+    femaleArray = []
+    
+    for year in genderDataSet:
+        if year != "allYears":
+            years.append(year)
+            nFemale = ((genderDataSet[year])["F"])
+            nMale = ((genderDataSet[year]["M"]))
+
+            maleArray.append(nMale)
+            femaleArray.append(nFemale)
+
+    fig = plt.figure()
+    X_axis = np.arange(len(years))
+    
+    plt.bar(X_axis - 0.2, femaleArray, 0.4, label = 'Female', color = "#FC3EEB")
+    plt.bar(X_axis + 0.2, maleArray, 0.4, label = 'Male', color = "#0098FF")
+    
+    plt.xticks(X_axis, years)
+    plt.xlabel("Anos")
+    plt.ylabel("Número de Registos")
+    plt.title("Numbero de Registos por Genero")
+    plt.legend()
+    plt.show()
+    fig.savefig('Gender_Bar_Graph.png')
