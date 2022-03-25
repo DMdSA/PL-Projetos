@@ -15,7 +15,8 @@ emdDS = loadDataStructure.buildData("dataset/emd.csv")
 
 
 modalidades = modalityStudy.getModalidades(emdDS[0])
-modalidadesValues = modalityStudy.calculateModalidadesInfo(modalidades)
+(modalidadesValues,years) = modalityStudy.calculateModalidadesInfo(modalidades)
+modalityStudy.modalidades_Graph(modalidadesValues,years)
 
 print(modalidadesValues)
     
