@@ -7,7 +7,6 @@ from htmlGenerator.genderIndicators import *
 
 ## load data from csv file
 emdDS = loadDataStructure.buildData("dataset/emd.csv")
-print(emdDS[0])
 
 #genderIndicatorsHTML(emdDS[0])
 #datesIndicatorsHtml(emdDS[0])
@@ -15,4 +14,8 @@ print(emdDS[0])
 #datesIndicatorsHtml(emdDS[0])
 
 
+modalidades = modalityStudy.getModalidades(emdDS[0])
+modalidadesValues = modalityStudy.calculateModalidadesInfo(modalidades)
+
+print(modalidadesValues)
     

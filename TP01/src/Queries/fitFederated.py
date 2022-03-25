@@ -10,6 +10,7 @@ fedKey = "nFederados"
 overallKey = "nRegistos"  
 aptosListKey = "aptosList"
 fedListKey = "fedList" 
+
 def findAptosDic(dataset):               #Criação do dataset de aptos e federados
     
     YearDic = {}
