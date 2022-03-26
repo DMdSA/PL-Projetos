@@ -1,3 +1,6 @@
+"""genderIndicators.py: Geração de ficheiro html para indicadores de género
+"""
+
 from cgitb import html
 from EMDsParser import loadDataStructure as emdLDS
 htmlStart = '''<!DOCTYPE html>

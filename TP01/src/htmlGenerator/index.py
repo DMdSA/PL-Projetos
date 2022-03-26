@@ -1,3 +1,5 @@
+"""index.py: Geração do ficheiro index.html, com as respostas às explorações efetuadas
+"""
 
 htmlStart = '''<!DOCTYPE html>
 <html>

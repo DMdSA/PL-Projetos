@@ -1,4 +1,35 @@
+"""emd.py: Definição de um registo de exame médico
+"""
+
 class emdRecord:
+
+    """
+    Classe que representa um registo de Exame Médico Desportivo
+
+    ...
+    Attributes:
+    -----------
+    _id : str
+        id relativo ao registo
+    _date : str
+        data relacionada ao registo
+    _name : str
+        nome do indivíduo
+    _surname : str
+        sobrenome do indivíduo
+    _age : str
+        idade do indivíduo
+    _gender : str
+        género do indivíduo
+    _address : str
+        morada do indivíduo
+    _modality : str
+        modalidade que o indivíduo pratica
+    _medicalResult : str
+        resultado médico do indivíduo
+
+    """
+
 
     __slots__ = ["_id", "_date", "_name", 
                  "_surname", "_age", "_gender", 

@@ -1,12 +1,20 @@
 from audioop import reverse
-from EMDsParser import loadDataStructure as lDS
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 
 ## V.02: { ano: { modalidade: [emds] } }
 
 def getModalidades(dataset):
+    """Exploração das modalidades presentes no dataset
+    
+        Arguments:
+        ---------
+            dataset (dictionary) : estrutura de dados com informação original do dataset
+        
+        Returns:
+        -------
+            modalitiesPerYear (dictionary) : é devolvido, por ano, as modalidades que nele estão registadas, assim como os registos associados
+    """
 
     ## { ano: { modalidade: [emds] } }
     modalitiesPerYear = {}
@@ -30,11 +38,25 @@ def getModalidades(dataset):
                 curModal = (currentYearModalities[emdR.modality])
 
                 curModal.append(emdR)
+
     return modalitiesPerYear
 
 
 
 def calculateModalidadesInfo(modalities):
+    """Calcula os números de registos efetuados em cada modalidade presente no dataset
+    
+        Arguments:
+        ---------
+            modalities (dictionary) : estrutura com as modalidades já exploradas
+        
+        Returns:
+        -------
+            (modalitiesDict, years) (tuple)
+            modalitiesDict (dictionary) : é devolvido um dicionário que, a cada modalidade existente no dataset, faz corresponder o número de registos encontrados
+            years (list) : lista com os anos presentes no dataset, ordenados por forma ascendente
+
+        """
 
     years = list(modalities.keys())
     years.sort()
@@ -63,7 +85,10 @@ def calculateModalidadesInfo(modalities):
 
     
     return (modalitiesDict,years)
-            
+
+
+
+
 def modalidades_Graph(ModDict,years):
 
     values = [[] for _ in range(len(years))]
@@ -84,17 +109,10 @@ def modalidades_Graph(ModDict,years):
         data[year] = values[i]
         i = i+1
 
-
-
-    
     df = pd.DataFrame(data,columns=years,index=modalities)
 
     plt.style.use('ggplot')
     ax = df.plot.barh().get_figure().savefig('Modality_Bar_Graph.png')
-    #ax.set_title("Número de Registos por Modalidade")
 
     plt.legend()
     plt.show()
-
-
-
