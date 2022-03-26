@@ -1,12 +1,24 @@
+"""genderAgeQueries.py: Queries de procura sobre idade e/ou género nos registos
+"""
+
 from EMDsParser import loadDataStructure as emdLDS
-#from EMDsParser import *
 import graphlib
 import matplotlib.pyplot as plt
 import numpy as np
 
 
-# Devolve um dicionário que, por cada ano, tem uma lista com 2 dicionáios: nºs de 'F', nºs de 'M'
 def getGenderDetails(dataset):
+    """Explora o número de indivíduos presentes no dataset, por idade e género
+    
+        Arguments:
+        ---------
+            dataset (dictionary) : estrutura de dados original com todos os registos
+            
+        Returns:
+        -------
+            perYear (dictionary) : número de indivíduos registados, por ano, idade e género
+        
+        """
 
     perYear = {}
     emdRegisters = {emdLDS.fLT35: [], emdLDS.fGET35: [], emdLDS.mLT35: [], emdLDS.mGET35: []}
@@ -44,28 +56,32 @@ def getGenderDetails(dataset):
         toSort = emdRegisters[filter]
         toSort.sort(key=lambda x: (x.age))
 
-
     return (perYear, emdRegisters)
 
 #genderDetails = getGenderDetails(emd_DATASET[0])
 #print(genderDetails)
 
 
-
-import math
-
 def calculateGenderDetails(genderDetails):
+    """Cálculo do número de registos, por ano, apenas por género
+    
+        Arguments:
+        ---------
+            genderDetails (dictionary) : estrutura de dados com os registos organizados por idade&género
+        
+        Returns:
+        -------
+            eachYear (dictionary) : é devolvido o número de indivíduos, por género, em cada ano, assim como o contabilizado em todos os anos"""
 
+    # Answer: { Ano : {M : #n, F: #n}}
+    eachYear = {}
+    
     ## argument details
     detailsPerYear = genderDetails[0]
-    ##
 
     ## calculation of numbers
-
-    eachYear = {}
     allTimeFemales = 0
     allTimeMales = 0
-    # Answer: { Ano : {M : #n, F: #n}}
 
     for year in detailsPerYear:
 
@@ -78,38 +94,27 @@ def calculateGenderDetails(genderDetails):
 
             for gender in genderDict:
 
-                if gender == emdLDS.fLT35 or gender == emdLDS.fGET35:
-                    currentYearFemales = currentYearFemales + genderDict[gender]
+                if gender == emdLDS.fLT35 or gender == emdLDS.fGET35:               ## A idade não importa
+                    currentYearFemales = currentYearFemales + genderDict[gender]    ## Então só se adiciona o número disponibilizado
                 
                 elif gender == emdLDS.mLT35 or gender == emdLDS.mGET35:
                     currentYearMales = currentYearMales + genderDict[gender]
 
         eachYear[year] = {"F" : currentYearFemales, "M" : currentYearMales}
 
-    
-        #print("\n#> Identified [%d] females and [%d] males in [%s]" % (currentYearFemales, currentYearMales, year))
-
-        # highestCF = math.gcd(currentYearFemales, currentYearMales)
-        # ratioWomenMen = (currentYearFemales / highestCF, currentYearMales / highestCF)
-        # print("\n#> ratio w:m [%d:%d]" % ratioWomenMen)
-        
         allTimeFemales = allTimeFemales + currentYearFemales
         allTimeMales = allTimeMales + currentYearMales
     
-    #print("\n#> Identified [%d] females and [%d] males from all years" % (allTimeFemales, allTimeMales))
-    # highestCF = math.gcd(allTimeFemales, allTimeMales)
-    # ratioWomenMen = (allTimeFemales / highestCF, allTimeMales / highestCF)
-    # print("\n#> All time ratio [%d:%d]" % ratioWomenMen)
-    
     eachYear["allYears"] = {"F": allTimeFemales, "M": allTimeMales} 
-    print(eachYear)
-    allYearsPieGraph(eachYear)
     return (eachYear)
 
 # Com esta informação dá para calcular PERCENTAGENS e RATIOS W:M && M:W
 # Para apresentar a amostragem considerada só é preciso ordená-la segundo um critério, visto que já se encontra agrupada
 
+
 def createMultPieGender(genderDataSet):
+
+    
     fig, axes = plt.subplots(1, len(genderDataSet)-1)
     i = 0
     genderLabel = []

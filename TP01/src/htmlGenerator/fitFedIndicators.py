@@ -1,3 +1,6 @@
+"""fitFedIndicators.py: 
+"""
+
 from cgitb import html
 from EMDsParser import loadDataStructure as emdLDS
 

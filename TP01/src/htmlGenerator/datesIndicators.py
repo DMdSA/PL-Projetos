@@ -1,3 +1,6 @@
+"""datesIndicators.py: html file generator para os indicadores das datas
+"""
+
 from datetime import datetime
 
 ## HTML initial file format string
@@ -77,7 +80,13 @@ html {
 ## Dado um objeto EMD, prepara a string correspondente à sua apresentação no ficheiro .html preparado
 # @emdRegister = objeto EMD
 def emdFormatter(emdRegister):
-
+    """Formata um registo para a sua devida representação em html
+    
+      Arguments:
+      ---------
+        emdRegister (emd) : registo de exame médico
+    """
+    
     alertMessage = "\\t[{} {}]\\nAge : : {}\\nGender : : {}\\nAddress : : {}".format(emdRegister.name, emdRegister.surname, emdRegister.age, emdRegister.gender, emdRegister.address)
 
     emdDivFormat = '''
@@ -117,9 +126,15 @@ htmlEnd = '''
 htmlFILE = "datesIndicators.html"
 
 
-## Concatena as strings HTML para formar o ficheiro final
 
 def datesIndicatorsHtml(dataset):
+    """Cria a página html referente aos indicadores das datas dos registos no dataset
+  
+    Arguments:
+    ---------
+      dataset (dictionary) : estrutura de dados com o dataset original
+      
+    """
 
     preparedInfo = prepareDataset(dataset)
     dates = list(preparedInfo.keys())
@@ -137,8 +152,18 @@ def datesIndicatorsHtml(dataset):
 
     fileHandler.close()
 
-## Iterando o dataset principal, organiza a informação recolhida por ano, ordenando pela sua data.
+
+
 def prepareDataset(dataset):
+  """Organiza a estrutura de dados com o dataset original pela data dos seus registos
+  
+    Arguments:
+    ---------
+      dataset (dictionary) : estrutura de dados com o dataset original
+
+    Returns:
+      perYear (dictionary) : estrutura de dados com os registos ordenados por data, em cada ano
+  """
 
   perYear = {}
 

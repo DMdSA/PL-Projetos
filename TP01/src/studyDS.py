@@ -1,3 +1,10 @@
+"""studyDS.py : main do projeto
+
+__author__ : grupo xx
+__version__ : 1.0
+__credits__ : [Diogo Araújo, Diogo Rebelo, Joel Araújo]
+"""
+
 from EMDsParser import *
 from EMDsParser import loadDataStructure
 from Queries import *
@@ -17,6 +24,3 @@ emdDS = loadDataStructure.buildData("dataset/emd.csv")
 modalidades = modalityStudy.getModalidades(emdDS[0])
 (modalidadesValues,years) = modalityStudy.calculateModalidadesInfo(modalidades)
 modalityStudy.modalidades_Graph(modalidadesValues,years)
-
-print(modalidadesValues)
-    
