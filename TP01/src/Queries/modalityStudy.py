@@ -1,6 +1,8 @@
+from audioop import reverse
 from EMDsParser import loadDataStructure as lDS
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
 ## V.02: { ano: { modalidade: [emds] } }
 
@@ -62,45 +64,38 @@ def calculateModalidadesInfo(modalities):
     
     return (modalitiesDict,years)
             
-def modalidades_Graph(dataset,years):
+def modalidades_Graph(ModDict,years):
 
-    barWidth = 0.25
-    fig = plt.subplots(figsize =(12, 8)) 
-    colors = ['#0034FF','#FF007B','#00FF14','#FF0000','#FFED00','#BA00FF']
-    values = []
+    values = [[] for _ in range(len(years))]
     modalities = []
-    aux = []
-
-    for x in range (0,len(years)):
-        values.append(aux)
-
-    for modality in dataset:
-        modalities.append(modality)
-        i = 0
-        for datasetYear in dataset:
-            print(dataset)
-            print(modality)
-            participant = dataset[modality][datasetYear]
-            print(participant)
-            values[i].append(str(participant))
-            i= i + 1
-    j = 0
-    fig = plt.figure()
-
-    for year in years:
-        x = np.arrange(len(values))
-        plt.bar((x + barWidth*j), values[j], color = colors[j], width = barWidth,
-        edgecolor ='grey', label = modalities[j])
-        j = j +1
+    data = {}
     
-    plt.xticks([r + barWidth for r in range(len(values[0]))],years)
- 
-    plt.xlabel("Anos")
-    plt.ylabel("Número de Registos")
-    plt.title("Numbero de Registos por Genero")
+    for modality in ModDict:
+        modalities.append(modality)
+        years_lvl = ModDict[modality]
+        i = 0
+
+        for datasetYear in years_lvl:
+            participant = (ModDict[modality])[datasetYear]
+            values[i].append(participant)
+            i= i + 1
+    i = 0
+    for year in years:
+        data[year] = values[i]
+        i = i+1
+
+
+
+    
+    df = pd.DataFrame(data,columns=years,index=modalities)
+
+    plt.style.use('ggplot')
+    ax = df.plot.barh().get_figure().savefig('Modality_Bar_Graph.png')
+    ax.set_ylabel("Número de Registos")
+    ax.set_title("Número de Registos por Modalidade")
+
     plt.legend()
     plt.show()
-    fig.savefig('Gender_Bar_Graph.png')
 
 
 
