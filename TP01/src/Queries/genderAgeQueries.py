@@ -181,7 +181,7 @@ def createBarGraphGender(genderDataSet):   #Grafico de Barras Aptos
     plt.xticks(X_axis, years)
     plt.xlabel("Anos")
     plt.ylabel("Número de Registos")
-    plt.title("Numbero de Registos por Genero")
+    plt.title("Número de Registos por Género")
     plt.legend()
     plt.show()
     fig.savefig('Gender_Bar_Graph.png')

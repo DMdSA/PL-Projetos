@@ -91,8 +91,7 @@ def modalidades_Graph(ModDict,years):
 
     plt.style.use('ggplot')
     ax = df.plot.barh().get_figure().savefig('Modality_Bar_Graph.png')
-    ax.set_ylabel("Número de Registos")
-    ax.set_title("Número de Registos por Modalidade")
+    #ax.set_title("Número de Registos por Modalidade")
 
     plt.legend()
     plt.show()
