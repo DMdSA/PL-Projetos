@@ -1,5 +1,4 @@
-"""genderIndicators.py: Geração de ficheiro html para indicadores de género
-"""
+"""genderIndicators.py: Geração de ficheiro html para indicadores de género"""
 
 from cgitb import html
 from EMDsParser import loadDataStructure as emdLDS
@@ -101,6 +100,12 @@ def prepareData(dataset):
 
 
 def emdFormatter(emdRegister):
+    """Formata um registo para a sua devida representação em html
+    
+      Arguments:
+      ---------
+        emdRegister (emd) : registo de exame médico
+    """
 
     greaterEqual35 = "GE"
     lessThan35 = "LT"

@@ -1,5 +1,4 @@
-"""datesIndicators.py: html file generator para os indicadores das datas
-"""
+"""datesIndicators.py: html file generator para os indicadores das datas"""
 
 from datetime import datetime
 
@@ -76,9 +75,6 @@ html {
 <div class="row">
 '''
 
-## emdFormatter (emdRegister)
-## Dado um objeto EMD, prepara a string correspondente à sua apresentação no ficheiro .html preparado
-# @emdRegister = objeto EMD
 def emdFormatter(emdRegister):
     """Formata um registo para a sua devida representação em html
     
