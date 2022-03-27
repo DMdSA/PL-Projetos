@@ -11,8 +11,11 @@ def datesGraph(dataset):
 
     years = []
     registPerYear = []
-    
-    for year in dataset:
+
+    yearsSorted = [x for x in dataset.keys()]
+    yearsSorted.sort()
+
+    for year in yearsSorted:
         years.append(year)
         lvl_years = dataset[year]
         sum = 0

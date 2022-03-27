@@ -69,8 +69,15 @@ htmlStart = '''<!DOCTYPE html>
 <button type="alinhaA" class="collapsible">a) Datas extremas dos registos</button>
 <div class="content">
   <a href="datesIndicators.html"><img src="../graphs/Dates_Bar_Graph.png" alt="Graph" class="center" style="width:50%"></a>
+  '''
 
-  
+def datas(dataAnt, dataRec):
+  global htmlStart
+  htmlStart = htmlStart + '''<p style="text-align:center"><b> Data mais antiga:{}    Data mais recente:{} </b></p>
+  '''.format(dataAnt,dataRec)
+
+
+htmlEnd='''
 </div>
 
 <button type="alinhaB" class="collapsible">b) Distribuição por género em cada ano e no total</button>
@@ -124,9 +131,6 @@ htmlStart = '''<!DOCTYPE html>
   <a href="medicalResultsIndicators.html"><img src="../graphs/apt_Bar_Graph.png" alt="Graph" class="center"></a>
 </div>
 
-'''
-
-htmlEnd='''
 <script>
 var coll = document.getElementsByClassName("collapsible");
 var i;
@@ -150,8 +154,8 @@ for (i = 0; i < coll.length; i++) {
 
 htmlFILE = "html/index.html"
 
-def indexHTML():
+def indexHTML(dataset):
+  datas(dataset[2],dataset[3])
   fileHandler = open(htmlFILE, "wt", encoding="utf-8")
-
   fileHandler.write(htmlStart + htmlEnd)
   fileHandler.close()

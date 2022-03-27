@@ -43,9 +43,8 @@ def findAptosDic(dataset):               #Criação do dataset de aptos e federa
                         notFedListKey: notFedList,      #Lista de Registos não federados
                     }
     
-    yearsSorted = [str(x) for x in dataset.keys()]
+    yearsSorted = [x for x in dataset.keys()]
     yearsSorted.sort()
-    yearsSorted = [int(x) for x in yearsSorted]
 
     for year in yearsSorted:
         if year not in YearDict:                                  
@@ -146,13 +145,13 @@ def createBarGraphAptos(YearDict):   #Grafico de Barras Aptos
     aptosArray = []
     nAptosArray = []
 
-    yearsSorted = [str(x) for x in YearDict.keys()]
+    yearsSorted = [x for x in YearDict.keys()]
     yearsSorted.sort()
     
     for year in yearsSorted:
         years.append(year)
-        aptos = ((YearDict[int(year)][aptosKey]))
-        nAptos = ((YearDict[int(year)][overallKey])) - aptos
+        aptos = ((YearDict[year][aptosKey]))
+        nAptos = ((YearDict[year][overallKey])) - aptos
 
         aptosArray.append(aptos)
         nAptosArray.append(nAptos)
@@ -181,16 +180,16 @@ def createBarGraphFed(YearDict): #Grafico de barras Federados
     FedArray = []
     nFedArray = []
 
-    yearsSorted = [str(x) for x in YearDict.keys()]
+    yearsSorted = [x for x in YearDict.keys()]
     yearsSorted.sort()
     
     for year in YearDict:
         years.append(year)
-        aptos = ((YearDict[int(year)][aptosKey]))
-        nAptos = ((YearDict[int(year)][overallKey])) - aptos
+        federated = ((YearDict[year][fedKey]))
+        nfederated = ((YearDict[year][overallKey])) - federated
 
-        FedArray.append(aptos)
-        nFedArray.append(nAptos)
+        FedArray.append(federated)
+        nFedArray.append(nfederated)
 
     fig = plt.figure()
     X_axis = np.arange(len(years))

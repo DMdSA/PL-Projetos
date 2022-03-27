@@ -6,7 +6,7 @@ __version__ = '19/033/2022'
 __all__ = ["addressIndicators", 
             "ageGenderIndicators", 
             "datesIndicators", 
-            "fitFedIndicators", 
+            "fedIndicators", 
             "genderIndicators", 
             "index", 
             "medResultsIndicators", 

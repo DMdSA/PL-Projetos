@@ -124,11 +124,11 @@ def createMultPieGender(genderDataSet):
     genderLabel.append("Female")
     genderLabel.append("Male")
 
-    years = [str(x) for x in genderDataSet.keys()]
-    years.sort()
+    sortedYears = [str(x) for x in genderDataSet.keys()]
+    sortedYears.sort()
 
 
-    for year in years:
+    for year in sortedYears:
         if year != "allYears":
             genderArray = []
 
