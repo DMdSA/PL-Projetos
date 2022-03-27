@@ -166,7 +166,7 @@ def createBarGraphAptos(YearDict):   #Grafico de Barras Aptos
     plt.xticks(X_axis, years)
     plt.xlabel("Anos")
     plt.ylabel("Número de Registos")
-    plt.title("Numbero de Registos Aptos")
+    plt.title("Número de Registos Aptos")
     plt.legend()
     fig.savefig('graphs/apt_Bar_Graph.png')
 

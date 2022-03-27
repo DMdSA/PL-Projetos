@@ -16,7 +16,7 @@ def getAddress(dataset):
             perAddress (dictionary) : devolve as moradas com os registos a elas associados
     """
 
-    ## { Modalidade : [emd01, emd02], (...) }
+    ## { address : [emd01, emd02], (...) }
 
     perAddress = {}
     
