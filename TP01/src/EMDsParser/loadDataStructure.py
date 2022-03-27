@@ -60,7 +60,7 @@ def loadData(file):
             emdR = emd.emdRecord(tokenizerValues)           ## se o parse for possível
             
             year = int(re.search(r'(\d{4})-', emdR.date).group(1))
-            #year = (emdR.date).split('-')[0]
+            
 
             auxDate = datetime.strptime(emdR.date, '%Y-%m-%d')
 
@@ -119,5 +119,4 @@ def buildData(file):
     """Devolve a estrutura de dados com o dataset original"""
 
     datastructure = loadData(file)
-    #sortDataset(datastructure[0])
     return datastructure

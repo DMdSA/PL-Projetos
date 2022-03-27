@@ -111,10 +111,6 @@ def federatedIndicatorsHTML(filename, fitFedinfo):
   global htmlStart
   global htmlEnd
 
-#  if len(dataset) <= 3:
-#    htmlGraph = '''<img src="fed_Mult_Pie.png" alt="Graph" class="center">'''
-#  else:
-#    htmlGraph = '''<img src="fed_Bar_Graph.png" alt="Graph" class="center">'''
   
   fileHandler = open(filename, "wt", encoding="utf-8")
 

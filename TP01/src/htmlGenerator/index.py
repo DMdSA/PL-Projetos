@@ -68,7 +68,7 @@ htmlStart = '''<!DOCTYPE html>
 <h2>Exame Médicos Desportivos</h2>
 <button type="alinhaA" class="collapsible">a) Datas extremas dos registos</button>
 <div class="content">
-  <a href="datesIndicators.html"><img src="../graphs/datesIndicators.png" alt="Graph" class="center" style="width:100%"></a>
+  <a href="datesIndicators.html"><img src="../graphs/Dates_Bar_Graph.png" alt="Graph" class="center" style="width:50%"></a>
 
   
 </div>

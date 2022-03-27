@@ -58,9 +58,6 @@ def getGenderDetails(dataset):
 
     return (perYear, emdRegisters)
 
-#genderDetails = getGenderDetails(emd_DATASET[0])
-#print(genderDetails)
-
 
 def calculateGenderDetails(genderDetails):
     """Cálculo do número de registos, por ano, apenas por género
