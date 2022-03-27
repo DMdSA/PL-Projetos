@@ -33,17 +33,21 @@ def findAptosDic(dataset):               #Criação do dataset de aptos e federa
     fedList = []
     notFedList = []
 
-    AptosFedDict = {               
-                        aptosKey: aptosCount,              #Por ano, tem o numero de registos, aptos, federados e as listas de aptos e federados
-                        fedKey: fedCount,
-                        overallKey: overallCount,
-                        aptosListKey: aptosList,
-                        notAptosListKey: notAptosList,
-                        fedListKey: fedList,
-                        notFedListKey: notFedList,
+    AptosFedDict = {                                    #Por ano    
+                        aptosKey: aptosCount,           #Número de registos com resultado médico positivo         
+                        fedKey: fedCount,               #Número de registos federados
+                        overallKey: overallCount,       #Número de registos total
+                        aptosListKey: aptosList,        #Lista de Registos com resultado médico positivo
+                        notAptosListKey: notAptosList,  #Lista de Registos com resultado médico negativo
+                        fedListKey: fedList,            #Lista de Registos federados
+                        notFedListKey: notFedList,      #Lista de Registos não federados
                     }
+    
+    yearsSorted = [str(x) for x in dataset.keys()]
+    yearsSorted.sort()
+    yearsSorted = [int(x) for x in yearsSorted]
 
-    for year in dataset:
+    for year in yearsSorted:
         if year not in YearDict:                                  
             YearDict[year] = copy.deepcopy(AptosFedDict)   #Criar os anos que ainda não existam
         
@@ -77,7 +81,6 @@ def findAptosDic(dataset):               #Criação do dataset de aptos e federa
     return YearDict
     
 
-
 def createMultPieGraphAptos(YearDict):   #Multiplos Gráficos Pie
     """Criação de um gráfico circular com a informação da quantidade de registos com exame médico positivo e negativo, por ano
 
@@ -104,8 +107,6 @@ def createMultPieGraphAptos(YearDict):   #Multiplos Gráficos Pie
         i = i + 1
 
     fig.savefig('graphs/apt_Mult_Pie.png')
-
-
 
 def createMultPieGraphFed(YearDict): #Multiplos Graficos Pie para federados
     """Criação de um gráfico circular com a informação da quantidade de registos federados e não federados, por ano
@@ -142,12 +143,13 @@ def createBarGraphAptos(YearDict):   #Grafico de Barras Aptos
             YearDict (dictionary) : estrutura de dados com os registos organizados por federado e resultado dos exames"""
 
     years = []
-    sortedYears = [str(x) for x in YearDict.keys()]
-    sortedYears.sort()
     aptosArray = []
     nAptosArray = []
+
+    yearsSorted = [str(x) for x in YearDict.keys()]
+    yearsSorted.sort()
     
-    for year in sortedYears:
+    for year in yearsSorted:
         years.append(year)
         aptos = ((YearDict[int(year)][aptosKey]))
         nAptos = ((YearDict[int(year)][overallKey])) - aptos
@@ -168,8 +170,6 @@ def createBarGraphAptos(YearDict):   #Grafico de Barras Aptos
     plt.legend()
     fig.savefig('graphs/apt_Bar_Graph.png')
 
-
-
 def createBarGraphFed(YearDict): #Grafico de barras Federados
     """Criação de um gráfico de barras com a informação da quantidade de registos federados e não federados, por ano
 
@@ -180,10 +180,11 @@ def createBarGraphFed(YearDict): #Grafico de barras Federados
     years = []
     FedArray = []
     nFedArray = []
-    sortedYears = [str(x) for x in YearDict.keys()]
-    sortedYears.sort()
+
+    yearsSorted = [str(x) for x in YearDict.keys()]
+    yearsSorted.sort()
     
-    for year in sortedYears:
+    for year in YearDict:
         years.append(year)
         aptos = ((YearDict[int(year)][aptosKey]))
         nAptos = ((YearDict[int(year)][overallKey])) - aptos
@@ -200,6 +201,6 @@ def createBarGraphFed(YearDict): #Grafico de barras Federados
     plt.xticks(X_axis, years)
     plt.xlabel("Anos")
     plt.ylabel("Número de Registos")
-    plt.title("Número de Registos Federados")
+    plt.title("Numbero de Registos Federados")
     plt.legend()
     fig.savefig('graphs/fed_Bar_Graph.png')
