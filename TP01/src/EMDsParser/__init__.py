@@ -3,4 +3,4 @@
 
 __version__ = '19/033/2022'
 
-__all__ = ["emd", "tokenizer"]
+__all__ = ["emd", "tokenizer", "loadDataStructure"]

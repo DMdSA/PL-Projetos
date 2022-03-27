@@ -42,13 +42,11 @@ def getAddress(dataset):
  
 
 
-def prepareAddressEMD(dataset):
+def prepareAddressEMD(addresses):
     """"""
     
-    addressesInfo = getAddress(dataset)
-
-    for filter in addressInfo:
-        toSort = addressInfo[filter]
+    for filter in addresses:
+        toSort = addresses[filter]
         toSort.sort(key=lambda x: (x.name))
 
     return toSort

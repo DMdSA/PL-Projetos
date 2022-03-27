@@ -106,10 +106,7 @@ htmlEnd = '''
 </html>'''
 
 
-## Name of the file to be written
-htmlFILE = "federatedIndicators.html"
-
-def federatedIndicatorsHTML(dataset):
+def federatedIndicatorsHTML(filename, fitFedinfo):
 
   global htmlStart
   global htmlEnd
@@ -119,10 +116,10 @@ def federatedIndicatorsHTML(dataset):
 #  else:
 #    htmlGraph = '''<img src="fed_Bar_Graph.png" alt="Graph" class="center">'''
   
-  fileHandler = open(htmlFILE, "wt", encoding="utf-8")
+  fileHandler = open(filename, "wt", encoding="utf-8")
 
-  for year in dataset:
-    year_lvl = dataset[year]
+  for year in fitFedinfo:
+    year_lvl = fitFedinfo[year]
     
     htmlStart = htmlStart + '''
     <h1> {} </h1>
@@ -172,15 +169,3 @@ def emdFormatter(emdRegister):
 
   global htmlStart
   htmlStart = htmlStart + emdDivFormat
-
-def prepareData(dataset):
-  
-  for year in dataset:
-      age_lvl = dataset[year]
-      for age in age_lvl:
-          records = age_lvl[age]
-          for record in records:
-            y = (record.federated,record.name,record.surname,record.date,record.modality)
-  
-  return y
-
