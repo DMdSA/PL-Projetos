@@ -69,6 +69,11 @@ def addressInfo(addresses, city):
 
 
 def createBarGraphAdress(addresses): 
+    """Criação de um gráfico de barras com o número de registos das 10 cidades com mais registos
+    
+        Arguments:
+        ---------
+            addresses (dictionary) : estrutura de dados com os registos organizados por moradas"""
 
     addressesAux = sorted(addresses , key=lambda k: len(addresses[k]), reverse=True)   #Sort por size dos values
     addressList = []

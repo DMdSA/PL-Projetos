@@ -132,6 +132,12 @@ def prepareModalitiesIndic(modalities):
 
 
 def modalidades_Graph(ModDict,years):
+    """Criação de um gráfico de barras horizontal com a informação da quantidade de registos que praticam dada modalidade, por ano
+
+        Arguments:
+        ---------
+            ModDict (dictionary) : estrutura de dados com os registos organizados por modalidades
+            years (list) : lista de anos presentes no dicionário anterior"""
 
     values = [[] for _ in range(len(years))]
     modalities = []
@@ -155,6 +161,37 @@ def modalidades_Graph(ModDict,years):
 
     plt.style.use('ggplot')
     ax = df.plot.barh().get_figure().savefig('Modality_Bar_Graph.png')
+
+    plt.legend()
+    plt.show()
+
+
+def mod_graph_AllYears(ModDict):
+    """Criação de um gráfico de barras horizontal com a informação da quantidade de registos que praticam dada modalidade na totalidade dos anos
+
+        Arguments:
+        ---------
+            ModDict (dictionary) : estrutura de dados com os registos organizados por modalidades
+            """
+
+
+    values = []
+    modalities = []
+    
+    for modality in ModDict:
+        modalities.append(modality)
+        years_lvl = ModDict[modality]
+        
+        sum = 0
+        for datasetYear in years_lvl:
+            sum = sum + (ModDict[modality])[datasetYear]
+
+        values.append(sum)
+
+    df = pd.DataFrame({'mod':modalities,'Nº Registos':values})
+
+    plt.style.use('ggplot')
+    ax = df.plot.barh(x='mod', y='Nº Registos').get_figure().savefig('Mod_Bar_Graph_AllYears.png')
 
     plt.legend()
     plt.show()

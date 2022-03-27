@@ -13,8 +13,17 @@ notAptosListKey = "notAptosList"
 notFedListKey = "notFedList" 
 
 def findAptosDic(dataset):               #Criação do dataset de aptos e federados
+    """Agrupa os individuos do dataset pela categoria de federados e pelo resultado de exame médico(apto ou não apto)
     
-    YearDic = {}
+        Arguments:
+        ---------
+            dataset (dictionary) : estrutura de dados original com todos os registos
+            
+        Returns:
+        -------
+            YearDict (dictionary) : número de indivíduos federados,com resultado médico positivo e com os registos organizados por ano segundo essas categorias"""
+    
+    YearDict = {}
                      
     aptosCount = 0                         
     fedCount = 0
@@ -35,8 +44,8 @@ def findAptosDic(dataset):               #Criação do dataset de aptos e federa
                     }
 
     for year in dataset:
-        if year not in YearDic:                                  
-            YearDic[year] = copy.deepcopy(AptosFedDict)   #Criar os anos que ainda não existam
+        if year not in YearDict:                                  
+            YearDict[year] = copy.deepcopy(AptosFedDict)   #Criar os anos que ainda não existam
         
         lvl_years = dataset[year]
 
@@ -45,39 +54,44 @@ def findAptosDic(dataset):               #Criação do dataset de aptos e federa
             lvl_genderAge = lvl_years[AgeGender]
 
             for Record in lvl_genderAge:
-                ((YearDic[year])[overallKey]) = ((YearDic[year])[overallKey]) + 1     #Registos desse ano
+                ((YearDict[year])[overallKey]) = ((YearDict[year])[overallKey]) + 1     #Registos desse ano
                 if(Record.medicalResult == "true"): 
-                    ((YearDic[year])[aptosListKey]).append(Record)                    #Adicionar o registo se apto
+                    ((YearDict[year])[aptosListKey]).append(Record)                    #Adicionar o registo se apto
                 else:
-                    ((YearDic[year])[notAptosListKey]).append(Record)
+                    ((YearDict[year])[notAptosListKey]).append(Record)
 
                 if(Record.federated == "true"):
-                    ((YearDic[year])[fedListKey]).append(Record)                      #Adicionar o registo se federado
+                    ((YearDict[year])[fedListKey]).append(Record)                      #Adicionar o registo se federado
                 else:
-                    ((YearDic[year])[notFedListKey]).append(Record)
+                    ((YearDict[year])[notFedListKey]).append(Record)
     
-        ((YearDic[year])[aptosKey]) = len(((YearDic[year])[aptosListKey]))            #Numero de aptos
-        ((YearDic[year])[fedKey]) = len(((YearDic[year])[fedListKey]))                #Numero de federados
+        ((YearDict[year])[aptosKey]) = len(((YearDict[year])[aptosListKey]))            #Numero de aptos
+        ((YearDict[year])[fedKey]) = len(((YearDict[year])[fedListKey]))                #Numero de federados
 
         #Sort
-    ((YearDic[year])[aptosListKey]).sort(key=lambda x: (x.name))   
-    ((YearDic[year])[fedListKey]).sort(key=lambda x: (x.name))
+    ((YearDict[year])[aptosListKey]).sort(key=lambda x: (x.name))   
+    ((YearDict[year])[fedListKey]).sort(key=lambda x: (x.name))
 
-    return YearDic
+    return YearDict
     
 
-def createMultPieGraphAptos(YearDic):   #Multiplos Gráficos Pie
+def createMultPieGraphAptos(YearDict):   #Multiplos Gráficos Pie
+    """Criação de um gráfico circular com a informação da quantidade de registos com exame médico positivo e negativo, por ano
 
-    fig, axes = plt.subplots(1, len(YearDic))  #Numero de subgráficos
+        Arguments:
+        ---------
+            YearDict (dictionary) : estrutura de dados com os registos organizados por federado e resultado dos exames"""
+
+    fig, axes = plt.subplots(1, len(YearDict))  #Numero de subgráficos
     i = 0
 
-    for year in YearDic:
+    for year in YearDict:
         aptosArray = []
         aptosLabel = []
         aptosLabel.append("Apt")
         aptosLabel.append("Not Apt")
-        aptos = ((YearDic[year][aptosKey]))
-        nAptos = ((YearDic[year][overallKey])) - aptos
+        aptos = ((YearDict[year][aptosKey]))
+        nAptos = ((YearDict[year][overallKey])) - aptos
 
         aptosArray.append(aptos)
         aptosArray.append(nAptos)
@@ -90,18 +104,23 @@ def createMultPieGraphAptos(YearDic):   #Multiplos Gráficos Pie
     plt.show()
 
 
-def createMultPieGraphFed(YearDic): #Multiplos Graficos Pie para federados
+def createMultPieGraphFed(YearDict): #Multiplos Graficos Pie para federados
+    """Criação de um gráfico circular com a informação da quantidade de registos federados e não federados, por ano
 
-    fig, axes = plt.subplots(1, len(YearDic))
+        Arguments:
+        ---------
+            YearDict (dictionary) : estrutura de dados com os registos organizados por federado e resultado dos exames"""
+
+    fig, axes = plt.subplots(1, len(YearDict))
     i = 0
-    for year in YearDic:
+    for year in YearDict:
         fedArray = []
         fedLabel = []
         fedLabel.append("Fed.")
         fedLabel.append("Not Fed.")
 
-        federated = ((YearDic[year][fedKey]))
-        nFederated = ((YearDic[year][overallKey])) - federated
+        federated = ((YearDict[year][fedKey]))
+        nFederated = ((YearDict[year][overallKey])) - federated
 
         fedArray.append(federated)
         fedArray.append(nFederated)
@@ -113,16 +132,21 @@ def createMultPieGraphFed(YearDic): #Multiplos Graficos Pie para federados
 
     plt.show()
 
-def createBarGraphAptos(YearDic):   #Grafico de Barras Aptos
+def createBarGraphAptos(YearDict):   #Grafico de Barras Aptos
+    """Criação de um gráfico de barras com a informação da quantidade de registos com exame médico positivo e negativo, por ano
+
+        Arguments:
+        ---------
+            YearDict (dictionary) : estrutura de dados com os registos organizados por federado e resultado dos exames"""
 
     years = []
     aptosArray = []
     nAptosArray = []
     
-    for year in YearDic:
+    for year in YearDict:
         years.append(year)
-        aptos = ((YearDic[year][aptosKey]))
-        nAptos = ((YearDic[year][overallKey])) - aptos
+        aptos = ((YearDict[year][aptosKey]))
+        nAptos = ((YearDict[year][overallKey])) - aptos
 
         aptosArray.append(aptos)
         nAptosArray.append(nAptos)
@@ -141,16 +165,21 @@ def createBarGraphAptos(YearDic):   #Grafico de Barras Aptos
     plt.show()
     fig.savefig('apt_Bar_Graph.png')
 
-def createBarGraphFed(YearDic): #Grafico de barras Federados
+def createBarGraphFed(YearDict): #Grafico de barras Federados
+    """Criação de um gráfico de barras com a informação da quantidade de registos federados e não federados, por ano
+
+        Arguments:
+        ---------
+            YearDict (dictionary) : estrutura de dados com os registos organizados por federado e resultado dos exames"""
 
     years = []
     FedArray = []
     nFedArray = []
     
-    for year in YearDic:
+    for year in YearDict:
         years.append(year)
-        aptos = ((YearDic[year][aptosKey]))
-        nAptos = ((YearDic[year][overallKey])) - aptos
+        aptos = ((YearDict[year][aptosKey]))
+        nAptos = ((YearDict[year][overallKey])) - aptos
 
         FedArray.append(aptos)
         nFedArray.append(nAptos)
