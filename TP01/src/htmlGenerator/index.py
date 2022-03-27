@@ -119,7 +119,7 @@ htmlStart = '''<!DOCTYPE html>
 
 <button type="alinhaG" class="collapsible">g) Percentagem de aptos e não aptos por ano</button>
 <div class="content">
-  <a href="medResultsIndicators.html"><img src="../graphs/apt_Bar_Graph.png" alt="Graph" class="center"></a>
+  <a href="medicalResultsIndicators.html"><img src="../graphs/apt_Bar_Graph.png" alt="Graph" class="center"></a>
 </div>
 
 '''
