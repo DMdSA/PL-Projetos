@@ -33,9 +33,7 @@ addressIndicators.addressIndicatorsHtml("addressIndicators.html", addresses)
 
 ## federated and med results
 fitAndfed = fitFederated.findAptosDic(emdDS[0])
-
 fitFedIndicators.federatedIndicatorsHTML("federatedIndicators.html", fitAndfed)
-
 medResultsIndicators.medResultsIndicatorsHtml("medicalResultsIndicators.html", fitAndfed)
 
 index.indexHTML()
