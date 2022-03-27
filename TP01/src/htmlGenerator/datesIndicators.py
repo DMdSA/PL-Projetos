@@ -1,3 +1,5 @@
+"""datesIndicators.py: html file generator para os indicadores das datas"""
+
 from datetime import datetime
 
 ## HTML initial file format string
@@ -43,7 +45,7 @@ html {
 }
 
 .dateField {
-  color: black;
+  color: grey;
 }
 
 .button {
@@ -61,139 +63,74 @@ html {
 .button:hover {
   background-color: #555;
 }
-
-.bottomright {
-  position: fixed;
-  color: red;
-  bottom: 10px;
-  right: 55px;
-  font-size: 18px;
-}
-
-/* Definições da lista colapsavel */
-.collapsible {
-  background-color: #777;
-  color: white;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-}
-
-/* Cor da caixa com o rato por cima */
-.active, .collapsible:hover {
-  background-color: #555;
-}
-
-/* Sinal lado direito caso esteja fechado apresenta "plus" caso esteja aberto apresenta "minus" */
-.collapsible:after {
-  content: '\\02795'; /* Unicode character for "plus" sign (+) */
-  font-size: 13px;
-  color: white;
-  float: right;
-  margin-left: 5px;
-}
-.active:after {
-  content: "\\2796"; /* Unicode character for "minus" sign (-) */
-}
-
-.content {
-  padding: 0 18px;
-  display: none;
-  overflow: hidden;
-  background-color: #f1f1f1;
-}
-
-/* line between entries */
-.line {
-  border-top: 1px solid grey;
-  flex-grow: 1;
-  margin: 0 10px;
-}
-
-.data {
-  flex: 0 0 50%;
-  padding: 10px;
-}
-
-.records {
-  -webkit-columns: 2; /* Chrome, Safari, Opera */
-  -moz-columns: 2; /* Firefox */
-  columns: 2;
-}
-
 </style>
 </head>
 <body>
 
-<h1>Registos do dataset EMD</h1>
+
+
+<h2>Registos do dataset EMD</h2>
 <p>Os registos encontram-se organizados pela sua data de criação.</p>
 <br>
-<div class="records">
+<div class="row">
 '''
 
-## emdFormatter (emdRegister)
-## Dado um objeto EMD, prepara a string correspondente à sua apresentação no ficheiro .html preparado
-# @emdRegister = objeto EMD
 def emdFormatter(emdRegister):
+    """Formata um registo para a sua devida representação em html
+    
+      Arguments:
+      ---------
+        emdRegister (emd) : registo de exame médico
+    """
+    
+    alertMessage = "\\t[{} {}]\\nAge : : {}\\nGender : : {}\\nAddress : : {}".format(emdRegister.name, emdRegister.surname, emdRegister.age, emdRegister.gender, emdRegister.address)
 
     emdDivFormat = '''
 
-    <button type="name" class="collapsible"><div class="dateField"> [{}] </div> {} {} | Email: {}</button>
-          <div class="content">
-              {} {}<br>{} <br>
-              Federado: {} | Apto: {}
-          </div>
-
-          '''.format(emdRegister.date,
-                emdRegister.name, 
+    <div class="column">
+        <div class="card">
+            <div class="container">
+                <h2>{} {}</h2>
+                <p class="dateField"> {} </p>
+                <p> Federado: {}, Apto: {}</p>
+                <p>{}</p>
+                <p><button class="button" onclick="alert('{}')">Extras</button></p>
+            </div>
+        </div>
+    </div>
+    
+    '''.format(emdRegister.name, 
                 emdRegister.surname, 
-                emdRegister.email, 
-                emdRegister.age, 
-                emdRegister.gender,
-                emdRegister.modality,
-                emdRegister.federated,
-                emdRegister.medicalResult )
+                emdRegister.date, 
+                emdRegister.federated, 
+                emdRegister.medicalResult, 
+                emdRegister.email,
+                alertMessage)
 
     global htmlStart
     htmlStart = htmlStart + emdDivFormat
 
 ## HTML final format string
 htmlEnd = '''
+    </div>
 
-    <div class = "bottomright"><a href="index.html">< HOME ></a></div>
-
-    <script>
-      var coll = document.getElementsByClassName("collapsible");
-      var i;
-
-      for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-          this.classList.toggle("active");
-          var content = this.nextElementSibling;
-
-          if (content.style.display === "block") {
-            content.style.display = "none";
-          } else {
-            content.style.display = "block";
-          }
-        });
-      }
-    </script>
-</body>
-</html>
-'''
+    </body>
+    </html>
+    '''
 
 ## Name of the file to be written
 htmlFILE = "datesIndicators.html"
 
 
-## Concatena as strings HTML para formar o ficheiro final
 
 def datesIndicatorsHtml(dataset):
+    """Cria a página html referente aos indicadores das datas dos registos no dataset
+  
+    Arguments:
+    ---------
+      dataset (dictionary) : estrutura de dados com o dataset original
+      
+    """
 
     preparedInfo = prepareDataset(dataset)
     dates = list(preparedInfo.keys())
@@ -211,8 +148,18 @@ def datesIndicatorsHtml(dataset):
 
     fileHandler.close()
 
-## Iterando o dataset principal, organiza a informação recolhida por ano, ordenando pela sua data.
+
+
 def prepareDataset(dataset):
+  """Organiza a estrutura de dados com o dataset original pela data dos seus registos
+  
+    Arguments:
+    ---------
+      dataset (dictionary) : estrutura de dados com o dataset original
+
+    Returns:
+      perYear (dictionary) : estrutura de dados com os registos ordenados por data, em cada ano
+  """
 
   perYear = {}
 

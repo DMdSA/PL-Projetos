@@ -2,7 +2,6 @@
 """
 
 from EMDsParser import loadDataStructure as emdLDS
-import graphlib
 import matplotlib.pyplot as plt
 import numpy as np
 

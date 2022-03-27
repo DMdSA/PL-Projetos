@@ -1,10 +1,13 @@
-from audioop import reverse
+"""modalityStudy.py: Estudo das modalidades sobre o dataset
+"""
+
 import matplotlib.pyplot as plt
 import pandas as pd
 
 ## V.02: { ano: { modalidade: [emds] } }
 
-def getModalidades(dataset):
+
+def getModalities(dataset):
     """Exploração das modalidades presentes no dataset
     
         Arguments:
@@ -42,8 +45,7 @@ def getModalidades(dataset):
     return modalitiesPerYear
 
 
-
-def calculateModalidadesInfo(modalities):
+def calculateModalitiesInfo(modalities):
     """Calcula os números de registos efetuados em cada modalidade presente no dataset
     
         Arguments:
@@ -62,6 +64,7 @@ def calculateModalidadesInfo(modalities):
     years.sort()
 
     modalitiesDict = {}
+    ## { Modality : { Ano01 : #n, Ano02 : #n } }
 
     ## para cada ano na estrutura de dados
     for yearKey in modalities:
@@ -83,10 +86,49 @@ def calculateModalidadesInfo(modalities):
                         pass
                     (modalitiesDict[modalKey])[year] = currentYearRegisters
 
+    answer = (modalitiesDict,years) 
+    return answer
+
+
+def prepareModalitiesIndic(modalities):
+    """Organiza os indicadores dos registos por ordem alfabética das modalidades, assim como dos nomes dos indivíduos
     
-    return (modalitiesDict,years)
+        Arguments:
+        ---------
+            modalities (dictionary) : estrutura com as modalidades já organizadas por ano
+            
+        Returns:
+        -------
+        preparedDict (dictionary) : devolve as modalidades com a ordenação desejada, alfabeticamente
+    """
 
+    ## { ano: { modalidade: [emds] } }
+    years = list(modalities.keys())
+    years.sort()
 
+    modals = set()
+    for year in years:
+        modals.update((modalities[year]).keys())
+
+    modals = list(modals)
+    modals.sort()
+
+    preparedDict = {}
+
+    for m in modals:
+        
+        preparedDict[m] = []
+
+        for year in years:
+            try:
+                preparedDict[m] = preparedDict[m] + ((modalities[year])[m])
+                
+            except:
+                continue
+        preparedDict[m].sort(key=lambda x: (x.name, x.surname))
+        
+    
+    return preparedDict
 
 
 def modalidades_Graph(ModDict,years):

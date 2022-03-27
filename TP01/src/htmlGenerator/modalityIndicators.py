@@ -1,6 +1,6 @@
-"""addressIndicators.py: Geração de ficheiro html para listagem de indicadores das moradas"""
+"""modalityIndicators.py: Geração de ficheiro html para indicação dos indicadores das modalidades"""
 
-from Queries import addresStudy
+from Queries import modalityStudy
 
 ## HTML initial file format string
 htmlStart = '''
@@ -134,8 +134,8 @@ html {
 </head>
 <body>
 
-<h1>Moradas</h1>
-<p>As moradas encontram-se organizadas alphabeticamente</p>
+<h1>Modalidades</h1>
+<p>As modalidades encontram-se organizadas alfabeticamente</p>
 <div class="address">'''
 
 
@@ -185,11 +185,11 @@ htmlEnd = '''
 '''
 
 
-def addressIndicatorsHtml(filename, dataset):
+def modalityIndicatorsHtml(filename, modalities):
   
   global htmlStart
   global htmlEnd
-  preparedInfo = prepareDataset(dataset)
+  preparedInfo = modalityStudy.prepareModalitiesIndic(modalities)
   listAddress = list(preparedInfo.keys())
   listAddress.sort()
   alphabet = []
@@ -228,8 +228,3 @@ def addressIndicatorsHtml(filename, dataset):
 
   fileHandler.write(htmlStart + htmlEnd)
   fileHandler.close()
-
-
-def prepareDataset(dataset):
-  perAddress = addresStudy.getAddress(dataset)
-  return perAddress

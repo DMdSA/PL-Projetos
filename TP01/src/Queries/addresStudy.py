@@ -1,11 +1,22 @@
-# Creates a sorted dictionary (sorted by key)
-from cProfile import label
-from collections import OrderedDict
+"""addresStudy.py: Exploração das moradas presentes no dataset
+"""
+
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 
 def getAddress(dataset):
+    """Recolhe as informações relativas às moradas presentes no dataset
+    
+        Argumentos:
+        ----------
+            dataset (dictionary) : estrutura com os dados originais do dataset
+        
+        Returns:
+        -------
+            perAddress (dictionary) : devolve as moradas com os registos a elas associados
+    """
+
+    ## { Modalidade : [emd01, emd02], (...) }
 
     perAddress = {}
     
@@ -25,14 +36,27 @@ def getAddress(dataset):
 
                 curAd = (perAddress[emdR.address])
                 curAd.append(emdR)
+
+    prepareAddressEMD(perAddress)        
+    return perAddress
+ 
+
+
+def prepareAddressEMD(dataset):
+    """"""
     
-    perAddressSorted = OrderedDict(sorted(perAddress.items()))
-    createBarGraphAdress(perAddressSorted)
-    return perAddressSorted
-     
+    addressesInfo = getAddress(dataset)
+
+    for filter in addressInfo:
+        toSort = addressInfo[filter]
+        toSort.sort(key=lambda x: (x.name))
+
+    return toSort
+
+
 
 def addressInfo(addresses, city):
-
+    """"""
     info = []
     cont = 0
 
@@ -43,6 +67,7 @@ def addressInfo(addresses, city):
         except:
             continue
     return (info, cont)
+
 
 
 def createBarGraphAdress(addresses): 
