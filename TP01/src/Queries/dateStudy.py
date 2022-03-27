@@ -31,5 +31,4 @@ def datesGraph(dataset):
     plt.ylabel("Número de Registos")
     plt.title("Numbero de Registos por Ano")
     plt.legend()
-    plt.show()
-    fig.savefig("Dates_Bar_Graph.png")
+    fig.savefig("Images/Dates_Bar_Graph.png")

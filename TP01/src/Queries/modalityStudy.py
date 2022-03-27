@@ -71,7 +71,6 @@ def calculateModalitiesInfo(modalities):
 
         ## para cada modalidade inserida, por ano
         for modalKey in modalities[yearKey]:
-
             ## se essa modalidade ainda não existir, adicioná-la à nova estrutura
             if modalKey not in modalitiesDict:
                 modalitiesDict[modalKey] = {}
@@ -86,7 +85,7 @@ def calculateModalitiesInfo(modalities):
                         pass
                     (modalitiesDict[modalKey])[year] = currentYearRegisters
 
-    answer = (modalitiesDict,years) 
+    answer = (modalitiesDict,years)
     return answer
 
 
@@ -131,14 +130,15 @@ def prepareModalitiesIndic(modalities):
     return preparedDict
 
 
-def modalidades_Graph(ModDict,years):
+def modalidades_Graph(ModYears):
     """Criação de um gráfico de barras horizontal com a informação da quantidade de registos que praticam dada modalidade, por ano
 
         Arguments:
         ---------
-            ModDict (dictionary) : estrutura de dados com os registos organizados por modalidades
-            years (list) : lista de anos presentes no dicionário anterior"""
+            ModYears (dictionary,list) : tuplo com a estrutura de dados com os registos organizados por modalidades e lista dos anos"""
 
+    ModDict = ModYears[0]
+    years = ModYears[1]
     values = [[] for _ in range(len(years))]
     modalities = []
     data = {}
@@ -156,14 +156,13 @@ def modalidades_Graph(ModDict,years):
     for year in years:
         data[year] = values[i]
         i = i+1
-
+    
     df = pd.DataFrame(data,columns=years,index=modalities)
 
     plt.style.use('ggplot')
-    ax = df.plot.barh().get_figure().savefig('Modality_Bar_Graph.png')
+    ax = df.plot.barh().get_figure().savefig('Images/Modality_Bar_Graph.png')
 
     plt.legend()
-    plt.show()
 
 
 def mod_graph_AllYears(ModDict):
@@ -191,7 +190,6 @@ def mod_graph_AllYears(ModDict):
     df = pd.DataFrame({'mod':modalities,'Nº Registos':values})
 
     plt.style.use('ggplot')
-    ax = df.plot.barh(x='mod', y='Nº Registos').get_figure().savefig('Mod_Bar_Graph_AllYears.png')
+    ax = df.plot.barh(x='mod', y='Nº Registos').get_figure().savefig('Images/Mod_Bar_Graph_AllYears.png')
 
     plt.legend()
-    plt.show()
