@@ -1,5 +1,3 @@
-"""addressIndicators.py: Geração de ficheiro html para listagem de indicadores das moradas"""
-
 from Queries import addresStudy
 
 ## HTML initial file format string
@@ -107,7 +105,7 @@ html {
   position: fixed;
   color: red;
   bottom: 10px;
-  right: 15px;
+  right: 55px;
   font-size: 18px;
 }
 
@@ -137,15 +135,10 @@ html {
 <h1>Moradas</h1>
 <p>As moradas encontram-se organizadas alphabeticamente</p>
 <div class="address">'''
-
-
+## emdFormatter (emdRegister)
+## Dado um objeto EMD, prepara a string correspondente à sua apresentação no ficheiro .html preparado
+# @emdRegister = objeto EMD
 def emdFormatter(emdRegister):
-  """Formata um registo para a sua devida representação em html
-    
-      Arguments:
-      ---------
-        emdRegister (emd) : registo de exame médico
-  """
 
   emdDivFormat = '''
       <p><b>Nome:</b> {} {} </p>
@@ -185,11 +178,11 @@ htmlEnd = '''
 '''
 
 
-def addressIndicatorsHtml(filename, dataset):
-  
+def addressIndicatorsHtml(filename, addresses):
+
   global htmlStart
   global htmlEnd
-  preparedInfo = prepareDataset(dataset)
+  preparedInfo = addresses
   listAddress = list(preparedInfo.keys())
   listAddress.sort()
   alphabet = []
@@ -228,8 +221,3 @@ def addressIndicatorsHtml(filename, dataset):
 
   fileHandler.write(htmlStart + htmlEnd)
   fileHandler.close()
-
-
-def prepareDataset(dataset):
-  perAddress = addresStudy.getAddress(dataset)
-  return perAddress

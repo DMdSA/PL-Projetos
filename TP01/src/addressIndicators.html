@@ -1,0 +1,1967 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+/* Definições da lista colapsavel */
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Cor da caixa com o rato por cima */
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+/* Sinal lado direito caso esteja fechado apresenta "plus" caso esteja aberto apresenta "minus" */
+.collapsible:after {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: white;
+  float: right;
+  margin-left: 5px;
+}
+.active:after {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.column {
+  float: left;
+  width: 19.9.3%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.container {
+  padding: 0 16px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.dateField {
+  color: grey;
+}
+
+.button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: #555;
+}
+
+.bottomright {
+  position: fixed;
+  color: red;
+  bottom: 10px;
+  right: 55px;
+  font-size: 18px;
+}
+
+/* line between entries */
+.line {
+  border-top: 1px solid grey;
+  flex-grow: 1;
+  margin: 0 10px;
+}
+
+.address {
+  -webkit-columns: 2; /* Chrome, Safari, Opera */
+  -moz-columns: 2; /* Firefox */
+  columns: 2;
+}
+
+.data {
+  flex: 0 0 50%;
+  padding: 10px;
+}
+
+
+</style>
+</head>
+<body>
+
+<h1>Moradas</h1>
+<p>As moradas encontram-se organizadas alphabeticamente</p>
+<div class="address">
+  <div class="data">
+    <h2> A </h2>
+    <button type="Aguila" class="collapsible"> Aguila </button>
+      <div class="content">
+      <p><b>Nome:</b> Schmidt Hopper </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Alafaya" class="collapsible"> Alafaya </button>
+      <div class="content">
+      <p><b>Nome:</b> Carmella Lindsay </p>
+      <p><b>Modalidade:</b> Futebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Alamo" class="collapsible"> Alamo </button>
+      <div class="content">
+      <p><b>Nome:</b> Lilian Levine </p>
+      <p><b>Modalidade:</b> Parapente </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Alden" class="collapsible"> Alden </button>
+      <div class="content">
+      <p><b>Nome:</b> Young Estes </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Alfarata" class="collapsible"> Alfarata </button>
+      <div class="content">
+      <p><b>Nome:</b> Elisa Bernard </p>
+      <p><b>Modalidade:</b> Futebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Allamuchy" class="collapsible"> Allamuchy </button>
+      <div class="content">
+      <p><b>Nome:</b> Frieda Hansen </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Alleghenyville" class="collapsible"> Alleghenyville </button>
+      <div class="content">
+      <p><b>Nome:</b> Julianne Powell </p>
+      <p><b>Modalidade:</b> Andebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Allentown" class="collapsible"> Allentown </button>
+      <div class="content">
+      <p><b>Nome:</b> Tania Sargent </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Aurora" class="collapsible"> Aurora </button>
+      <div class="content">
+      <p><b>Nome:</b> Shelton Ingram </p>
+      <p><b>Modalidade:</b> Patinagem </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Austinburg" class="collapsible"> Austinburg </button>
+      <div class="content">
+      <p><b>Nome:</b> Alyssa Melendez </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Axis" class="collapsible"> Axis </button>
+      <div class="content">
+      <p><b>Nome:</b> Nola Wade </p>
+      <p><b>Modalidade:</b> Karaté </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> B </h2>
+    <button type="Babb" class="collapsible"> Babb </button>
+      <div class="content">
+      <p><b>Nome:</b> Graves Goff </p>
+      <p><b>Modalidade:</b> Andebol </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Joann Barnes </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Bagtown" class="collapsible"> Bagtown </button>
+      <div class="content">
+      <p><b>Nome:</b> Haley Washington </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Bakersville" class="collapsible"> Bakersville </button>
+      <div class="content">
+      <p><b>Nome:</b> Powers Torres </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Waters Dale </p>
+      <p><b>Modalidade:</b> Andebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Bannock" class="collapsible"> Bannock </button>
+      <div class="content">
+      <p><b>Nome:</b> Hester Johnston </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Barclay" class="collapsible"> Barclay </button>
+      <div class="content">
+      <p><b>Nome:</b> Beck Stevenson </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Barstow" class="collapsible"> Barstow </button>
+      <div class="content">
+      <p><b>Nome:</b> Marie Craft </p>
+      <p><b>Modalidade:</b> Atletismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Basye" class="collapsible"> Basye </button>
+      <div class="content">
+      <p><b>Nome:</b> Haley Estes </p>
+      <p><b>Modalidade:</b> Futebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Bawcomville" class="collapsible"> Bawcomville </button>
+      <div class="content">
+      <p><b>Nome:</b> Faulkner Baird </p>
+      <p><b>Modalidade:</b> Parapente </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Bayview" class="collapsible"> Bayview </button>
+      <div class="content">
+      <p><b>Nome:</b> Vivian Pope </p>
+      <p><b>Modalidade:</b> Parapente </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Beaverdale" class="collapsible"> Beaverdale </button>
+      <div class="content">
+      <p><b>Nome:</b> Chase Chang </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Bedias" class="collapsible"> Bedias </button>
+      <div class="content">
+      <p><b>Nome:</b> Elena Mcneil </p>
+      <p><b>Modalidade:</b> Orientação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Belgreen" class="collapsible"> Belgreen </button>
+      <div class="content">
+      <p><b>Nome:</b> Brooks Gamble </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Belleview" class="collapsible"> Belleview </button>
+      <div class="content">
+      <p><b>Nome:</b> Mcdonald Bender </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Bellfountain" class="collapsible"> Bellfountain </button>
+      <div class="content">
+      <p><b>Nome:</b> Stefanie Byrd </p>
+      <p><b>Modalidade:</b> Esgrima </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Belvoir" class="collapsible"> Belvoir </button>
+      <div class="content">
+      <p><b>Nome:</b> Cantrell Santos </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Bentley" class="collapsible"> Bentley </button>
+      <div class="content">
+      <p><b>Nome:</b> Bernice Bartlett </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Bentonville" class="collapsible"> Bentonville </button>
+      <div class="content">
+      <p><b>Nome:</b> Mclean Reilly </p>
+      <p><b>Modalidade:</b> Esgrima </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Myrna Guerrero </p>
+      <p><b>Modalidade:</b> Atletismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Bergoo" class="collapsible"> Bergoo </button>
+      <div class="content">
+      <p><b>Nome:</b> Kristen Jacobs </p>
+      <p><b>Modalidade:</b> Karaté </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Berlin" class="collapsible"> Berlin </button>
+      <div class="content">
+      <p><b>Nome:</b> Letitia Dean </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Blanford" class="collapsible"> Blanford </button>
+      <div class="content">
+      <p><b>Nome:</b> Deann Vargas </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Blende" class="collapsible"> Blende </button>
+      <div class="content">
+      <p><b>Nome:</b> Robbie Bailey </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Bluffview" class="collapsible"> Bluffview </button>
+      <div class="content">
+      <p><b>Nome:</b> Dana Morrison </p>
+      <p><b>Modalidade:</b> Atletismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Boling" class="collapsible"> Boling </button>
+      <div class="content">
+      <p><b>Nome:</b> Leanne Barron </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Bonanza" class="collapsible"> Bonanza </button>
+      <div class="content">
+      <p><b>Nome:</b> Peters Emerson </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Boonville" class="collapsible"> Boonville </button>
+      <div class="content">
+      <p><b>Nome:</b> Holcomb Mathis </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Bowden" class="collapsible"> Bowden </button>
+      <div class="content">
+      <p><b>Nome:</b> Burch Navarro </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Bowmansville" class="collapsible"> Bowmansville </button>
+      <div class="content">
+      <p><b>Nome:</b> Marsh Jenkins </p>
+      <p><b>Modalidade:</b> Karaté </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Brandermill" class="collapsible"> Brandermill </button>
+      <div class="content">
+      <p><b>Nome:</b> Garrison Evans </p>
+      <p><b>Modalidade:</b> Futebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Brethren" class="collapsible"> Brethren </button>
+      <div class="content">
+      <p><b>Nome:</b> Nikki Calderon </p>
+      <p><b>Modalidade:</b> Patinagem </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Brooktrails" class="collapsible"> Brooktrails </button>
+      <div class="content">
+      <p><b>Nome:</b> Mathis Miller </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Brutus" class="collapsible"> Brutus </button>
+      <div class="content">
+      <p><b>Nome:</b> Freeman Diaz </p>
+      <p><b>Modalidade:</b> Esgrima </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Byrnedale" class="collapsible"> Byrnedale </button>
+      <div class="content">
+      <p><b>Nome:</b> Banks Lyons </p>
+      <p><b>Modalidade:</b> Karaté </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> C </h2>
+    <button type="Callaghan" class="collapsible"> Callaghan </button>
+      <div class="content">
+      <p><b>Nome:</b> Evelyn Grant </p>
+      <p><b>Modalidade:</b> Esgrima </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Calverton" class="collapsible"> Calverton </button>
+      <div class="content">
+      <p><b>Nome:</b> Gaines Owens </p>
+      <p><b>Modalidade:</b> Futebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Camas" class="collapsible"> Camas </button>
+      <div class="content">
+      <p><b>Nome:</b> Patti Osborne </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Camino" class="collapsible"> Camino </button>
+      <div class="content">
+      <p><b>Nome:</b> Helen Pruitt </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Canterwood" class="collapsible"> Canterwood </button>
+      <div class="content">
+      <p><b>Nome:</b> Alberta Talley </p>
+      <p><b>Modalidade:</b> Orientação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Carbonville" class="collapsible"> Carbonville </button>
+      <div class="content">
+      <p><b>Nome:</b> Kristina Brock </p>
+      <p><b>Modalidade:</b> Esgrima </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Caroline" class="collapsible"> Caroline </button>
+      <div class="content">
+      <p><b>Nome:</b> Osborne Cox </p>
+      <p><b>Modalidade:</b> Patinagem </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Cartwright" class="collapsible"> Cartwright </button>
+      <div class="content">
+      <p><b>Nome:</b> Madge Daugherty </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Cascades" class="collapsible"> Cascades </button>
+      <div class="content">
+      <p><b>Nome:</b> Latonya Lee </p>
+      <p><b>Modalidade:</b> Futebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Cedarville" class="collapsible"> Cedarville </button>
+      <div class="content">
+      <p><b>Nome:</b> Jackie Garrison </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Chamberino" class="collapsible"> Chamberino </button>
+      <div class="content">
+      <p><b>Nome:</b> Geneva Barker </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Walker Wooten </p>
+      <p><b>Modalidade:</b> Atletismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Chase" class="collapsible"> Chase </button>
+      <div class="content">
+      <p><b>Nome:</b> Kim Combs </p>
+      <p><b>Modalidade:</b> Atletismo </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Lawrence Hahn </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Chelsea" class="collapsible"> Chelsea </button>
+      <div class="content">
+      <p><b>Nome:</b> Lora Ward </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Cherokee" class="collapsible"> Cherokee </button>
+      <div class="content">
+      <p><b>Nome:</b> Miller Rojas </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Chesterfield" class="collapsible"> Chesterfield </button>
+      <div class="content">
+      <p><b>Nome:</b> Tammy Maddox </p>
+      <p><b>Modalidade:</b> Orientação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Chestnut" class="collapsible"> Chestnut </button>
+      <div class="content">
+      <p><b>Nome:</b> Bowers Gilliam </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Chilton" class="collapsible"> Chilton </button>
+      <div class="content">
+      <p><b>Nome:</b> Mckay Bolton </p>
+      <p><b>Modalidade:</b> Futebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Clarence" class="collapsible"> Clarence </button>
+      <div class="content">
+      <p><b>Nome:</b> Marla Kelley </p>
+      <p><b>Modalidade:</b> Atletismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Clayville" class="collapsible"> Clayville </button>
+      <div class="content">
+      <p><b>Nome:</b> Deirdre Higgins </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Cliffside" class="collapsible"> Cliffside </button>
+      <div class="content">
+      <p><b>Nome:</b> Rojas Bray </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Clinton" class="collapsible"> Clinton </button>
+      <div class="content">
+      <p><b>Nome:</b> Stanton Barrera </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Cloverdale" class="collapsible"> Cloverdale </button>
+      <div class="content">
+      <p><b>Nome:</b> Rosalind Michael </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Coalmont" class="collapsible"> Coalmont </button>
+      <div class="content">
+      <p><b>Nome:</b> Curtis Curtis </p>
+      <p><b>Modalidade:</b> Karaté </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Livingston Thomas </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Maldonado Jefferson </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Coinjock" class="collapsible"> Coinjock </button>
+      <div class="content">
+      <p><b>Nome:</b> Laverne Hays </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Coleville" class="collapsible"> Coleville </button>
+      <div class="content">
+      <p><b>Nome:</b> Woodard Rhodes </p>
+      <p><b>Modalidade:</b> Karaté </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Coloma" class="collapsible"> Coloma </button>
+      <div class="content">
+      <p><b>Nome:</b> Albert Sweeney </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Como" class="collapsible"> Como </button>
+      <div class="content">
+      <p><b>Nome:</b> Park Collier </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Comptche" class="collapsible"> Comptche </button>
+      <div class="content">
+      <p><b>Nome:</b> Blevins Frost </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Convent" class="collapsible"> Convent </button>
+      <div class="content">
+      <p><b>Nome:</b> Allen Moon </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Coral" class="collapsible"> Coral </button>
+      <div class="content">
+      <p><b>Nome:</b> Deanne Stone </p>
+      <p><b>Modalidade:</b> Equitação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Craig" class="collapsible"> Craig </button>
+      <div class="content">
+      <p><b>Nome:</b> Freda Wooten </p>
+      <p><b>Modalidade:</b> Esgrima </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Crown" class="collapsible"> Crown </button>
+      <div class="content">
+      <p><b>Nome:</b> Nunez Guy </p>
+      <p><b>Modalidade:</b> Equitação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Crucible" class="collapsible"> Crucible </button>
+      <div class="content">
+      <p><b>Nome:</b> Brigitte Yates </p>
+      <p><b>Modalidade:</b> Karaté </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Louise Weeks </p>
+      <p><b>Modalidade:</b> Patinagem </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Crumpler" class="collapsible"> Crumpler </button>
+      <div class="content">
+      <p><b>Nome:</b> Tami Lawrence </p>
+      <p><b>Modalidade:</b> Andebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Cucumber" class="collapsible"> Cucumber </button>
+      <div class="content">
+      <p><b>Nome:</b> Mabel Faulkner </p>
+      <p><b>Modalidade:</b> Equitação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Cumberland" class="collapsible"> Cumberland </button>
+      <div class="content">
+      <p><b>Nome:</b> Charles Bowman </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Cuylerville" class="collapsible"> Cuylerville </button>
+      <div class="content">
+      <p><b>Nome:</b> Lela Chan </p>
+      <p><b>Modalidade:</b> Patinagem </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> D </h2>
+    <button type="Dalton" class="collapsible"> Dalton </button>
+      <div class="content">
+      <p><b>Nome:</b> Josefa Valencia </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Dante" class="collapsible"> Dante </button>
+      <div class="content">
+      <p><b>Nome:</b> Anna May </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Vera Scott </p>
+      <p><b>Modalidade:</b> Esgrima </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Darbydale" class="collapsible"> Darbydale </button>
+      <div class="content">
+      <p><b>Nome:</b> Kramer Mcclure </p>
+      <p><b>Modalidade:</b> Karaté </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Darlington" class="collapsible"> Darlington </button>
+      <div class="content">
+      <p><b>Nome:</b> Staci Jarvis </p>
+      <p><b>Modalidade:</b> Atletismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Darrtown" class="collapsible"> Darrtown </button>
+      <div class="content">
+      <p><b>Nome:</b> Tami Briggs </p>
+      <p><b>Modalidade:</b> Parapente </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Dawn" class="collapsible"> Dawn </button>
+      <div class="content">
+      <p><b>Nome:</b> Larsen Miles </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Delshire" class="collapsible"> Delshire </button>
+      <div class="content">
+      <p><b>Nome:</b> Petra Leon </p>
+      <p><b>Modalidade:</b> Equitação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Delwood" class="collapsible"> Delwood </button>
+      <div class="content">
+      <p><b>Nome:</b> Esmeralda Young </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Dennard" class="collapsible"> Dennard </button>
+      <div class="content">
+      <p><b>Nome:</b> Jennie Hawkins </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Velazquez Meyers </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Disautel" class="collapsible"> Disautel </button>
+      <div class="content">
+      <p><b>Nome:</b> Frazier Aguilar </p>
+      <p><b>Modalidade:</b> Esgrima </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Dorneyville" class="collapsible"> Dorneyville </button>
+      <div class="content">
+      <p><b>Nome:</b> Combs Rollins </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Dotsero" class="collapsible"> Dotsero </button>
+      <div class="content">
+      <p><b>Nome:</b> Kramer Acosta </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Dunlo" class="collapsible"> Dunlo </button>
+      <div class="content">
+      <p><b>Nome:</b> Milagros Osborn </p>
+      <p><b>Modalidade:</b> Patinagem </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Shields Bean </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Dupuyer" class="collapsible"> Dupuyer </button>
+      <div class="content">
+      <p><b>Nome:</b> Martha Hyde </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Duryea" class="collapsible"> Duryea </button>
+      <div class="content">
+      <p><b>Nome:</b> Freida Mcneil </p>
+      <p><b>Modalidade:</b> Patinagem </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> E </h2>
+    <button type="Eastmont" class="collapsible"> Eastmont </button>
+      <div class="content">
+      <p><b>Nome:</b> Fox Williams </p>
+      <p><b>Modalidade:</b> Futebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Edgewater" class="collapsible"> Edgewater </button>
+      <div class="content">
+      <p><b>Nome:</b> Hollie Solis </p>
+      <p><b>Modalidade:</b> Futebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Edinburg" class="collapsible"> Edinburg </button>
+      <div class="content">
+      <p><b>Nome:</b> Alston Richardson </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Shepard Stevens </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Elwood" class="collapsible"> Elwood </button>
+      <div class="content">
+      <p><b>Nome:</b> Cunningham Curry </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Emerald" class="collapsible"> Emerald </button>
+      <div class="content">
+      <p><b>Nome:</b> Eve Kline </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Englevale" class="collapsible"> Englevale </button>
+      <div class="content">
+      <p><b>Nome:</b> Francis Moran </p>
+      <p><b>Modalidade:</b> Orientação </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> F </h2>
+    <button type="Fairforest" class="collapsible"> Fairforest </button>
+      <div class="content">
+      <p><b>Nome:</b> Frank Schwartz </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Fairlee" class="collapsible"> Fairlee </button>
+      <div class="content">
+      <p><b>Nome:</b> Wiley Stark </p>
+      <p><b>Modalidade:</b> Futebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Fairmount" class="collapsible"> Fairmount </button>
+      <div class="content">
+      <p><b>Nome:</b> Avis Craft </p>
+      <p><b>Modalidade:</b> Orientação </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Emily Webb </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Falmouth" class="collapsible"> Falmouth </button>
+      <div class="content">
+      <p><b>Nome:</b> Jody Hart </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Farmers" class="collapsible"> Farmers </button>
+      <div class="content">
+      <p><b>Nome:</b> Fields Colon </p>
+      <p><b>Modalidade:</b> Parapente </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Farmington" class="collapsible"> Farmington </button>
+      <div class="content">
+      <p><b>Nome:</b> Lang Farmer </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Floris" class="collapsible"> Floris </button>
+      <div class="content">
+      <p><b>Nome:</b> Ana Sharpe </p>
+      <p><b>Modalidade:</b> Orientação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Floriston" class="collapsible"> Floriston </button>
+      <div class="content">
+      <p><b>Nome:</b> Daniel Mccormick </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Forbestown" class="collapsible"> Forbestown </button>
+      <div class="content">
+      <p><b>Nome:</b> Flynn York </p>
+      <p><b>Modalidade:</b> Andebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Forestburg" class="collapsible"> Forestburg </button>
+      <div class="content">
+      <p><b>Nome:</b> Foreman Prince </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Freetown" class="collapsible"> Freetown </button>
+      <div class="content">
+      <p><b>Nome:</b> Lester Strong </p>
+      <p><b>Modalidade:</b> Patinagem </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> G </h2>
+    <button type="Gadsden" class="collapsible"> Gadsden </button>
+      <div class="content">
+      <p><b>Nome:</b> Samantha Romero </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Gardiner" class="collapsible"> Gardiner </button>
+      <div class="content">
+      <p><b>Nome:</b> Trujillo Burke </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Gerber" class="collapsible"> Gerber </button>
+      <div class="content">
+      <p><b>Nome:</b> Joanne Wise </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Gibbsville" class="collapsible"> Gibbsville </button>
+      <div class="content">
+      <p><b>Nome:</b> Gill Fitzpatrick </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Smith Noel </p>
+      <p><b>Modalidade:</b> Andebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Gilgo" class="collapsible"> Gilgo </button>
+      <div class="content">
+      <p><b>Nome:</b> Decker Allen </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Glasgow" class="collapsible"> Glasgow </button>
+      <div class="content">
+      <p><b>Nome:</b> Brock Peterson </p>
+      <p><b>Modalidade:</b> Futebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Glenbrook" class="collapsible"> Glenbrook </button>
+      <div class="content">
+      <p><b>Nome:</b> Stephenson Cooke </p>
+      <p><b>Modalidade:</b> Equitação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Glidden" class="collapsible"> Glidden </button>
+      <div class="content">
+      <p><b>Nome:</b> Frost Dejesus </p>
+      <p><b>Modalidade:</b> Orientação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Gloucester" class="collapsible"> Gloucester </button>
+      <div class="content">
+      <p><b>Nome:</b> Delgado Gay </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Goldfield" class="collapsible"> Goldfield </button>
+      <div class="content">
+      <p><b>Nome:</b> Carmella Shaw </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Rhea Patel </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Goochland" class="collapsible"> Goochland </button>
+      <div class="content">
+      <p><b>Nome:</b> Maryann Workman </p>
+      <p><b>Modalidade:</b> Orientação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Gorst" class="collapsible"> Gorst </button>
+      <div class="content">
+      <p><b>Nome:</b> Robles Nelson </p>
+      <p><b>Modalidade:</b> Futebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Graball" class="collapsible"> Graball </button>
+      <div class="content">
+      <p><b>Nome:</b> Bishop Valentine </p>
+      <p><b>Modalidade:</b> Orientação </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Glenn Best </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Grandview" class="collapsible"> Grandview </button>
+      <div class="content">
+      <p><b>Nome:</b> Landry Kidd </p>
+      <p><b>Modalidade:</b> Parapente </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Graniteville" class="collapsible"> Graniteville </button>
+      <div class="content">
+      <p><b>Nome:</b> Bowers Conrad </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Grantville" class="collapsible"> Grantville </button>
+      <div class="content">
+      <p><b>Nome:</b> Faith Wells </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Gratton" class="collapsible"> Gratton </button>
+      <div class="content">
+      <p><b>Nome:</b> Donna Blevins </p>
+      <p><b>Modalidade:</b> Equitação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Grazierville" class="collapsible"> Grazierville </button>
+      <div class="content">
+      <p><b>Nome:</b> Dixon Henry </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Greenfields" class="collapsible"> Greenfields </button>
+      <div class="content">
+      <p><b>Nome:</b> Castro Weber </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Greenock" class="collapsible"> Greenock </button>
+      <div class="content">
+      <p><b>Nome:</b> Simmons Conway </p>
+      <p><b>Modalidade:</b> Andebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Greensburg" class="collapsible"> Greensburg </button>
+      <div class="content">
+      <p><b>Nome:</b> Rhea Wyatt </p>
+      <p><b>Modalidade:</b> Karaté </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> H </h2>
+    <button type="Hall" class="collapsible"> Hall </button>
+      <div class="content">
+      <p><b>Nome:</b> Maritza Kaufman </p>
+      <p><b>Modalidade:</b> Karaté </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Hannasville" class="collapsible"> Hannasville </button>
+      <div class="content">
+      <p><b>Nome:</b> Kathryn Maddox </p>
+      <p><b>Modalidade:</b> Patinagem </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Lott Robertson </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Hanover" class="collapsible"> Hanover </button>
+      <div class="content">
+      <p><b>Nome:</b> Isabella Howell </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Harleigh" class="collapsible"> Harleigh </button>
+      <div class="content">
+      <p><b>Nome:</b> Maynard Erickson </p>
+      <p><b>Modalidade:</b> Atletismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Hebron" class="collapsible"> Hebron </button>
+      <div class="content">
+      <p><b>Nome:</b> Agnes Graham </p>
+      <p><b>Modalidade:</b> Orientação </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Ivy Sandoval </p>
+      <p><b>Modalidade:</b> Esgrima </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Heil" class="collapsible"> Heil </button>
+      <div class="content">
+      <p><b>Nome:</b> Joseph Schmidt </p>
+      <p><b>Modalidade:</b> Esgrima </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Helen" class="collapsible"> Helen </button>
+      <div class="content">
+      <p><b>Nome:</b> Meagan Le </p>
+      <p><b>Modalidade:</b> Atletismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Hemlock" class="collapsible"> Hemlock </button>
+      <div class="content">
+      <p><b>Nome:</b> Wagner Steele </p>
+      <p><b>Modalidade:</b> Orientação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Hillsboro" class="collapsible"> Hillsboro </button>
+      <div class="content">
+      <p><b>Nome:</b> Barr Bell </p>
+      <p><b>Modalidade:</b> Parapente </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Hinsdale" class="collapsible"> Hinsdale </button>
+      <div class="content">
+      <p><b>Nome:</b> Stevenson Perkins </p>
+      <p><b>Modalidade:</b> Karaté </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Hiseville" class="collapsible"> Hiseville </button>
+      <div class="content">
+      <p><b>Nome:</b> Sharon Bradley </p>
+      <p><b>Modalidade:</b> Futebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Holcombe" class="collapsible"> Holcombe </button>
+      <div class="content">
+      <p><b>Nome:</b> Robbins Walsh </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Hollins" class="collapsible"> Hollins </button>
+      <div class="content">
+      <p><b>Nome:</b> Foreman Tran </p>
+      <p><b>Modalidade:</b> Equitação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Holtville" class="collapsible"> Holtville </button>
+      <div class="content">
+      <p><b>Nome:</b> Aisha Riddle </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Homestead" class="collapsible"> Homestead </button>
+      <div class="content">
+      <p><b>Nome:</b> Chandra Edwards </p>
+      <p><b>Modalidade:</b> Futebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Homeworth" class="collapsible"> Homeworth </button>
+      <div class="content">
+      <p><b>Nome:</b> Anita Lyons </p>
+      <p><b>Modalidade:</b> Parapente </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> I </h2>
+    <button type="Idamay" class="collapsible"> Idamay </button>
+      <div class="content">
+      <p><b>Nome:</b> Jacqueline Love </p>
+      <p><b>Modalidade:</b> Andebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Ilchester" class="collapsible"> Ilchester </button>
+      <div class="content">
+      <p><b>Nome:</b> Graciela Carney </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Inkerman" class="collapsible"> Inkerman </button>
+      <div class="content">
+      <p><b>Nome:</b> Hardin Mejia </p>
+      <p><b>Modalidade:</b> Futebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Iola" class="collapsible"> Iola </button>
+      <div class="content">
+      <p><b>Nome:</b> Blackburn Price </p>
+      <p><b>Modalidade:</b> Andebol </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Nadine Nixon </p>
+      <p><b>Modalidade:</b> Orientação </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> J </h2>
+    <button type="Jackpot" class="collapsible"> Jackpot </button>
+      <div class="content">
+      <p><b>Nome:</b> Munoz Meyers </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Joes" class="collapsible"> Joes </button>
+      <div class="content">
+      <p><b>Nome:</b> Pacheco Robbins </p>
+      <p><b>Modalidade:</b> Parapente </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Virginia Mcdowell </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Johnsonburg" class="collapsible"> Johnsonburg </button>
+      <div class="content">
+      <p><b>Nome:</b> Latisha Cantrell </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Joppa" class="collapsible"> Joppa </button>
+      <div class="content">
+      <p><b>Nome:</b> Ashley Rivers </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> K </h2>
+    <button type="Kaka" class="collapsible"> Kaka </button>
+      <div class="content">
+      <p><b>Nome:</b> Tanisha Castro </p>
+      <p><b>Modalidade:</b> Parapente </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Katonah" class="collapsible"> Katonah </button>
+      <div class="content">
+      <p><b>Nome:</b> Boyle Lancaster </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Kersey" class="collapsible"> Kersey </button>
+      <div class="content">
+      <p><b>Nome:</b> Le Blair </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Kingstowne" class="collapsible"> Kingstowne </button>
+      <div class="content">
+      <p><b>Nome:</b> May French </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> L </h2>
+    <button type="Lacomb" class="collapsible"> Lacomb </button>
+      <div class="content">
+      <p><b>Nome:</b> Stewart Pugh </p>
+      <p><b>Modalidade:</b> Andebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Ladera" class="collapsible"> Ladera </button>
+      <div class="content">
+      <p><b>Nome:</b> Blevins Davenport </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Lavalette" class="collapsible"> Lavalette </button>
+      <div class="content">
+      <p><b>Nome:</b> Andrea Hensley </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Lawrence" class="collapsible"> Lawrence </button>
+      <div class="content">
+      <p><b>Nome:</b> Skinner Mcintosh </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Layhill" class="collapsible"> Layhill </button>
+      <div class="content">
+      <p><b>Nome:</b> Ayers Lara </p>
+      <p><b>Modalidade:</b> Karaté </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Levant" class="collapsible"> Levant </button>
+      <div class="content">
+      <p><b>Nome:</b> Christa Norris </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Jewel Wagner </p>
+      <p><b>Modalidade:</b> Atletismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Linwood" class="collapsible"> Linwood </button>
+      <div class="content">
+      <p><b>Nome:</b> Liza Webb </p>
+      <p><b>Modalidade:</b> Andebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Lithium" class="collapsible"> Lithium </button>
+      <div class="content">
+      <p><b>Nome:</b> Roberta Montoya </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Lodoga" class="collapsible"> Lodoga </button>
+      <div class="content">
+      <p><b>Nome:</b> Isabella Dickson </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Loma" class="collapsible"> Loma </button>
+      <div class="content">
+      <p><b>Nome:</b> Torres Pittman </p>
+      <p><b>Modalidade:</b> Esgrima </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Lookingglass" class="collapsible"> Lookingglass </button>
+      <div class="content">
+      <p><b>Nome:</b> Banks Anderson </p>
+      <p><b>Modalidade:</b> Parapente </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Loomis" class="collapsible"> Loomis </button>
+      <div class="content">
+      <p><b>Nome:</b> Crawford Kelley </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Lorraine" class="collapsible"> Lorraine </button>
+      <div class="content">
+      <p><b>Nome:</b> Callie Wynn </p>
+      <p><b>Modalidade:</b> Futebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Lowgap" class="collapsible"> Lowgap </button>
+      <div class="content">
+      <p><b>Nome:</b> Douglas Gay </p>
+      <p><b>Modalidade:</b> Atletismo </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Mclaughlin Sargent </p>
+      <p><b>Modalidade:</b> Karaté </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Lumberton" class="collapsible"> Lumberton </button>
+      <div class="content">
+      <p><b>Nome:</b> Sherman Lowery </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> M </h2>
+    <button type="Macdona" class="collapsible"> Macdona </button>
+      <div class="content">
+      <p><b>Nome:</b> Silvia Ayala </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Madaket" class="collapsible"> Madaket </button>
+      <div class="content">
+      <p><b>Nome:</b> Velasquez Barber </p>
+      <p><b>Modalidade:</b> Equitação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Magnolia" class="collapsible"> Magnolia </button>
+      <div class="content">
+      <p><b>Nome:</b> Mari Collier </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Mahtowa" class="collapsible"> Mahtowa </button>
+      <div class="content">
+      <p><b>Nome:</b> Kristi Melton </p>
+      <p><b>Modalidade:</b> Parapente </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Makena" class="collapsible"> Makena </button>
+      <div class="content">
+      <p><b>Nome:</b> Lena Lynch </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Manila" class="collapsible"> Manila </button>
+      <div class="content">
+      <p><b>Nome:</b> Lula Whitaker </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Marne" class="collapsible"> Marne </button>
+      <div class="content">
+      <p><b>Nome:</b> Dolores Williams </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Martinez" class="collapsible"> Martinez </button>
+      <div class="content">
+      <p><b>Nome:</b> Levine Sampson </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Monument" class="collapsible"> Monument </button>
+      <div class="content">
+      <p><b>Nome:</b> Ashlee Beard </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Marci Summers </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Mooresburg" class="collapsible"> Mooresburg </button>
+      <div class="content">
+      <p><b>Nome:</b> Leon Schmidt </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Moquino" class="collapsible"> Moquino </button>
+      <div class="content">
+      <p><b>Nome:</b> Stone Thomas </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Morgandale" class="collapsible"> Morgandale </button>
+      <div class="content">
+      <p><b>Nome:</b> Elliott Vaughan </p>
+      <p><b>Modalidade:</b> Futebol </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Maria Mcfadden </p>
+      <p><b>Modalidade:</b> Atletismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Morriston" class="collapsible"> Morriston </button>
+      <div class="content">
+      <p><b>Nome:</b> Amalia Flynn </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> N </h2>
+    <button type="Navarre" class="collapsible"> Navarre </button>
+      <div class="content">
+      <p><b>Nome:</b> Sheppard Greer </p>
+      <p><b>Modalidade:</b> Atletismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Needmore" class="collapsible"> Needmore </button>
+      <div class="content">
+      <p><b>Nome:</b> Shaw Yang </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Neibert" class="collapsible"> Neibert </button>
+      <div class="content">
+      <p><b>Nome:</b> Kate Woods </p>
+      <p><b>Modalidade:</b> Atletismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Nelson" class="collapsible"> Nelson </button>
+      <div class="content">
+      <p><b>Nome:</b> Hood Burks </p>
+      <p><b>Modalidade:</b> Andebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Nord" class="collapsible"> Nord </button>
+      <div class="content">
+      <p><b>Nome:</b> Jeanie Cantrell </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Northridge" class="collapsible"> Northridge </button>
+      <div class="content">
+      <p><b>Nome:</b> Marsh Crosby </p>
+      <p><b>Modalidade:</b> Orientação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Norwood" class="collapsible"> Norwood </button>
+      <div class="content">
+      <p><b>Nome:</b> Tanya Ballard </p>
+      <p><b>Modalidade:</b> Andebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Noxen" class="collapsible"> Noxen </button>
+      <div class="content">
+      <p><b>Nome:</b> Hunter Russo </p>
+      <p><b>Modalidade:</b> Orientação </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> O </h2>
+    <button type="Oceola" class="collapsible"> Oceola </button>
+      <div class="content">
+      <p><b>Nome:</b> Foley Pollard </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Odessa" class="collapsible"> Odessa </button>
+      <div class="content">
+      <p><b>Nome:</b> Christina Hurley </p>
+      <p><b>Modalidade:</b> Patinagem </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Valentine Sellers </p>
+      <p><b>Modalidade:</b> Patinagem </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Onton" class="collapsible"> Onton </button>
+      <div class="content">
+      <p><b>Nome:</b> Lucia Bright </p>
+      <p><b>Modalidade:</b> Orientação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Orason" class="collapsible"> Orason </button>
+      <div class="content">
+      <p><b>Nome:</b> Vaughan Herman </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Oretta" class="collapsible"> Oretta </button>
+      <div class="content">
+      <p><b>Nome:</b> Jennifer Morris </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Orick" class="collapsible"> Orick </button>
+      <div class="content">
+      <p><b>Nome:</b> Eunice Hunter </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Osage" class="collapsible"> Osage </button>
+      <div class="content">
+      <p><b>Nome:</b> Madeleine Gould </p>
+      <p><b>Modalidade:</b> Karaté </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Osmond" class="collapsible"> Osmond </button>
+      <div class="content">
+      <p><b>Nome:</b> Leticia Pena </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> R </h2>
+    <button type="Ripley" class="collapsible"> Ripley </button>
+      <div class="content">
+      <p><b>Nome:</b> Jacobs Carroll </p>
+      <p><b>Modalidade:</b> Andebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Rivers" class="collapsible"> Rivers </button>
+      <div class="content">
+      <p><b>Nome:</b> Vang George </p>
+      <p><b>Modalidade:</b> Atletismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Robbins" class="collapsible"> Robbins </button>
+      <div class="content">
+      <p><b>Nome:</b> Deana Franco </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Rodanthe" class="collapsible"> Rodanthe </button>
+      <div class="content">
+      <p><b>Nome:</b> Karla Marsh </p>
+      <p><b>Modalidade:</b> Patinagem </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Roderfield" class="collapsible"> Roderfield </button>
+      <div class="content">
+      <p><b>Nome:</b> Merrill Maddox </p>
+      <p><b>Modalidade:</b> Equitação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Rodman" class="collapsible"> Rodman </button>
+      <div class="content">
+      <p><b>Nome:</b> Price Hardin </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Roeville" class="collapsible"> Roeville </button>
+      <div class="content">
+      <p><b>Nome:</b> Garner Reid </p>
+      <p><b>Modalidade:</b> Karaté </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Roland" class="collapsible"> Roland </button>
+      <div class="content">
+      <p><b>Nome:</b> Dawson Mayo </p>
+      <p><b>Modalidade:</b> Parapente </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Rosburg" class="collapsible"> Rosburg </button>
+      <div class="content">
+      <p><b>Nome:</b> Summer Spencer </p>
+      <p><b>Modalidade:</b> Andebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Rose" class="collapsible"> Rose </button>
+      <div class="content">
+      <p><b>Nome:</b> House Murphy </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Rosedale" class="collapsible"> Rosedale </button>
+      <div class="content">
+      <p><b>Nome:</b> Stacey Mills </p>
+      <p><b>Modalidade:</b> Esgrima </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Rosine" class="collapsible"> Rosine </button>
+      <div class="content">
+      <p><b>Nome:</b> Reva Kirk </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Rowe" class="collapsible"> Rowe </button>
+      <div class="content">
+      <p><b>Nome:</b> Tamera Pierce </p>
+      <p><b>Modalidade:</b> Parapente </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Roy" class="collapsible"> Roy </button>
+      <div class="content">
+      <p><b>Nome:</b> Nielsen Tanner </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Rutherford" class="collapsible"> Rutherford </button>
+      <div class="content">
+      <p><b>Nome:</b> Wilson Tucker </p>
+      <p><b>Modalidade:</b> Futebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Ryderwood" class="collapsible"> Ryderwood </button>
+      <div class="content">
+      <p><b>Nome:</b> Hurley Kaufman </p>
+      <p><b>Modalidade:</b> Futebol </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> S </h2>
+    <button type="Sanders" class="collapsible"> Sanders </button>
+      <div class="content">
+      <p><b>Nome:</b> Harding Hudson </p>
+      <p><b>Modalidade:</b> Esgrima </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Saranap" class="collapsible"> Saranap </button>
+      <div class="content">
+      <p><b>Nome:</b> Jessie Dyer </p>
+      <p><b>Modalidade:</b> Patinagem </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Sattley" class="collapsible"> Sattley </button>
+      <div class="content">
+      <p><b>Nome:</b> Fowler Madden </p>
+      <p><b>Modalidade:</b> Andebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Sena" class="collapsible"> Sena </button>
+      <div class="content">
+      <p><b>Nome:</b> Vivian Mercado </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Shaft" class="collapsible"> Shaft </button>
+      <div class="content">
+      <p><b>Nome:</b> Karen Blanchard </p>
+      <p><b>Modalidade:</b> Parapente </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Snyderville" class="collapsible"> Snyderville </button>
+      <div class="content">
+      <p><b>Nome:</b> Kathie Preston </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Soham" class="collapsible"> Soham </button>
+      <div class="content">
+      <p><b>Nome:</b> Miranda Powers </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Somerset" class="collapsible"> Somerset </button>
+      <div class="content">
+      <p><b>Nome:</b> Goldie Mcgee </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Sparkill" class="collapsible"> Sparkill </button>
+      <div class="content">
+      <p><b>Nome:</b> Castaneda Kennedy </p>
+      <p><b>Modalidade:</b> Equitação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Spelter" class="collapsible"> Spelter </button>
+      <div class="content">
+      <p><b>Nome:</b> Langley Mcbride </p>
+      <p><b>Modalidade:</b> Equitação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Sperryville" class="collapsible"> Sperryville </button>
+      <div class="content">
+      <p><b>Nome:</b> Foster Randolph </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Stagecoach" class="collapsible"> Stagecoach </button>
+      <div class="content">
+      <p><b>Nome:</b> Gilbert Harrison </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Sterling" class="collapsible"> Sterling </button>
+      <div class="content">
+      <p><b>Nome:</b> Kristen Goodwin </p>
+      <p><b>Modalidade:</b> Esgrima </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Succasunna" class="collapsible"> Succasunna </button>
+      <div class="content">
+      <p><b>Nome:</b> Ina Robles </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Sultana" class="collapsible"> Sultana </button>
+      <div class="content">
+      <p><b>Nome:</b> Lela Barnes </p>
+      <p><b>Modalidade:</b> Karaté </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Summerset" class="collapsible"> Summerset </button>
+      <div class="content">
+      <p><b>Nome:</b> Annabelle Duffy </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Summertown" class="collapsible"> Summertown </button>
+      <div class="content">
+      <p><b>Nome:</b> Anne Petty </p>
+      <p><b>Modalidade:</b> Parapente </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Sunwest" class="collapsible"> Sunwest </button>
+      <div class="content">
+      <p><b>Nome:</b> Lily Marks </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> T </h2>
+    <button type="Takilma" class="collapsible"> Takilma </button>
+      <div class="content">
+      <p><b>Nome:</b> Banks Guerra </p>
+      <p><b>Modalidade:</b> Ciclismo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Talpa" class="collapsible"> Talpa </button>
+      <div class="content">
+      <p><b>Nome:</b> Roth Booker </p>
+      <p><b>Modalidade:</b> Patinagem </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Taycheedah" class="collapsible"> Taycheedah </button>
+      <div class="content">
+      <p><b>Nome:</b> Farrell Gilliam </p>
+      <p><b>Modalidade:</b> Andebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Temperanceville" class="collapsible"> Temperanceville </button>
+      <div class="content">
+      <p><b>Nome:</b> Frank Bishop </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Templeton" class="collapsible"> Templeton </button>
+      <div class="content">
+      <p><b>Nome:</b> Cassie Kirk </p>
+      <p><b>Modalidade:</b> Karaté </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Tetherow" class="collapsible"> Tetherow </button>
+      <div class="content">
+      <p><b>Nome:</b> Elma Estrada </p>
+      <p><b>Modalidade:</b> Andebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Thermal" class="collapsible"> Thermal </button>
+      <div class="content">
+      <p><b>Nome:</b> Watson Robles </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Thomasville" class="collapsible"> Thomasville </button>
+      <div class="content">
+      <p><b>Nome:</b> Bell Zimmerman </p>
+      <p><b>Modalidade:</b> Andebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Thornport" class="collapsible"> Thornport </button>
+      <div class="content">
+      <p><b>Nome:</b> Justice Bryan </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Thynedale" class="collapsible"> Thynedale </button>
+      <div class="content">
+      <p><b>Nome:</b> Chrystal Poole </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Ticonderoga" class="collapsible"> Ticonderoga </button>
+      <div class="content">
+      <p><b>Nome:</b> Mcknight Price </p>
+      <p><b>Modalidade:</b> Parapente </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Tivoli" class="collapsible"> Tivoli </button>
+      <div class="content">
+      <p><b>Nome:</b> Emilia Rosales </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Topanga" class="collapsible"> Topanga </button>
+      <div class="content">
+      <p><b>Nome:</b> Lindsay Thompson </p>
+      <p><b>Modalidade:</b> Andebol </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Lisa Ford </p>
+      <p><b>Modalidade:</b> Equitação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Topaz" class="collapsible"> Topaz </button>
+      <div class="content">
+      <p><b>Nome:</b> Pate Davis </p>
+      <p><b>Modalidade:</b> Equitação </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Trucksville" class="collapsible"> Trucksville </button>
+      <div class="content">
+      <p><b>Nome:</b> Burton Singleton </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> U </h2>
+    <button type="Umapine" class="collapsible"> Umapine </button>
+      <div class="content">
+      <p><b>Nome:</b> Cheryl Berger </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> V </h2>
+    <button type="Vale" class="collapsible"> Vale </button>
+      <div class="content">
+      <p><b>Nome:</b> Logan Kane </p>
+      <p><b>Modalidade:</b> Basquetebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Venice" class="collapsible"> Venice </button>
+      <div class="content">
+      <p><b>Nome:</b> Kent Tyler </p>
+      <p><b>Modalidade:</b> BTT </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Vicksburg" class="collapsible"> Vicksburg </button>
+      <div class="content">
+      <p><b>Nome:</b> Sofia Todd </p>
+      <p><b>Modalidade:</b> Futebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Virgie" class="collapsible"> Virgie </button>
+      <div class="content">
+      <p><b>Nome:</b> Herrera Wilder </p>
+      <p><b>Modalidade:</b> Orientação </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> W </h2>
+    <button type="Walland" class="collapsible"> Walland </button>
+      <div class="content">
+      <p><b>Nome:</b> Bianca Prince </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Warren" class="collapsible"> Warren </button>
+      <div class="content">
+      <p><b>Nome:</b> Welch Rosales </p>
+      <p><b>Modalidade:</b> Karaté </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Waterview" class="collapsible"> Waterview </button>
+      <div class="content">
+      <p><b>Nome:</b> Villarreal Walton </p>
+      <p><b>Modalidade:</b> Andebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Watrous" class="collapsible"> Watrous </button>
+      <div class="content">
+      <p><b>Nome:</b> Newton Zamora </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Wedgewood" class="collapsible"> Wedgewood </button>
+      <div class="content">
+      <p><b>Nome:</b> Pruitt Ochoa </p>
+      <p><b>Modalidade:</b> Karaté </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Weedville" class="collapsible"> Weedville </button>
+      <div class="content">
+      <p><b>Nome:</b> Roberta Joseph </p>
+      <p><b>Modalidade:</b> Futebol </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Whitestone" class="collapsible"> Whitestone </button>
+      <div class="content">
+      <p><b>Nome:</b> Valeria Kelly </p>
+      <p><b>Modalidade:</b> Karaté </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Windsor" class="collapsible"> Windsor </button>
+      <div class="content">
+      <p><b>Nome:</b> Celia Rogers </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Woodlake" class="collapsible"> Woodlake </button>
+      <div class="content">
+      <p><b>Nome:</b> Rebekah Mayer </p>
+      <p><b>Modalidade:</b> Atletismo </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> Y </h2>
+    <button type="Yardville" class="collapsible"> Yardville </button>
+      <div class="content">
+      <p><b>Nome:</b> Hodge Maxwell </p>
+      <p><b>Modalidade:</b> Karaté </p>
+      <div class="line"></div>
+      <p><b>Nome:</b> Mcdowell Church </p>
+      <p><b>Modalidade:</b> Badminton </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Yogaville" class="collapsible"> Yogaville </button>
+      <div class="content">
+      <p><b>Nome:</b> Burt Wright </p>
+      <p><b>Modalidade:</b> Dança </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Yukon" class="collapsible"> Yukon </button>
+      <div class="content">
+      <p><b>Nome:</b> Dalton Chaney </p>
+      <p><b>Modalidade:</b> Triatlo </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+  
+  <div class="data">
+    <h2> Z </h2>
+    <button type="Zarephath" class="collapsible"> Zarephath </button>
+      <div class="content">
+      <p><b>Nome:</b> Ratliff Medina </p>
+      <p><b>Modalidade:</b> Esgrima </p>
+      <div class="line"></div>
+    </div>    
+    <button type="Zeba" class="collapsible"> Zeba </button>
+      <div class="content">
+      <p><b>Nome:</b> Randall Nichols </p>
+      <p><b>Modalidade:</b> Orientação </p>
+      <div class="line"></div>
+    </div>    
+  </div>
+</div>
+
+<div class = "bottomright"><a href="index.html">< HOME ></a></div>
+
+<script>
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
+  }
+</script>
+</body>
+</html>

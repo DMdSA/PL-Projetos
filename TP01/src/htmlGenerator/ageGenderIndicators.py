@@ -1,5 +1,5 @@
-"""ageGenderIndicators.py: Geração de ficheiro html para listagem de indicadores de idade e género"""
-
+from Queries import addresStudy
+from Queries import genderAgeQueries
 from EMDsParser import loadDataStructure as emdLDS
 
 ## HTML initial file format string
@@ -55,59 +55,12 @@ html {
   box-sizing: inherit;
 }
 
-.column {
-  float: left;
-  width: 19.9.3%;
-  margin-bottom: 16px;
-  padding: 0 8px;
-}
-
-@media screen and (max-width: 650px) {
-  .column {
-    width: 100%;
-    display: block;
-  }
-}
-
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-.container {
-  padding: 0 16px;
-}
-
-.container::after, .row::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-.dateField {
-  color: grey;
-}
-
-.button {
-  border: none;
-  outline: 0;
-  display: inline-block;
-  padding: 8px;
-  color: white;
-  background-color: #000;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-}
-
-.button:hover {
-  background-color: #555;
-}
 
 .bottomright {
   position: fixed;
   color: red;
   bottom: 10px;
-  right: 15px;
+  right: 55px;
   font-size: 18px;
 }
 
@@ -118,40 +71,44 @@ html {
   margin: 0 10px;
 }
 
-.address {
-  -webkit-columns: 2; /* Chrome, Safari, Opera */
-  -moz-columns: 2; /* Firefox */
-  columns: 2;
-}
-
 .data {
   flex: 0 0 50%;
   padding: 10px;
 }
 
+.column {
+  float: left;
+  width: 45%;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.row:after {
+content: "";
+display: table;
+clear: both;
+}
 
 </style>
 </head>
 <body>
 
-<h1>Idade e Genero</h1>
-<p>Os dados encontram-se divididos em 4 secções e divididos por idades.
-F < 35 | F >= 35 | M < 35 | M >= 35 </p>
-<div class="gender">'''
+<h1>Idade e Género</h1>
+<p>Os dados encontram-se divididos em 4 secções e divididos por idades.</p>
+<p>F < 35 | F >= 35 | M < 35 | M >= 35 </p>
 
+<div class="row">'''
 
+## emdFormatter (emdRegister)
+## Dado um objeto EMD, prepara a string correspondente à sua apresentação no ficheiro .html preparado
+# @emdRegister = objeto EMD
 def emdFormatter(emdRegister):
-  """Formata um registo para a sua devida representação em html
-    
-      Arguments:
-      ---------
-        emdRegister (emd) : registo de exame médico
-  """
-
 
   emdDivFormat = '''
-      <p><b>Nome:</b> {} {} </p>
-      <p><b>Idade:</b> {} <b>Genero:</b>{}</p>'''.format(emdRegister.name, 
+
+        <p><b>Nome:</b> {} {} </p>
+        <p><b>Idade:</b> {} <b>Genero:</b>{}</p>
+        <div class="line"></div>'''.format(emdRegister.name, 
                 emdRegister.surname, 
                 emdRegister.age,
                 emdRegister.gender)
@@ -159,8 +116,10 @@ def emdFormatter(emdRegister):
   global htmlStart
   htmlStart = htmlStart + emdDivFormat
 
+
 ## HTML final format string
 htmlEnd = '''
+  
 </div>
 
 <div class = "bottomright"><a href="index.html">< HOME ></a></div>
@@ -186,88 +145,65 @@ htmlEnd = '''
 </html>
 '''
 
-  ## devia ser confirmado o ".html"
-def ageGenderIndicatorsHtml(filename, dataset):
-  """Gerador de ficheiro html para indicadores de idade&género
-  
-    Arguments:
-    ---------
-      filename (str) : nome do ficheiro final
-      dataset (dictionary) : estrutura original dos dados presentes no dataset
-      
-  """
+def ageGenderIndicatorsHtml(filename, ageGenderRegisters):
 
   global htmlStart
   global htmlEnd
  
-  preparedInfo = prepareData(dataset)
+  preparedInfo = ageGenderRegisters
   listAge = list(preparedInfo.keys())
 
   fileHandler = open(filename, "wt", encoding="utf-8")
 
   for key in listAge:
-    
+
     if key == 'femLT35':
       htmlStart = htmlStart + '''
-  <div class = "femLT35">
-    <h2> Feminino < 35 anos </h2>'''
+
+  <div class = "column">
+
+      <h2> Feminino </h2>
+      
+      <button type="testing" class="collapsible"> Feminino < 35 </button>
+      
+      <div class="content">    '''
 
     if key == 'femGET35':
       htmlStart = htmlStart +'''
-  <div class = "femGET35">
-    <h2> Feminino >= 35 anos </h2>'''
+
+      <button type="testing" class="collapsible"> Feminino >= 35 </button>
+      
+      <div class="content">'''
 
     if key == 'mascLT35':
       htmlStart = htmlStart + '''
-  <div class = "mascLT35">
-    <h2> Masculino < 35 anos </h2>'''
+  </div>
+  <div class = "column">
+
+      <h2> Masculino </h2>
+     
+      <button type="testing" class="collapsible"> Masculino < 35 </button>
+        
+      <div class="content">'''
 
     elif key == 'mascGET35':
       htmlStart = htmlStart +'''
-  <div class = "mascGET35">
-    <h2> Masculino >= 35 anos </h2>'''
+  
+      <button type="testing" class="collapsible"> Masculino >= 35 </button>
+      
+      <div class="content">'''
 
     for emd in preparedInfo[key]:
 
-      htmlStart = htmlStart +  '''
-
-    <button type="testing" class="collapsible"> {} {} </button>
-    <div class="content">'''.format(emd.name,emd.surname)
       emdFormatter(emd)
-      
-      htmlStart = htmlStart + '''
-      <div class="line"></div>'''
-  
-    htmlStart = htmlStart + '''
-    </div>    '''
+    
+    htmlStart = htmlStart +'''
+      </div>
+      '''
+  htmlStart = htmlStart +'''
+    </div>'''
 
 
   fileHandler.write(htmlStart + htmlEnd)
   fileHandler.close()
 
-
-
-def prepareData(dataset):
-
-  emdRegisters = {emdLDS.fLT35: [], emdLDS.fGET35: [], emdLDS.mLT35: [], emdLDS.mGET35: []}
-
-  for year in dataset:
-    lvl_years=dataset[year]
-
-    for AgeGenderFilter in lvl_years:
-      lvl_genderAge = lvl_years[AgeGenderFilter]
-      
-      if AgeGenderFilter == emdLDS.fLT35 or AgeGenderFilter == emdLDS.fGET35:               # Se o filtro for direcionado ao género 'F'
-        emdRegisters[AgeGenderFilter] = emdRegisters[AgeGenderFilter] + lvl_genderAge
-      
-      elif AgeGenderFilter == emdLDS.mLT35 or AgeGenderFilter == emdLDS.mGET35:             # Se o filtro for direcionado ao género 'M'
-        emdRegisters[AgeGenderFilter] = emdRegisters[AgeGenderFilter] + lvl_genderAge
-      
-      else:
-        continue
-    
-    for filter in emdRegisters:
-        toSort = emdRegisters[filter]
-        toSort.sort(key=lambda x: (x.age))
-
-  return emdRegisters

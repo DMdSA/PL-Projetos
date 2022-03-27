@@ -1,5 +1,4 @@
-
-htmlStart = '''<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta name="index.html" content="width=device-width, initial-scale=1">
@@ -30,7 +29,7 @@ htmlStart = '''<!DOCTYPE html>
 
 /* Sinal lado direito caso esteja fechado apresenta "plus" caso esteja aberto apresenta "minus" */
 .collapsible:after {
-  content: '\\02795'; /* Unicode character for "plus" sign (+) */
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
   font-size: 13px;
   color: white;
   float: right;
@@ -38,7 +37,7 @@ htmlStart = '''<!DOCTYPE html>
 }
 
 .active:after {
-  content: "\\2796"; /* Unicode character for "minus" sign (-) */
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
 }
 
 .content {
@@ -122,9 +121,7 @@ htmlStart = '''<!DOCTYPE html>
   <a href="medResultsIndicators.html"><img src="graphs/apt_Bar_Graph.png" alt="Graph" class="center"></a>
 </div>
 
-'''
 
-htmlEnd='''
 <script>
 var coll = document.getElementsByClassName("collapsible");
 var i;
@@ -144,12 +141,3 @@ for (i = 0; i < coll.length; i++) {
 
 </body>
 </html>
-'''
-
-htmlFILE = "index.html"
-
-def indexHTML():
-  fileHandler = open(htmlFILE, "wt", encoding="utf-8")
-
-  fileHandler.write(htmlStart + htmlEnd)
-  fileHandler.close()

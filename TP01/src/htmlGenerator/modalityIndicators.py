@@ -209,13 +209,16 @@ def modalityIndicatorsHtml(filename, modalities):
     
     htmlStart = htmlStart +  '''
     <button type="{}" class="collapsible"> {} </button>
-      <div class="content">'''.format(address, address)
+
+      <div class="content">
+      '''.format(address, address)
 
     for emd in preparedInfo[(listAddress[addressIndex])]:
       emdFormatter(emd)
         
       htmlStart = htmlStart + '''
-      <div class="line"></div>'''
+      <div class="line"></div>
+      '''
   
     htmlStart = htmlStart + '''
     </div>    '''
