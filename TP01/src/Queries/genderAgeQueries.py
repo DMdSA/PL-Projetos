@@ -18,7 +18,7 @@ def getGenderDetails(dataset):
         -------
             perYear (dictionary) : número de indivíduos registados, por ano, idade e género
         
-        """
+    """
 
     perYear = {}
     emdRegisters = {emdLDS.fLT35: [], emdLDS.fGET35: [], emdLDS.mLT35: [], emdLDS.mGET35: []}
@@ -122,12 +122,16 @@ def createMultPieGender(genderDataSet):
     genderLabel.append("Female")
     genderLabel.append("Male")
 
-    for year in genderDataSet:
+    years = [str(x) for x in genderDataSet.keys()]
+    years.sort()
+
+
+    for year in years:
         if year != "allYears":
             genderArray = []
 
-            nFemale = ((genderDataSet[year])["F"])
-            nMale = ((genderDataSet[year])["M"])
+            nFemale = ((genderDataSet[int(year)])["F"])
+            nMale = ((genderDataSet[int(year)])["M"])
 
             genderArray.append(nFemale)
             genderArray.append(nMale)

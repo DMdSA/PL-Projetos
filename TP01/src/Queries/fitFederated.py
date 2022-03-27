@@ -10,7 +10,9 @@ aptosKey = "nAptos"
 fedKey = "nFederados" 
 overallKey = "nRegistos"  
 aptosListKey = "aptosList"
-fedListKey = "fedList" 
+fedListKey = "fedList"
+notAptosListKey = "notAptosList"
+notFedListKey = "notFedList" 
 
 def findAptosDic(dataset):               #Criação do dataset de aptos e federados
     
@@ -19,15 +21,19 @@ def findAptosDic(dataset):               #Criação do dataset de aptos e federa
     aptosCount = 0                         
     fedCount = 0
     overallCount = 0 
-    aptosList = []      
+    aptosList = []
+    notAptosList = []      
     fedList = []
+    notFedList = []
 
     AptosFedDict = {               
                         aptosKey: aptosCount,              #Por ano, tem o numero de registos, aptos, federados e as listas de aptos e federados
                         fedKey: fedCount,
                         overallKey: overallCount,
                         aptosListKey: aptosList,
+                        notAptosListKey: notAptosList,
                         fedListKey: fedList,
+                        notFedListKey: notFedList,
                     }
 
     for year in dataset:
@@ -44,9 +50,13 @@ def findAptosDic(dataset):               #Criação do dataset de aptos e federa
                 ((YearDic[year])[overallKey]) = ((YearDic[year])[overallKey]) + 1     #Registos desse ano
                 if(Record.medicalResult == "true"): 
                     ((YearDic[year])[aptosListKey]).append(Record)                    #Adicionar o registo se apto
+                else:
+                    ((YearDic[year])[notAptosListKey]).append(Record)
 
                 if(Record.federated == "true"):
                     ((YearDic[year])[fedListKey]).append(Record)                      #Adicionar o registo se federado
+                else:
+                    ((YearDic[year])[notFedListKey]).append(Record)
     
         ((YearDic[year])[aptosKey]) = len(((YearDic[year])[aptosListKey]))            #Numero de aptos
         ((YearDic[year])[fedKey]) = len(((YearDic[year])[fedListKey]))                #Numero de federados
@@ -55,34 +65,7 @@ def findAptosDic(dataset):               #Criação do dataset de aptos e federa
     ((YearDic[year])[aptosListKey]).sort(key=lambda x: (x.name))   
     ((YearDic[year])[fedListKey]).sort(key=lambda x: (x.name))
 
-    #createPieGraphAptos(YearDic, '2020')
-    #createMultPieGraphAptos(YearDic)
-    #createMultPieGraphFed(YearDic)
-    #createBarGraphAptos(YearDic)
-    #createBarGraphFed(YearDic)
-
     return YearDic
-
-def createPieGraphAptos(YearDic, year):    # Grafico Pie para os Aptos
-    
-    aptosArray = []             #Valores para o gráfico
-    aptosLabel = []             #Labels
-
-    if year in YearDic:
-        aptosLabel.append(str(year) + " Aptos")
-        aptosLabel.append(str(year) +  " Não Aptos")
-        aptos = ((YearDic[year])[aptosKey])        #Aptos
-        nAptos = ((YearDic[year])[overallKey]) - aptos   #Não Aptos
-
-        aptosArray.append(aptos)
-        aptosArray.append(nAptos)
-
-        fig = plt.figure()
-        plt.pie(aptosArray, labels = aptosLabel, shadow = True)   #Funções para desenhar o grafico
-        plt.show()
-        fig.savefig('apt_Pie_' + str(year) + '.png')
-    else:
-        print("#> Error generating Apt Pie Graph")
     
 
 def createMultPieGraphAptos(YearDic):   #Multiplos Gráficos Pie
@@ -107,28 +90,6 @@ def createMultPieGraphAptos(YearDic):   #Multiplos Gráficos Pie
         i = i + 1
 
     plt.show()
-
-        
-def createPieGraphFed(YearDic, year):   #Grafico Pie para federados
-
-    fedArray = []
-    fedLabel = []
-
-    if year in YearDic:
-        fedLabel.append(str(year) + " Federados")
-        fedLabel.append(str(year) +  " Não Federados")
-        federated = ((YearDic[year][fedKey]))
-        nFederated = ((YearDic[year][overallKey])) - federated
-
-        fedArray.append(federated)
-        fedArray.append(nFederated)
-
-        fig = plt.figure()
-        plt.pie(fedArray, labels = fedLabel, shadow = True)
-        plt.show()
-        fig.savefig('fed_Pie_' + str(year) + '.png')
-    else:
-        print("#> Error generating Fed. Pie Graph")
 
 
 def createMultPieGraphFed(YearDic): #Multiplos Graficos Pie para federados
@@ -199,13 +160,13 @@ def createBarGraphFed(YearDic): #Grafico de barras Federados
     fig = plt.figure()
     X_axis = np.arange(len(years))
     
-    plt.bar(X_axis - 0.2, FedArray, 0.4, label = 'Aptos')
-    plt.bar(X_axis + 0.2, nFedArray, 0.4, label = 'Não Aptos')
+    plt.bar(X_axis - 0.2, FedArray, 0.4, label = 'Federados')
+    plt.bar(X_axis + 0.2, nFedArray, 0.4, label = 'Não Federados')
     
     plt.xticks(X_axis, years)
     plt.xlabel("Anos")
     plt.ylabel("Número de Registos")
-    plt.title("Numbero de Registos Aptos")
+    plt.title("Numbero de Registos Federados")
     plt.legend()
     plt.show()
     fig.savefig('fed_Bar_Graph.png')

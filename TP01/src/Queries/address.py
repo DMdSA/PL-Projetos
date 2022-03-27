@@ -71,13 +71,3 @@ def createBarGraphAdress(addresses):
     plt.legend()
     plt.show()
     fig.savefig('address_Bar_Graph.png')
-
-
-
-
-    #df = pd.DataFrame(data,index= addressList)
-    #fig = plt.figure()
-    #plt.style.use('ggplot')
-    #ax = df.plot.barh().get_figure().savefig('Address_Bar_Graph.png')
-    #ax.set_ylabel("Número de Registos")
-    #ax.set_title("Número de Registos por Modalidade")

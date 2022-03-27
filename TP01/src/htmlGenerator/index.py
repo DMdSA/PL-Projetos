@@ -1,5 +1,3 @@
-"""index.py: Geração do ficheiro index.html, com as respostas às explorações efetuadas
-"""
 
 htmlStart = '''<!DOCTYPE html>
 <html>
@@ -27,7 +25,7 @@ htmlStart = '''<!DOCTYPE html>
 
 /* Sinal lado direito caso esteja fechado apresenta "plus" caso esteja aberto apresenta "minus" */
 .collapsible:after {
-  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  content: '\\02795'; /* Unicode character for "plus" sign (+) */
   font-size: 13px;
   color: white;
   float: right;
@@ -35,7 +33,7 @@ htmlStart = '''<!DOCTYPE html>
 }
 
 .active:after {
-  content: "\2796"; /* Unicode character for "minus" sign (-) */
+  content: "\\2796"; /* Unicode character for "minus" sign (-) */
 }
 
 .content {
@@ -81,12 +79,12 @@ htmlStart = '''<!DOCTYPE html>
 
 <button type="alinhaF" class="collapsible">f) Distribuição por estatuto de federado em cada ano</button>
 <div class="content">
-  <a href=" ..... .html">RESPOSTA</a>
+  <a href="federatedIndicators.html">RESPOSTA</a>
 </div>
 
 <button type="alinhaG" class="collapsible">g) Percentagem de aptos e não aptos por ano</button>
 <div class="content">
-  <a href=" ..... .html">RESPOSTA</a>
+  <a href="medResultsIndicators.html">RESPOSTA</a>
 </div>
 
 <script>

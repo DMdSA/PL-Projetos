@@ -107,9 +107,9 @@ htmlEnd = '''
 
 
 ## Name of the file to be written
-htmlFILE = "federatedIndicators.html"
+htmlFILE = "medResultsIndicators.html"
 
-def federatedIndicatorsHTML(dataset):
+def medResultsIndicatorsHtml(dataset):
 
   global htmlStart
   global htmlEnd
@@ -117,40 +117,41 @@ def federatedIndicatorsHTML(dataset):
 #  if len(dataset) <= 3:
 #    htmlGraph = '''<img src="fed_Mult_Pie.png" alt="Graph" class="center">'''
 #  else:
-#    htmlGraph = '''<img src="fed_Bar_Graph.png" alt="Graph" class="center">'''
+#    htmlGraph = '''<img src="fed_Mult_Pie.png" alt="Graph" class="center">'''
   
   fileHandler = open(htmlFILE, "wt", encoding="utf-8")
 
   for year in dataset:
-    year_lvl = dataset[year]
+    age_lvl = dataset[year]
     
     htmlStart = htmlStart + '''
     <h1> {} </h1>
-    <button type="true" class="collapsible">Federated</button>
+    <button type="true" class="collapsible">Positive Medical Result</button>
     <div class="content">
               '''.format(year)
 
-    fed_records = year_lvl["fedList"]
+    apt_records = age_lvl["aptosList"]
 
-    for record in fed_records:
+    for record in apt_records:
         emdFormatter(record)
-
+          
     htmlStart = htmlStart + '''
     </div>'''
 
 
     htmlStart = htmlStart + '''
-    <button type="true" class="collapsible">Not Federated</button>
+    <button type="true" class="collapsible">Negative Medical Result</button>
     <div class="content">
               '''
 
-    not_fed_records = year_lvl["notFedList"]
+    not_apt_records = age_lvl["notAptosList"]
 
-    for record in not_fed_records:
-      emdFormatter(record)
-    
+    for record in not_apt_records:
+        emdFormatter(record)
+          
     htmlStart = htmlStart + '''
     </div>'''
+
 
   fileHandler.write(htmlStart + htmlEnd)
   fileHandler.close()
@@ -159,14 +160,14 @@ def emdFormatter(emdRegister):
 
   emdDivFormat = '''
         <p>{} {} - {} {}<br>
-        <b>Fed:</b> {} <br>
+        <b>Result:</b> {} <br>
         {}</p>
         <div class="line"></div>
     '''.format( emdRegister.name, 
                 emdRegister.surname, 
                 emdRegister.age, 
                 emdRegister.gender, 
-                emdRegister.federated,
+                emdRegister.medicalResult,
                 emdRegister.modality
                 )
 
@@ -180,7 +181,7 @@ def prepareData(dataset):
       for age in age_lvl:
           records = age_lvl[age]
           for record in records:
-            y = (record.federated,record.name,record.surname,record.date,record.modality)
+            y = (record.medicalResults,record.name,record.surname,record.date,record.modality)
   
   return y
 

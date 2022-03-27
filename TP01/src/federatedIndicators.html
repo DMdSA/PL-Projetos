@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* Definições da lista colapsavel */
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Cor da caixa com o rato por cima */
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+/* Sinal lado direito caso esteja fechado apresenta "plus" caso esteja aberto apresenta "minus" */
+.collapsible:after {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: white;
+  float: right;
+  margin-left: 5px;
+}
+.active:after {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+
+.bottomright {
+  position: fixed;
+  color: red;
+  bottom: 10px;
+  right: 55px;
+  font-size: 18px;
+}
+
+/* line between entries */
+.line {
+  border-top: 1px solid grey;
+  flex-grow: 1;
+  margin: 0 10px;
+}
+
+.data {
+  flex: 0 0 50%;
+  padding: 10px;
+}
+
+
+</style>
+</head>
+<body>
+
+<h1>Federated Indicators</h1>
+
+    <h1> 2020 </h1>
+    <button type="true" class="collapsible">Federated</button>
+    <div class="content">
+              
+        <p>Delgado Gay - 28 F<br>
+        <b>Fed:</b> true <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Faith Wells - 31 F<br>
+        <b>Fed:</b> true <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Ina Robles - 34 F<br>
+        <b>Fed:</b> true <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Elma Estrada - 32 F<br>
+        <b>Fed:</b> true <br>
+        Andebol</p>
+        <div class="line"></div>
+    
+        <p>Lott Robertson - 27 F<br>
+        <b>Fed:</b> true <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Robbins Walsh - 30 F<br>
+        <b>Fed:</b> true <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Kathie Preston - 23 F<br>
+        <b>Fed:</b> true <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Marie Craft - 28 F<br>
+        <b>Fed:</b> true <br>
+        Atletismo</p>
+        <div class="line"></div>
+    
+        <p>Simmons Conway - 29 F<br>
+        <b>Fed:</b> true <br>
+        Andebol</p>
+        <div class="line"></div>
+    
+        <p>Emily Webb - 34 F<br>
+        <b>Fed:</b> true <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Foley Pollard - 24 F<br>
+        <b>Fed:</b> true <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Shepard Stevens - 26 F<br>
+        <b>Fed:</b> true <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Francis Moran - 30 F<br>
+        <b>Fed:</b> true <br>
+        Orientação</p>
+        <div class="line"></div>
+    
+        <p>Anna May - 28 F<br>
+        <b>Fed:</b> true <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Valeria Kelly - 31 F<br>
+        <b>Fed:</b> true <br>
+        Karaté</p>
+        <div class="line"></div>
+    
+        <p>Stanton Barrera - 29 F<br>
+        <b>Fed:</b> true <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Lily Marks - 29 F<br>
+        <b>Fed:</b> true <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Mclean Reilly - 34 F<br>
+        <b>Fed:</b> true <br>
+        Esgrima</p>
+        <div class="line"></div>
+    
+        <p>Bernice Bartlett - 28 F<br>
+        <b>Fed:</b> true <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Tammy Maddox - 26 F<br>
+        <b>Fed:</b> true <br>
+        Orientação</p>
+        <div class="line"></div>
+    
+        <p>Ashlee Beard - 23 F<br>
+        <b>Fed:</b> true <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Lindsay Thompson - 21 F<br>
+        <b>Fed:</b> true <br>
+        Andebol</p>
+        <div class="line"></div>
+    
+        <p>Stacey Mills - 22 F<br>
+        <b>Fed:</b> true <br>
+        Esgrima</p>
+        <div class="line"></div>
+    
+        <p>Helen Pruitt - 31 F<br>
+        <b>Fed:</b> true <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Smith Noel - 33 F<br>
+        <b>Fed:</b> true <br>
+        Andebol</p>
+        <div class="line"></div>
+    
+        <p>Pruitt Ochoa - 31 F<br>
+        <b>Fed:</b> true <br>
+        Karaté</p>
+        <div class="line"></div>
+    
+        <p>Summer Spencer - 21 F<br>
+        <b>Fed:</b> true <br>
+        Andebol</p>
+        <div class="line"></div>
+    
+        <p>Silvia Ayala - 24 F<br>
+        <b>Fed:</b> true <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Dolores Williams - 32 F<br>
+        <b>Fed:</b> true <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Blevins Frost - 28 F<br>
+        <b>Fed:</b> true <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Roth Booker - 33 F<br>
+        <b>Fed:</b> true <br>
+        Patinagem</p>
+        <div class="line"></div>
+    
+        <p>Chase Chang - 27 F<br>
+        <b>Fed:</b> true <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Lilian Levine - 30 F<br>
+        <b>Fed:</b> true <br>
+        Parapente</p>
+        <div class="line"></div>
+    
+        <p>Dalton Chaney - 30 F<br>
+        <b>Fed:</b> true <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Lucia Bright - 35 F<br>
+        <b>Fed:</b> true <br>
+        Orientação</p>
+        <div class="line"></div>
+    
+        <p>Sharon Bradley - 30 M<br>
+        <b>Fed:</b> true <br>
+        Futebol</p>
+        <div class="line"></div>
+    
+        <p>Aisha Riddle - 33 M<br>
+        <b>Fed:</b> true <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Miranda Powers - 29 M<br>
+        <b>Fed:</b> true <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Kristen Jacobs - 21 M<br>
+        <b>Fed:</b> true <br>
+        Karaté</p>
+        <div class="line"></div>
+    
+        <p>Walker Wooten - 27 M<br>
+        <b>Fed:</b> true <br>
+        Atletismo</p>
+        <div class="line"></div>
+    
+        <p>Cantrell Santos - 22 M<br>
+        <b>Fed:</b> true <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Hester Johnston - 26 M<br>
+        <b>Fed:</b> true <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Osborne Cox - 24 M<br>
+        <b>Fed:</b> true <br>
+        Patinagem</p>
+        <div class="line"></div>
+    
+        <p>Lang Farmer - 31 M<br>
+        <b>Fed:</b> true <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Livingston Thomas - 28 M<br>
+        <b>Fed:</b> true <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Wagner Steele - 33 M<br>
+        <b>Fed:</b> true <br>
+        Orientação</p>
+        <div class="line"></div>
+    
+        <p>Welch Rosales - 34 M<br>
+        <b>Fed:</b> true <br>
+        Karaté</p>
+        <div class="line"></div>
+    
+        <p>Isabella Dickson - 26 M<br>
+        <b>Fed:</b> true <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Shelton Ingram - 32 M<br>
+        <b>Fed:</b> true <br>
+        Patinagem</p>
+        <div class="line"></div>
+    
+        <p>Roberta Montoya - 29 M<br>
+        <b>Fed:</b> true <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Tami Briggs - 24 M<br>
+        <b>Fed:</b> true <br>
+        Parapente</p>
+        <div class="line"></div>
+    
+        <p>Pate Davis - 28 M<br>
+        <b>Fed:</b> true <br>
+        Equitação</p>
+        <div class="line"></div>
+    
+        <p>House Murphy - 28 M<br>
+        <b>Fed:</b> true <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Haley Washington - 33 M<br>
+        <b>Fed:</b> true <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Maryann Workman - 26 M<br>
+        <b>Fed:</b> true <br>
+        Orientação</p>
+        <div class="line"></div>
+    
+        <p>Petra Leon - 32 M<br>
+        <b>Fed:</b> true <br>
+        Equitação</p>
+        <div class="line"></div>
+    
+        <p>Burch Navarro - 22 M<br>
+        <b>Fed:</b> true <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Carmella Lindsay - 26 M<br>
+        <b>Fed:</b> true <br>
+        Futebol</p>
+        <div class="line"></div>
+    
+        <p>Price Hardin - 35 M<br>
+        <b>Fed:</b> true <br>
+        BTT</p>
+        <div class="line"></div>
+    
+    </div>
+    <button type="true" class="collapsible">Not Federated</button>
+    <div class="content">
+              
+        <p>Graves Goff - 29 F<br>
+        <b>Fed:</b> false <br>
+        Andebol</p>
+        <div class="line"></div>
+    
+        <p>Eunice Hunter - 33 F<br>
+        <b>Fed:</b> false <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Samantha Romero - 28 F<br>
+        <b>Fed:</b> false <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Julianne Powell - 29 F<br>
+        <b>Fed:</b> false <br>
+        Andebol</p>
+        <div class="line"></div>
+    
+        <p>Leanne Barron - 24 F<br>
+        <b>Fed:</b> false <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Jeanie Cantrell - 23 F<br>
+        <b>Fed:</b> false <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Brigitte Yates - 22 F<br>
+        <b>Fed:</b> false <br>
+        Karaté</p>
+        <div class="line"></div>
+    
+        <p>Kristina Brock - 22 F<br>
+        <b>Fed:</b> false <br>
+        Esgrima</p>
+        <div class="line"></div>
+    
+        <p>Jewel Wagner - 30 F<br>
+        <b>Fed:</b> false <br>
+        Atletismo</p>
+        <div class="line"></div>
+    
+        <p>Sherman Lowery - 33 F<br>
+        <b>Fed:</b> false <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Peters Emerson - 30 F<br>
+        <b>Fed:</b> false <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Josefa Valencia - 25 F<br>
+        <b>Fed:</b> false <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Rhea Wyatt - 32 F<br>
+        <b>Fed:</b> false <br>
+        Karaté</p>
+        <div class="line"></div>
+    
+        <p>Kramer Acosta - 34 F<br>
+        <b>Fed:</b> false <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Ivy Sandoval - 28 F<br>
+        <b>Fed:</b> false <br>
+        Esgrima</p>
+        <div class="line"></div>
+    
+        <p>Stephenson Cooke - 29 F<br>
+        <b>Fed:</b> false <br>
+        Equitação</p>
+        <div class="line"></div>
+    
+        <p>Park Collier - 30 F<br>
+        <b>Fed:</b> false <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Jody Hart - 34 F<br>
+        <b>Fed:</b> false <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Joann Barnes - 31 F<br>
+        <b>Fed:</b> false <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Karla Marsh - 27 F<br>
+        <b>Fed:</b> false <br>
+        Patinagem</p>
+        <div class="line"></div>
+    
+        <p>Ana Sharpe - 31 F<br>
+        <b>Fed:</b> false <br>
+        Orientação</p>
+        <div class="line"></div>
+    
+        <p>Allen Moon - 30 F<br>
+        <b>Fed:</b> false <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Foster Randolph - 27 F<br>
+        <b>Fed:</b> false <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Madge Daugherty - 30 F<br>
+        <b>Fed:</b> false <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Banks Anderson - 28 F<br>
+        <b>Fed:</b> false <br>
+        Parapente</p>
+        <div class="line"></div>
+    
+        <p>Frazier Aguilar - 21 F<br>
+        <b>Fed:</b> false <br>
+        Esgrima</p>
+        <div class="line"></div>
+    
+        <p>Leon Schmidt - 29 F<br>
+        <b>Fed:</b> false <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Herrera Wilder - 32 F<br>
+        <b>Fed:</b> false <br>
+        Orientação</p>
+        <div class="line"></div>
+    
+        <p>Joseph Schmidt - 25 F<br>
+        <b>Fed:</b> false <br>
+        Esgrima</p>
+        <div class="line"></div>
+    
+        <p>Frank Schwartz - 27 F<br>
+        <b>Fed:</b> false <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Patti Osborne - 29 F<br>
+        <b>Fed:</b> false <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Alston Richardson - 27 F<br>
+        <b>Fed:</b> false <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Freda Wooten - 30 F<br>
+        <b>Fed:</b> false <br>
+        Esgrima</p>
+        <div class="line"></div>
+    
+        <p>Crawford Kelley - 32 F<br>
+        <b>Fed:</b> false <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Lena Lynch - 26 F<br>
+        <b>Fed:</b> false <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Kate Woods - 23 F<br>
+        <b>Fed:</b> false <br>
+        Atletismo</p>
+        <div class="line"></div>
+    
+        <p>Justice Bryan - 34 F<br>
+        <b>Fed:</b> false <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Christa Norris - 32 F<br>
+        <b>Fed:</b> false <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Evelyn Grant - 25 F<br>
+        <b>Fed:</b> false <br>
+        Esgrima</p>
+        <div class="line"></div>
+    
+        <p>Skinner Mcintosh - 22 F<br>
+        <b>Fed:</b> false <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Esmeralda Young - 32 F<br>
+        <b>Fed:</b> false <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Jacqueline Love - 23 F<br>
+        <b>Fed:</b> false <br>
+        Andebol</p>
+        <div class="line"></div>
+    
+        <p>Shaw Yang - 33 F<br>
+        <b>Fed:</b> false <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Velazquez Meyers - 34 F<br>
+        <b>Fed:</b> false <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Marsh Crosby - 35 F<br>
+        <b>Fed:</b> false <br>
+        Orientação</p>
+        <div class="line"></div>
+    
+        <p>Tanisha Castro - 35 F<br>
+        <b>Fed:</b> false <br>
+        Parapente</p>
+        <div class="line"></div>
+    
+        <p>Merrill Maddox - 34 M<br>
+        <b>Fed:</b> false <br>
+        Equitação</p>
+        <div class="line"></div>
+    
+        <p>Isabella Howell - 28 M<br>
+        <b>Fed:</b> false <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Vaughan Herman - 29 M<br>
+        <b>Fed:</b> false <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Lora Ward - 29 M<br>
+        <b>Fed:</b> false <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Hollie Solis - 21 M<br>
+        <b>Fed:</b> false <br>
+        Futebol</p>
+        <div class="line"></div>
+    
+        <p>Maritza Kaufman - 29 M<br>
+        <b>Fed:</b> false <br>
+        Karaté</p>
+        <div class="line"></div>
+    
+        <p>Wilson Tucker - 27 M<br>
+        <b>Fed:</b> false <br>
+        Futebol</p>
+        <div class="line"></div>
+    
+        <p>Banks Guerra - 34 M<br>
+        <b>Fed:</b> false <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Mcdonald Bender - 21 M<br>
+        <b>Fed:</b> false <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Ashley Rivers - 27 M<br>
+        <b>Fed:</b> false <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Blevins Davenport - 28 M<br>
+        <b>Fed:</b> false <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Fox Williams - 27 M<br>
+        <b>Fed:</b> false <br>
+        Futebol</p>
+        <div class="line"></div>
+    
+        <p>Mclaughlin Sargent - 31 M<br>
+        <b>Fed:</b> false <br>
+        Karaté</p>
+        <div class="line"></div>
+    
+        <p>Mabel Faulkner - 22 M<br>
+        <b>Fed:</b> false <br>
+        Equitação</p>
+        <div class="line"></div>
+    
+        <p>Karen Blanchard - 32 M<br>
+        <b>Fed:</b> false <br>
+        Parapente</p>
+        <div class="line"></div>
+    
+        <p>Marsh Jenkins - 23 M<br>
+        <b>Fed:</b> false <br>
+        Karaté</p>
+        <div class="line"></div>
+    
+        <p>Jennie Hawkins - 34 M<br>
+        <b>Fed:</b> false <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Shields Bean - 27 M<br>
+        <b>Fed:</b> false <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Maynard Erickson - 23 M<br>
+        <b>Fed:</b> false <br>
+        Atletismo</p>
+        <div class="line"></div>
+    
+        <p>Vera Scott - 29 M<br>
+        <b>Fed:</b> false <br>
+        Esgrima</p>
+        <div class="line"></div>
+    
+        <p>Albert Sweeney - 34 M<br>
+        <b>Fed:</b> false <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Stewart Pugh - 24 M<br>
+        <b>Fed:</b> false <br>
+        Andebol</p>
+        <div class="line"></div>
+    
+        <p>Callie Wynn - 31 M<br>
+        <b>Fed:</b> false <br>
+        Futebol</p>
+        <div class="line"></div>
+    
+        <p>Letitia Dean - 29 M<br>
+        <b>Fed:</b> false <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Dixon Henry - 25 M<br>
+        <b>Fed:</b> false <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Marci Summers - 24 M<br>
+        <b>Fed:</b> false <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Cassie Kirk - 32 M<br>
+        <b>Fed:</b> false <br>
+        Karaté</p>
+        <div class="line"></div>
+    
+        <p>Garner Reid - 31 M<br>
+        <b>Fed:</b> false <br>
+        Karaté</p>
+        <div class="line"></div>
+    
+        <p>Cunningham Curry - 24 M<br>
+        <b>Fed:</b> false <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Chrystal Poole - 28 M<br>
+        <b>Fed:</b> false <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Hardin Mejia - 35 M<br>
+        <b>Fed:</b> false <br>
+        Futebol</p>
+        <div class="line"></div>
+    
+        <p>Miller Rojas - 35 M<br>
+        <b>Fed:</b> false <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Kim Combs - 35 M<br>
+        <b>Fed:</b> false <br>
+        Atletismo</p>
+        <div class="line"></div>
+    
+    </div>
+    <h1> 2019 </h1>
+    <button type="true" class="collapsible">Federated</button>
+    <div class="content">
+              
+        <p>Nikki Calderon - 22 F<br>
+        <b>Fed:</b> true <br>
+        Patinagem</p>
+        <div class="line"></div>
+    
+        <p>Valentine Sellers - 27 F<br>
+        <b>Fed:</b> true <br>
+        Patinagem</p>
+        <div class="line"></div>
+    
+        <p>Laverne Hays - 31 F<br>
+        <b>Fed:</b> true <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Munoz Meyers - 32 F<br>
+        <b>Fed:</b> true <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Freeman Diaz - 24 F<br>
+        <b>Fed:</b> true <br>
+        Esgrima</p>
+        <div class="line"></div>
+    
+        <p>Rosalind Michael - 21 F<br>
+        <b>Fed:</b> true <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Myrna Guerrero - 21 F<br>
+        <b>Fed:</b> true <br>
+        Atletismo</p>
+        <div class="line"></div>
+    
+        <p>Donna Blevins - 22 F<br>
+        <b>Fed:</b> true <br>
+        Equitação</p>
+        <div class="line"></div>
+    
+        <p>Goldie Mcgee - 25 F<br>
+        <b>Fed:</b> true <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Annabelle Duffy - 22 F<br>
+        <b>Fed:</b> true <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Nadine Nixon - 27 F<br>
+        <b>Fed:</b> true <br>
+        Orientação</p>
+        <div class="line"></div>
+    
+        <p>Charles Bowman - 27 F<br>
+        <b>Fed:</b> true <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Newton Zamora - 23 F<br>
+        <b>Fed:</b> true <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Burt Wright - 31 F<br>
+        <b>Fed:</b> true <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Hunter Russo - 21 F<br>
+        <b>Fed:</b> true <br>
+        Orientação</p>
+        <div class="line"></div>
+    
+        <p>Mathis Miller - 27 F<br>
+        <b>Fed:</b> true <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Alyssa Melendez - 29 F<br>
+        <b>Fed:</b> true <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Latisha Cantrell - 25 F<br>
+        <b>Fed:</b> true <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Anne Petty - 33 F<br>
+        <b>Fed:</b> true <br>
+        Parapente</p>
+        <div class="line"></div>
+    
+        <p>Flynn York - 22 F<br>
+        <b>Fed:</b> true <br>
+        Andebol</p>
+        <div class="line"></div>
+    
+        <p>Frieda Hansen - 32 F<br>
+        <b>Fed:</b> true <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Avis Craft - 26 F<br>
+        <b>Fed:</b> true <br>
+        Orientação</p>
+        <div class="line"></div>
+    
+        <p>Banks Lyons - 26 F<br>
+        <b>Fed:</b> true <br>
+        Karaté</p>
+        <div class="line"></div>
+    
+        <p>Eve Kline - 31 F<br>
+        <b>Fed:</b> true <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Foreman Tran - 27 F<br>
+        <b>Fed:</b> true <br>
+        Equitação</p>
+        <div class="line"></div>
+    
+        <p>Tanya Ballard - 26 F<br>
+        <b>Fed:</b> true <br>
+        Andebol</p>
+        <div class="line"></div>
+    
+        <p>Blackburn Price - 23 F<br>
+        <b>Fed:</b> true <br>
+        Andebol</p>
+        <div class="line"></div>
+    
+        <p>Sheppard Greer - 30 F<br>
+        <b>Fed:</b> true <br>
+        Atletismo</p>
+        <div class="line"></div>
+    
+        <p>Le Blair - 26 F<br>
+        <b>Fed:</b> true <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Decker Allen - 26 F<br>
+        <b>Fed:</b> true <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Kramer Mcclure - 22 F<br>
+        <b>Fed:</b> true <br>
+        Karaté</p>
+        <div class="line"></div>
+    
+        <p>Maria Mcfadden - 25 F<br>
+        <b>Fed:</b> true <br>
+        Atletismo</p>
+        <div class="line"></div>
+    
+        <p>Barr Bell - 33 F<br>
+        <b>Fed:</b> true <br>
+        Parapente</p>
+        <div class="line"></div>
+    
+        <p>Joanne Wise - 21 F<br>
+        <b>Fed:</b> true <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Beck Stevenson - 35 F<br>
+        <b>Fed:</b> true <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Vang George - 35 F<br>
+        <b>Fed:</b> true <br>
+        Atletismo</p>
+        <div class="line"></div>
+    
+        <p>Logan Kane - 26 M<br>
+        <b>Fed:</b> true <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Vivian Pope - 32 M<br>
+        <b>Fed:</b> true <br>
+        Parapente</p>
+        <div class="line"></div>
+    
+        <p>Tami Lawrence - 33 M<br>
+        <b>Fed:</b> true <br>
+        Andebol</p>
+        <div class="line"></div>
+    
+        <p>Graciela Carney - 28 M<br>
+        <b>Fed:</b> true <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Mcdowell Church - 31 M<br>
+        <b>Fed:</b> true <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Carmella Shaw - 23 M<br>
+        <b>Fed:</b> true <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Liza Webb - 34 M<br>
+        <b>Fed:</b> true <br>
+        Andebol</p>
+        <div class="line"></div>
+    
+        <p>Louise Weeks - 30 M<br>
+        <b>Fed:</b> true <br>
+        Patinagem</p>
+        <div class="line"></div>
+    
+        <p>Tamera Pierce - 23 M<br>
+        <b>Fed:</b> true <br>
+        Parapente</p>
+        <div class="line"></div>
+    
+        <p>Andrea Hensley - 26 M<br>
+        <b>Fed:</b> true <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Gaines Owens - 26 M<br>
+        <b>Fed:</b> true <br>
+        Futebol</p>
+        <div class="line"></div>
+    
+        <p>Latonya Lee - 33 M<br>
+        <b>Fed:</b> true <br>
+        Futebol</p>
+        <div class="line"></div>
+    
+        <p>Bianca Prince - 24 M<br>
+        <b>Fed:</b> true <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Stevenson Perkins - 28 M<br>
+        <b>Fed:</b> true <br>
+        Karaté</p>
+        <div class="line"></div>
+    
+        <p>Meagan Le - 32 M<br>
+        <b>Fed:</b> true <br>
+        Atletismo</p>
+        <div class="line"></div>
+    
+        <p>Jackie Garrison - 33 M<br>
+        <b>Fed:</b> true <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Garrison Evans - 33 M<br>
+        <b>Fed:</b> true <br>
+        Futebol</p>
+        <div class="line"></div>
+    
+        <p>Young Estes - 23 M<br>
+        <b>Fed:</b> true <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Lela Chan - 22 M<br>
+        <b>Fed:</b> true <br>
+        Patinagem</p>
+        <div class="line"></div>
+    
+        <p>Kathryn Maddox - 27 M<br>
+        <b>Fed:</b> true <br>
+        Patinagem</p>
+        <div class="line"></div>
+    
+        <p>Boyle Lancaster - 25 M<br>
+        <b>Fed:</b> true <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Randall Nichols - 26 M<br>
+        <b>Fed:</b> true <br>
+        Orientação</p>
+        <div class="line"></div>
+    
+        <p>Jacobs Carroll - 27 M<br>
+        <b>Fed:</b> true <br>
+        Andebol</p>
+        <div class="line"></div>
+    
+        <p>Gilbert Harrison - 28 M<br>
+        <b>Fed:</b> true <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Powers Torres - 31 M<br>
+        <b>Fed:</b> true <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Madeleine Gould - 28 M<br>
+        <b>Fed:</b> true <br>
+        Karaté</p>
+        <div class="line"></div>
+    
+        <p>Ayers Lara - 22 M<br>
+        <b>Fed:</b> true <br>
+        Karaté</p>
+        <div class="line"></div>
+    
+        <p>Holcomb Mathis - 22 M<br>
+        <b>Fed:</b> true <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Amalia Flynn - 28 M<br>
+        <b>Fed:</b> true <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Burton Singleton - 27 M<br>
+        <b>Fed:</b> true <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Dana Morrison - 35 M<br>
+        <b>Fed:</b> true <br>
+        Atletismo</p>
+        <div class="line"></div>
+    
+    </div>
+    <button type="true" class="collapsible">Not Federated</button>
+    <div class="content">
+              
+        <p>Mckay Bolton - 29 F<br>
+        <b>Fed:</b> false <br>
+        Futebol</p>
+        <div class="line"></div>
+    
+        <p>Rebekah Mayer - 32 F<br>
+        <b>Fed:</b> false <br>
+        Atletismo</p>
+        <div class="line"></div>
+    
+        <p>Lela Barnes - 31 F<br>
+        <b>Fed:</b> false <br>
+        Karaté</p>
+        <div class="line"></div>
+    
+        <p>Langley Mcbride - 29 F<br>
+        <b>Fed:</b> false <br>
+        Equitação</p>
+        <div class="line"></div>
+    
+        <p>Haley Estes - 21 F<br>
+        <b>Fed:</b> false <br>
+        Futebol</p>
+        <div class="line"></div>
+    
+        <p>Emilia Rosales - 32 F<br>
+        <b>Fed:</b> false <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Elisa Bernard - 26 F<br>
+        <b>Fed:</b> false <br>
+        Futebol</p>
+        <div class="line"></div>
+    
+        <p>Castaneda Kennedy - 23 F<br>
+        <b>Fed:</b> false <br>
+        Equitação</p>
+        <div class="line"></div>
+    
+        <p>Mari Collier - 22 F<br>
+        <b>Fed:</b> false <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Robbie Bailey - 23 F<br>
+        <b>Fed:</b> false <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Villarreal Walton - 23 F<br>
+        <b>Fed:</b> false <br>
+        Andebol</p>
+        <div class="line"></div>
+    
+        <p>Reva Kirk - 28 F<br>
+        <b>Fed:</b> false <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Deann Vargas - 30 F<br>
+        <b>Fed:</b> false <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Sofia Todd - 24 F<br>
+        <b>Fed:</b> false <br>
+        Futebol</p>
+        <div class="line"></div>
+    
+        <p>May French - 33 F<br>
+        <b>Fed:</b> false <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Elliott Vaughan - 24 F<br>
+        <b>Fed:</b> false <br>
+        Futebol</p>
+        <div class="line"></div>
+    
+        <p>Hurley Kaufman - 33 F<br>
+        <b>Fed:</b> false <br>
+        Futebol</p>
+        <div class="line"></div>
+    
+        <p>Jennifer Morris - 26 F<br>
+        <b>Fed:</b> false <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Brooks Gamble - 27 F<br>
+        <b>Fed:</b> false <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Torres Pittman - 28 F<br>
+        <b>Fed:</b> false <br>
+        Esgrima</p>
+        <div class="line"></div>
+    
+        <p>Nola Wade - 28 F<br>
+        <b>Fed:</b> false <br>
+        Karaté</p>
+        <div class="line"></div>
+    
+        <p>Kent Tyler - 22 F<br>
+        <b>Fed:</b> false <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Virginia Mcdowell - 22 F<br>
+        <b>Fed:</b> false <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Bishop Valentine - 31 F<br>
+        <b>Fed:</b> false <br>
+        Orientação</p>
+        <div class="line"></div>
+    
+        <p>Faulkner Baird - 22 F<br>
+        <b>Fed:</b> false <br>
+        Parapente</p>
+        <div class="line"></div>
+    
+        <p>Lawrence Hahn - 31 F<br>
+        <b>Fed:</b> false <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Wiley Stark - 31 F<br>
+        <b>Fed:</b> false <br>
+        Futebol</p>
+        <div class="line"></div>
+    
+        <p>Elena Mcneil - 34 F<br>
+        <b>Fed:</b> false <br>
+        Orientação</p>
+        <div class="line"></div>
+    
+        <p>Jessie Dyer - 30 F<br>
+        <b>Fed:</b> false <br>
+        Patinagem</p>
+        <div class="line"></div>
+    
+        <p>Rhea Patel - 23 F<br>
+        <b>Fed:</b> false <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Robles Nelson - 30 F<br>
+        <b>Fed:</b> false <br>
+        Futebol</p>
+        <div class="line"></div>
+    
+        <p>Landry Kidd - 33 F<br>
+        <b>Fed:</b> false <br>
+        Parapente</p>
+        <div class="line"></div>
+    
+        <p>Daniel Mccormick - 27 F<br>
+        <b>Fed:</b> false <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Frank Bishop - 35 F<br>
+        <b>Fed:</b> false <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Foreman Prince - 34 M<br>
+        <b>Fed:</b> false <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Marla Kelley - 22 M<br>
+        <b>Fed:</b> false <br>
+        Atletismo</p>
+        <div class="line"></div>
+    
+        <p>Milagros Osborn - 22 M<br>
+        <b>Fed:</b> false <br>
+        Patinagem</p>
+        <div class="line"></div>
+    
+        <p>Martha Hyde - 26 M<br>
+        <b>Fed:</b> false <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Lester Strong - 21 M<br>
+        <b>Fed:</b> false <br>
+        Patinagem</p>
+        <div class="line"></div>
+    
+        <p>Waters Dale - 32 M<br>
+        <b>Fed:</b> false <br>
+        Andebol</p>
+        <div class="line"></div>
+    
+        <p>Dawson Mayo - 25 M<br>
+        <b>Fed:</b> false <br>
+        Parapente</p>
+        <div class="line"></div>
+    
+        <p>Lisa Ford - 23 M<br>
+        <b>Fed:</b> false <br>
+        Equitação</p>
+        <div class="line"></div>
+    
+        <p>Deirdre Higgins - 31 M<br>
+        <b>Fed:</b> false <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Chandra Edwards - 24 M<br>
+        <b>Fed:</b> false <br>
+        Futebol</p>
+        <div class="line"></div>
+    
+        <p>Tania Sargent - 27 M<br>
+        <b>Fed:</b> false <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Agnes Graham - 31 M<br>
+        <b>Fed:</b> false <br>
+        Orientação</p>
+        <div class="line"></div>
+    
+        <p>Kristi Melton - 25 M<br>
+        <b>Fed:</b> false <br>
+        Parapente</p>
+        <div class="line"></div>
+    
+        <p>Leticia Pena - 23 M<br>
+        <b>Fed:</b> false <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Mcknight Price - 24 M<br>
+        <b>Fed:</b> false <br>
+        Parapente</p>
+        <div class="line"></div>
+    
+        <p>Maldonado Jefferson - 32 M<br>
+        <b>Fed:</b> false <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Stone Thomas - 30 M<br>
+        <b>Fed:</b> false <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Alberta Talley - 32 M<br>
+        <b>Fed:</b> false <br>
+        Orientação</p>
+        <div class="line"></div>
+    
+        <p>Nielsen Tanner - 28 M<br>
+        <b>Fed:</b> false <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Schmidt Hopper - 21 M<br>
+        <b>Fed:</b> false <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Gill Fitzpatrick - 25 M<br>
+        <b>Fed:</b> false <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Staci Jarvis - 34 M<br>
+        <b>Fed:</b> false <br>
+        Atletismo</p>
+        <div class="line"></div>
+    
+        <p>Lula Whitaker - 24 M<br>
+        <b>Fed:</b> false <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Watson Robles - 27 M<br>
+        <b>Fed:</b> false <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Rojas Bray - 29 M<br>
+        <b>Fed:</b> false <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Ratliff Medina - 22 M<br>
+        <b>Fed:</b> false <br>
+        Esgrima</p>
+        <div class="line"></div>
+    
+        <p>Combs Rollins - 24 M<br>
+        <b>Fed:</b> false <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Velasquez Barber - 22 M<br>
+        <b>Fed:</b> false <br>
+        Equitação</p>
+        <div class="line"></div>
+    
+        <p>Kristen Goodwin - 24 M<br>
+        <b>Fed:</b> false <br>
+        Esgrima</p>
+        <div class="line"></div>
+    
+        <p>Christina Hurley - 32 M<br>
+        <b>Fed:</b> false <br>
+        Patinagem</p>
+        <div class="line"></div>
+    
+        <p>Bowers Conrad - 24 M<br>
+        <b>Fed:</b> false <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Harding Hudson - 23 M<br>
+        <b>Fed:</b> false <br>
+        Esgrima</p>
+        <div class="line"></div>
+    
+        <p>Celia Rogers - 28 M<br>
+        <b>Fed:</b> false <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Bell Zimmerman - 24 M<br>
+        <b>Fed:</b> false <br>
+        Andebol</p>
+        <div class="line"></div>
+    
+        <p>Brock Peterson - 31 M<br>
+        <b>Fed:</b> false <br>
+        Futebol</p>
+        <div class="line"></div>
+    
+        <p>Hood Burks - 26 M<br>
+        <b>Fed:</b> false <br>
+        Andebol</p>
+        <div class="line"></div>
+    
+        <p>Curtis Curtis - 25 M<br>
+        <b>Fed:</b> false <br>
+        Karaté</p>
+        <div class="line"></div>
+    
+        <p>Geneva Barker - 33 M<br>
+        <b>Fed:</b> false <br>
+        Ciclismo</p>
+        <div class="line"></div>
+    
+        <p>Farrell Gilliam - 23 M<br>
+        <b>Fed:</b> false <br>
+        Andebol</p>
+        <div class="line"></div>
+    
+        <p>Trujillo Burke - 21 M<br>
+        <b>Fed:</b> false <br>
+        Triatlo</p>
+        <div class="line"></div>
+    
+        <p>Deanne Stone - 26 M<br>
+        <b>Fed:</b> false <br>
+        Equitação</p>
+        <div class="line"></div>
+    
+        <p>Pacheco Robbins - 21 M<br>
+        <b>Fed:</b> false <br>
+        Parapente</p>
+        <div class="line"></div>
+    
+        <p>Deana Franco - 32 M<br>
+        <b>Fed:</b> false <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Hodge Maxwell - 35 M<br>
+        <b>Fed:</b> false <br>
+        Karaté</p>
+        <div class="line"></div>
+    
+    </div>
+    <h1> 2021 </h1>
+    <button type="true" class="collapsible">Federated</button>
+    <div class="content">
+              
+        <p>Anita Lyons - 35 M<br>
+        <b>Fed:</b> true <br>
+        Parapente</p>
+        <div class="line"></div>
+    
+        <p>Bowers Gilliam - 35 F<br>
+        <b>Fed:</b> true <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Douglas Gay - 29 F<br>
+        <b>Fed:</b> true <br>
+        Atletismo</p>
+        <div class="line"></div>
+    
+        <p>Fields Colon - 32 F<br>
+        <b>Fed:</b> true <br>
+        Parapente</p>
+        <div class="line"></div>
+    
+        <p>Fowler Madden - 33 M<br>
+        <b>Fed:</b> true <br>
+        Andebol</p>
+        <div class="line"></div>
+    
+        <p>Frost Dejesus - 33 M<br>
+        <b>Fed:</b> true <br>
+        Orientação</p>
+        <div class="line"></div>
+    
+        <p>Glenn Best - 27 M<br>
+        <b>Fed:</b> true <br>
+        BTT</p>
+        <div class="line"></div>
+    
+        <p>Larsen Miles - 31 M<br>
+        <b>Fed:</b> true <br>
+        Dança</p>
+        <div class="line"></div>
+    
+        <p>Nunez Guy - 22 F<br>
+        <b>Fed:</b> true <br>
+        Equitação</p>
+        <div class="line"></div>
+    
+        <p>Stefanie Byrd - 34 M<br>
+        <b>Fed:</b> true <br>
+        Esgrima</p>
+        <div class="line"></div>
+    
+        <p>Woodard Rhodes - 34 F<br>
+        <b>Fed:</b> true <br>
+        Karaté</p>
+        <div class="line"></div>
+    
+    </div>
+    <button type="true" class="collapsible">Not Federated</button>
+    <div class="content">
+              
+        <p>Vivian Mercado - 34 F<br>
+        <b>Fed:</b> false <br>
+        Badminton</p>
+        <div class="line"></div>
+    
+        <p>Roberta Joseph - 29 F<br>
+        <b>Fed:</b> false <br>
+        Futebol</p>
+        <div class="line"></div>
+    
+        <p>Levine Sampson - 21 F<br>
+        <b>Fed:</b> false <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Cheryl Berger - 21 M<br>
+        <b>Fed:</b> false <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Castro Weber - 31 M<br>
+        <b>Fed:</b> false <br>
+        Basquetebol</p>
+        <div class="line"></div>
+    
+        <p>Freida Mcneil - 32 M<br>
+        <b>Fed:</b> false <br>
+        Patinagem</p>
+        <div class="line"></div>
+    
+    </div>
+
+<div class = "bottomright"><a href="index.html">< HOME ></a></div>
+
+<script>
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

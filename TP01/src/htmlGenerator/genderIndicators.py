@@ -1,13 +1,49 @@
-"""genderIndicators.py: Geração de ficheiro html para indicadores de género
-"""
-
 from cgitb import html
 from EMDsParser import loadDataStructure as emdLDS
+
 htmlStart = '''<!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+
+
+/* Definições da lista colapsavel */
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Cor da caixa com o rato por cima */
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+/* Sinal lado direito caso esteja fechado apresenta "plus" caso esteja aberto apresenta "minus" */
+.collapsible:after {
+  content: '\\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: white;
+  float: right;
+  margin-left: 5px;
+}
+.active:after {
+  content: "\\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
 
 html {
   box-sizing: border-box;
@@ -18,59 +54,51 @@ html {
   box-sizing: inherit;
 }
 
-.column {
-  float: left;
-  width: 19.9.3%;
-  margin-bottom: 16px;
-  padding: 0 8px;
-}
-
-@media screen and (max-width: 650px) {
-  .column {
-    width: 100%;
-    display: block;
-  }
-}
-
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-.container {
-  padding: 0 16px;
-}
-
-.container::after, .row::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
 .dateField {
   color: grey;
 }
-h1{
-    text-align: center;
-    color: darkgreen
+
+.bottomright {
+  position: fixed;
+  color: red;
+  bottom: 10px;
+  right: 55px;
+  font-size: 18px;
 }
-.masculine{
-    float: left;
-    margin: -8px;
-    padding: -8px;
-    background-color: cyan;
+
+/* line between entries */
+.line {
+  border-top: 1px solid grey;
+  flex-grow: 1;
+  margin: 0 10px;
 }
-.feminine{
-    float: left;
-    margin: -8px;
-    padding: -8px;
-    background-color: palevioletred;
+
+
+.data {
+  flex: 0 0 50%;
+  padding: 10px;
 }
+
+.feminine {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
 
 </style>
 </head>
 <body>
 
-<h1>Gender Indicators <sub style="font-size: 20px">by name, alphabetically</sub></h1>
+<h1>Gender Indicator</h1>
+<p>Registos organizados por ordem alfabetica</p>
+ 
 '''
 
 femKey = "F"
@@ -101,6 +129,12 @@ def prepareData(dataset):
 
 
 def emdFormatter(emdRegister):
+    """Formata um registo para a sua devida representação em html
+    
+      Arguments:
+      ---------
+        emdRegister (emd) : registo de exame médico
+    """
 
     greaterEqual35 = "GE"
     lessThan35 = "LT"
@@ -111,24 +145,17 @@ def emdFormatter(emdRegister):
     filterKeys = emdRegister.date + " " + ageFilter + " " + emdRegister.gender
 
     emdDivFormat = '''
-    <div class="column {}">
-        <div class="card">
-            <div class="container">
-                <h2>{} {}</h2>
-                <p class="dateField"> {} </p>
-                <p> Idade: {}, Género: {}</p>
-                <p>{}</p>
-            </div>
-        </div>
-    </div>
-    
-    '''.format(filterKeys,
+                <p class="dateField"> [{}] </p>
+                <p>{} {} - {} {}<br>
+                <b>Email:</b> {}</p>
+                <div class="line"></div>
+    '''.format( emdRegister.date,
                 emdRegister.name, 
                 emdRegister.surname, 
-                emdRegister.date, 
                 emdRegister.age, 
                 emdRegister.gender, 
-                emdRegister.email)
+                emdRegister.email
+                )
 
     global htmlStart
     htmlStart = htmlStart + emdDivFormat
@@ -136,8 +163,29 @@ def emdFormatter(emdRegister):
 
 
 htmlEnd = '''
+
+<div class = "bottomright"><a href="index.html">< HOME ></a></div>
+
+<script>
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
+  }
+</script>
 </body>
-</html>'''
+</html>
+'''
 
 
 ## Name of the file to be written
@@ -155,7 +203,8 @@ def genderIndicatorsHTML(dataset):
 
     for year in dates:
 
-        htmlStart = htmlStart + "\n<h1> " + year + "</h1>\n"
+        htmlStart = htmlStart + '''
+    <h1> {} </h1>'''.format(year)
 
         for gender in preparedInfo[year]:
           
@@ -163,19 +212,22 @@ def genderIndicatorsHTML(dataset):
           if gender == mascKey:
           
               htmlStart = htmlStart + '''
-              <div class="masculine">
+
+    <button type="male" class="collapsible">Male</button>
+      <div class="content">
               '''
           else:
               htmlStart = htmlStart + '''
-              <div class="feminine">
+    <button type="female" class="collapsible">Female</button>
+      <div class="content">
               '''
           for emdRegister in genderContent:
               emdFormatter(emdRegister)
           
-          htmlStart = htmlStart + "\n</div>"
-
-
+          htmlStart = htmlStart + '''
+      </div>'''
+        htmlStart = htmlStart + '''
+    </div> '''
 
     fileHandler.write(htmlStart + htmlEnd)
-
     fileHandler.close()
