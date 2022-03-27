@@ -98,11 +98,9 @@ def createMultPieGraphAptos(YearDict):   #Multiplos Gráficos Pie
 
         axes[i].pie(aptosArray, labels = aptosLabel, autopct='%1.1f%%', shadow = True, explode=(0, 0.1)) #Valores, Label, Percentagem, Sombra, Para o segundo valor ficar saído do gráfico
         axes[i].set_title('Apt in Year ' + str(year), fontsize = 12)
-        fig.savefig('apt_Mult_Pie.png')
         i = i + 1
 
-    plt.show()
-
+    fig.savefig('Images/apt_Mult_Pie.png')
 
 def createMultPieGraphFed(YearDict): #Multiplos Graficos Pie para federados
     """Criação de um gráfico circular com a informação da quantidade de registos federados e não federados, por ano
@@ -127,10 +125,9 @@ def createMultPieGraphFed(YearDict): #Multiplos Graficos Pie para federados
 
         axes[i].pie(fedArray, labels = fedLabel, autopct='%1.1f%%', shadow = True, explode=(0, 0.1))
         axes[i].set_title('Fed. in Year ' + str(year), fontsize = 12)
-        fig.savefig('fed_Mult_Pie.png')
         i = i + 1
 
-    plt.show()
+    fig.savefig('Images/fed_Mult_Pie.png')
 
 def createBarGraphAptos(YearDict):   #Grafico de Barras Aptos
     """Criação de um gráfico de barras com a informação da quantidade de registos com exame médico positivo e negativo, por ano
@@ -162,8 +159,7 @@ def createBarGraphAptos(YearDict):   #Grafico de Barras Aptos
     plt.ylabel("Número de Registos")
     plt.title("Numbero de Registos Aptos")
     plt.legend()
-    plt.show()
-    fig.savefig('apt_Bar_Graph.png')
+    fig.savefig('Images/apt_Bar_Graph.png')
 
 def createBarGraphFed(YearDict): #Grafico de barras Federados
     """Criação de um gráfico de barras com a informação da quantidade de registos federados e não federados, por ano
@@ -195,5 +191,4 @@ def createBarGraphFed(YearDict): #Grafico de barras Federados
     plt.ylabel("Número de Registos")
     plt.title("Numbero de Registos Federados")
     plt.legend()
-    plt.show()
-    fig.savefig('fed_Bar_Graph.png')
+    fig.savefig('Images/fed_Bar_Graph.png')

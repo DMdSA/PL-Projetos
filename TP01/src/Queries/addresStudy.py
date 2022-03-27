@@ -97,5 +97,5 @@ def createBarGraphAdress(addresses):
     plt.ylabel("Número de Registos")
     plt.title("10 Cidades Com Mais Registos")
     plt.legend()
-    plt.show()
-    fig.savefig('address_Bar_Graph.png')
+    #plt.show()
+    fig.savefig('Images/address_Bar_Graph.png')
