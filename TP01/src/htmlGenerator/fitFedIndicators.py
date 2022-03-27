@@ -1,90 +1,186 @@
-"""fitFedIndicators.py: """
-
 from EMDsParser import loadDataStructure as emdLDS
 
-
-def federatedIndicatorsHTML(dataset):
-  htmlStart = '''<!DOCTYPE html>
-  <html>
-  <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-
-  html {
-    box-sizing: border-box;
-    background-color: #FFEBEB;
-  }
-
-  *, *:before, *:after {
-    box-sizing: inherit;
-  }
-
-  .column {
-    float: left;
-    width: 19.9.3%;
-    margin-bottom: 16px;
-    padding: 0 8px;
-  }
-
-  @media screen and (max-width: 650px) {
-    .column {
-      width: 100%;
-      display: block;
-    }
-  }
-
-  .center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 75%;
+htmlStart = '''<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* Definições da lista colapsavel */
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
 }
 
-  .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+/* Cor da caixa com o rato por cima */
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+/* Sinal lado direito caso esteja fechado apresenta "plus" caso esteja aberto apresenta "minus" */
+.collapsible:after {
+  content: '\\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: white;
+  float: right;
+  margin-left: 5px;
+}
+.active:after {
+  content: "\\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+
+.bottomright {
+  position: fixed;
+  color: red;
+  bottom: 10px;
+  right: 55px;
+  font-size: 18px;
+}
+
+/* line between entries */
+.line {
+  border-top: 1px solid grey;
+  flex-grow: 1;
+  margin: 0 10px;
+}
+
+.data {
+  flex: 0 0 50%;
+  padding: 10px;
+}
+
+
+</style>
+</head>
+<body>
+
+<h1>Federated Indicators</h1>
+'''
+
+
+htmlEnd = '''
+
+<div class = "bottomright"><a href="index.html">< HOME ></a></div>
+
+<script>
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
   }
+</script>
 
-  .container {
-    padding: 0 16px;
-  }
-
-  .container::after, .row::after {
-    content: "";
-    clear: both;
-    display: table;
-  }
-
-  h1{
-      text-align: center;
-      color: #1C3AAE
-  }
-  }
-
-  </style>
-  </head>
-  <body>
-
-  <h1>Federated Indicators <sub style="font-size: 20px">by name, alphabetically</sub></h1>
-  '''
-
-  if len(dataset) <= 3:
-    htmlGraph = '''<img src="fed_Mult_Pie.png" alt="Graph" class="center">'''
-  else:
-    htmlGraph = '''<img src="fed_Mult_Pie.png" alt="Graph" class="center">'''
+</body>
+</html>'''
 
 
+## Name of the file to be written
+htmlFILE = "federatedIndicators.html"
 
+def federatedIndicatorsHTML(dataset):
 
-  htmlEnd = '''
-  </body>
-  </html>'''
+  global htmlStart
+  global htmlEnd
 
-
-  ## Name of the file to be written
-  htmlFILE = "FederatedIndicators.html"
-
+#  if len(dataset) <= 3:
+#    htmlGraph = '''<img src="fed_Mult_Pie.png" alt="Graph" class="center">'''
+#  else:
+#    htmlGraph = '''<img src="fed_Bar_Graph.png" alt="Graph" class="center">'''
+  
   fileHandler = open(htmlFILE, "wt", encoding="utf-8")
 
-  fileHandler.write(htmlStart + htmlGraph + htmlEnd)
+  for year in dataset:
+    year_lvl = dataset[year]
+    
+    htmlStart = htmlStart + '''
+    <h1> {} </h1>
+    <button type="true" class="collapsible">Federated</button>
+    <div class="content">
+              '''.format(year)
 
+    fed_records = year_lvl["fedList"]
+
+    for record in fed_records:
+        emdFormatter(record)
+
+    htmlStart = htmlStart + '''
+    </div>'''
+
+
+    htmlStart = htmlStart + '''
+    <button type="true" class="collapsible">Not Federated</button>
+    <div class="content">
+              '''
+
+    not_fed_records = year_lvl["notFedList"]
+
+    for record in not_fed_records:
+      emdFormatter(record)
+    
+    htmlStart = htmlStart + '''
+    </div>'''
+
+  fileHandler.write(htmlStart + htmlEnd)
   fileHandler.close()
+
+def emdFormatter(emdRegister):
+
+  emdDivFormat = '''
+        <p>{} {} - {} {}<br>
+        <b>Fed:</b> {} <br>
+        {}</p>
+        <div class="line"></div>
+    '''.format( emdRegister.name, 
+                emdRegister.surname, 
+                emdRegister.age, 
+                emdRegister.gender, 
+                emdRegister.federated,
+                emdRegister.modality
+                )
+
+  global htmlStart
+  htmlStart = htmlStart + emdDivFormat
+
+def prepareData(dataset):
+  
+  for year in dataset:
+      age_lvl = dataset[year]
+      for age in age_lvl:
+          records = age_lvl[age]
+          for record in records:
+            y = (record.federated,record.name,record.surname,record.date,record.modality)
+  
+  return y
+
