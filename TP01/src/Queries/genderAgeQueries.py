@@ -1,6 +1,7 @@
 """genderAgeQueries.py: Queries de procura sobre idade e/ou género nos registos
 """
 
+from operator import le
 from EMDsParser import loadDataStructure as emdLDS
 import matplotlib.pyplot as plt
 import numpy as np
@@ -112,6 +113,11 @@ def calculateGenderDetails(genderDetails):
 
 
 def createMultPieGender(genderDataSet):
+    """Criação de um conjunto de gráficos circulares, um para cada ano presente no dataset
+    
+        Arguments:
+        ---------
+            genderDataSet (dictionary) : estrutura de dados com os registos organizados por género"""
 
     
     fig, axes = plt.subplots(1, len(genderDataSet)-1)
@@ -144,6 +150,12 @@ def createMultPieGender(genderDataSet):
 
 
 def allYearsPieGraph(genderDataSet):
+    """Criação de um gráfico circular com a informação da quantidade de registos masculinos e femininos na totalidade dos anos
+    
+        Arguments:
+        ---------
+            genderDataSet (dictionary) : estrutura de dados com os registos organizados por género"""
+
     genderArray = []
     genderLegend = []
     colors = ["#FC3EEB","#0098FF"]  # [pink,blue]
@@ -165,7 +177,12 @@ def allYearsPieGraph(genderDataSet):
     
 
 
-def createBarGraphGender(genderDataSet):   #Grafico de Barras Aptos
+def createBarGraphGender(genderDataSet): 
+    """Criação de um gráfico de barras com a quantidade de registos masculinos e femininos por ano
+    
+        Arguments:
+        ---------
+            genderDataSet (dictionary) : estrutura de dados com os registos organizados por género"""
 
     years = []
     maleArray = []
@@ -193,3 +210,32 @@ def createBarGraphGender(genderDataSet):   #Grafico de Barras Aptos
     plt.legend()
     plt.show()
     fig.savefig('Gender_Bar_Graph.png')
+
+
+def genderAge_Graph(ageGenderData):
+    """Criação de um gráfico de barras com a quantidade de registos masculinos e femininos com mais ou menos do que 35 anos
+    
+        Arguments:
+        ---------
+            ageGenderData (dictionary) : estrutura de dados com os registos organizados por género e idade"""
+
+    values = []
+    details = ageGenderData[1]
+    
+    values.append(len(details[emdLDS.fLT35]))
+    values.append(len(details[emdLDS.mLT35]))
+    values.append(len(details[emdLDS.fGET35]))
+    values.append(len(details[emdLDS.mGET35]))
+
+    legenda = ['F < 35','M < 35', 'F >= 35','M >= 35']
+
+    fig = plt.figure()
+    
+    plt.bar(legenda, values)
+
+    plt.xlabel("Idade e Género")
+    plt.ylabel("Número de Registos")
+    plt.title("Número de Registos por Idade e Género")
+    plt.legend()
+    plt.show()
+    fig.savefig('AgeGender_Bar_Graph.png')
