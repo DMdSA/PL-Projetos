@@ -95,6 +95,6 @@ def createBarGraphAdress(addresses):
     plt.xticks(X_axis, addressList, rotation=45)
     plt.xlabel("Cidades")
     plt.ylabel("Número de Registos")
-    plt.title("10 Cidades Com Mais Registos")
+    plt.title("Top 10 cidades com mais registos")
     plt.legend()
-    fig.savefig('Images/address_Bar_Graph.png')
+    fig.savefig('graphs/address_Bar_Graph.png')

@@ -145,7 +145,7 @@ def createMultPieGender(genderDataSet):
             axes[i].set_title(str(year), fontsize = 12)
             i = i + 1
 
-    fig.savefig('Images/gender_Mult_Pie.png')
+    fig.savefig('graphs/gender_Mult_Pie.png')
 
 
 def allYearsPieGraph(genderDataSet):
@@ -171,7 +171,7 @@ def allYearsPieGraph(genderDataSet):
     plt.pie(genderArray, labels = genderArray, colors = colors, autopct='%1.1f%%', shadow = True, explode=(0, 0.1))
     plt.title("Número de Registos por Género")
     plt.legend(genderLegend)
-    fig.savefig('Images/Gender_allYears_Pie.png')
+    fig.savefig('graphs/Gender_allYears_Pie.png')
     
 
 
@@ -185,12 +185,14 @@ def createBarGraphGender(genderDataSet):
     years = []
     maleArray = []
     femaleArray = []
+    sortedYears = [str(x) for x in genderDataSet.keys()]
+    sortedYears.sort()
     
-    for year in genderDataSet:
+    for year in sortedYears:
         if year != "allYears":
             years.append(year)
-            nFemale = ((genderDataSet[year])["F"])
-            nMale = ((genderDataSet[year]["M"]))
+            nFemale = ((genderDataSet[int(year)])["F"])
+            nMale = ((genderDataSet[int(year)]["M"]))
 
             maleArray.append(nMale)
             femaleArray.append(nFemale)
@@ -206,7 +208,7 @@ def createBarGraphGender(genderDataSet):
     plt.ylabel("Número de Registos")
     plt.title("Número de Registos por Género")
     plt.legend()
-    fig.savefig('Images/Gender_Bar_Graph.png')
+    fig.savefig('graphs/Gender_Bar_Graph.png')
 
 
 def genderAge_Graph(ageGenderData):
@@ -234,4 +236,4 @@ def genderAge_Graph(ageGenderData):
     plt.ylabel("Número de Registos")
     plt.title("Número de Registos por Idade e Género")
     plt.legend()
-    fig.savefig('Images/AgeGender_Bar_Graph.png')
+    fig.savefig('graphs/AgeGender_Bar_Graph.png')

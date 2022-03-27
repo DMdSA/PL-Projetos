@@ -160,7 +160,7 @@ def modalidades_Graph(ModYears):
     df = pd.DataFrame(data,columns=years,index=modalities)
 
     plt.style.use('ggplot')
-    ax = df.plot.barh().get_figure().savefig('Images/Modality_Bar_Graph.png')
+    ax = df.plot.barh().get_figure().savefig('graphs/Modality_Bar_Graph.png')
 
     plt.legend()
 
@@ -190,6 +190,6 @@ def mod_graph_AllYears(ModDict):
     df = pd.DataFrame({'mod':modalities,'Nº Registos':values})
 
     plt.style.use('ggplot')
-    ax = df.plot.barh(x='mod', y='Nº Registos').get_figure().savefig('Images/Mod_Bar_Graph_AllYears.png')
+    ax = df.plot.barh(x='mod', y='Nº Registos').get_figure().savefig('graphs/Mod_Bar_Graph_AllYears.png')
 
     plt.legend()

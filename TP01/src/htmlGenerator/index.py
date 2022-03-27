@@ -76,11 +76,11 @@ htmlStart = '''<!DOCTYPE html>
   <div class="row">
 
     <div class="column">
-      <a href="genderIndicators.html"><img src="graphs/Gender_Bar_Graph.png" alt="Graph" class="center" style="width:100%"></a>
+      <a href="genderIndicators.html"><img src="../graphs/Gender_Bar_Graph.png" alt="Graph" class="center" style="width:100%"></a>
     </div>
 
     <div class="column">
-      <a href="genderIndicators.html"><img src="graphs/Gender_allYears_Pie.png" alt="Graph" class="center" style="width:100%"></a>
+      <a href="genderIndicators.html"><img src="../graphs/Gender_allYears_Pie.png" alt="Graph" class="center" style="width:100%"></a>
     </div>
 
   </div>
@@ -92,11 +92,11 @@ htmlStart = '''<!DOCTYPE html>
   <div class="row">
 
     <div class="column">
-      <a href="genderIndicators.html"><img src="graphs/Modality_Bar_Graph.png" alt="Graph" class="center" style="width:100%"></a>
+      <a href="modalityIndicators.html"><img src="../graphs/Modality_Bar_Graph.png" alt="Graph" class="center" style="width:100%"></a>
     </div>
 
     <div class="column"> /* falta alterar*/
-      <a href="genderIndicators.html"><img src="graphs/Modality_Bar_Graph.png" alt="Graph" class="center" style="width:100%"></a>
+      <a href="modalityIndicators.html"><img src="../graphs/Modality_Bar_Graph.png" alt="Graph" class="center" style="width:100%"></a>
     </div>
 
   </div>
@@ -104,22 +104,22 @@ htmlStart = '''<!DOCTYPE html>
 
 <button type="alinhaD" class="collapsible">d) Distribuição por idade e género</button>
 <div class="content">
-  <a href="ageGenderIndicators.html"><img src="graphs/.png" alt="Graph" class="center"></a>
+  <a href="ageGenderIndicators.html"><img src="../graphs/AgeGender_Bar_Graph.png" alt="Graph" class="center"></a>
 </div>
 
 <button type="alinhaE" class="collapsible">e) Distribuição por morada</button>
 <div class="content">
-  <a href="addressIndicators.html"><img src="graphs/address_Bar_Graph.png" alt="Graph" class="center"></a>
+  <a href="addressIndicators.html"><img src="../graphs/address_Bar_Graph.png" alt="Graph" class="center"></a>
 </div>
 
 <button type="alinhaF" class="collapsible">f) Distribuição por estatuto de federado em cada ano</button>
 <div class="content">
-  <a href="federatedIndicators.html"><img src="graphs/fed_Bar_Graph.png" alt="Graph" class="center"></a>
+  <a href="federatedIndicators.html"><img src="../graphs/fed_Bar_Graph.png" alt="Graph" class="center"></a>
 </div>
 
 <button type="alinhaG" class="collapsible">g) Percentagem de aptos e não aptos por ano</button>
 <div class="content">
-  <a href="medResultsIndicators.html"><img src="graphs/apt_Bar_Graph.png" alt="Graph" class="center"></a>
+  <a href="medResultsIndicators.html"><img src="../graphs/apt_Bar_Graph.png" alt="Graph" class="center"></a>
 </div>
 
 '''
@@ -146,7 +146,7 @@ for (i = 0; i < coll.length; i++) {
 </html>
 '''
 
-htmlFILE = "index.html"
+htmlFILE = "html/index.html"
 
 def indexHTML():
   fileHandler = open(htmlFILE, "wt", encoding="utf-8")

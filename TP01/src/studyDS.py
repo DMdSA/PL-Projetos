@@ -15,7 +15,7 @@ from htmlGenerator import *
 emdDS = loadDataStructure.buildData("dataset/emd.csv")
 
 ## dates
-datesIndicators.datesIndicatorsHtml("datesIndicators", emdDS[0])
+datesIndicators.datesIndicatorsHtml("html/datesIndicators.html", emdDS[0])
 dateStudy.datesGraph(emdDS[0])
 
 ## age&Gender
@@ -26,14 +26,14 @@ genderAgeQueries.genderAge_Graph(ageGenderDetails)
 genderAgeQueries.allYearsPieGraph(genderDetais)
 genderAgeQueries.createBarGraphGender(genderDetais)
 genderAgeQueries.createMultPieGender(genderDetais)
-ageGenderIndicators.ageGenderIndicatorsHtml("ageGenderIndicators.html", ageGenderSorted)
+ageGenderIndicators.ageGenderIndicatorsHtml("html/ageGenderIndicators.html", ageGenderSorted)
 
 ## age
-genderIndicators.genderIndicatorsHTML("genderIndicators.html", emdDS[0])
+genderIndicators.genderIndicatorsHTML("html/genderIndicators.html", emdDS[0])
 
 ## address
 addresses = addresStudy.getAddress(emdDS[0])
-addressIndicators.addressIndicatorsHtml("addressIndicators.html", addresses)
+addressIndicators.addressIndicatorsHtml("html/addressIndicators.html", addresses)
 addresStudy.createBarGraphAdress(addresses)
 
 ## federated and med results
@@ -46,11 +46,11 @@ fitFederated.createMultPieGraphFed(fitAndfed)
 ## modality
 modalities = modalityStudy.getModalities(emdDS[0])
 modalitiesInfo = modalityStudy.calculateModalitiesInfo(modalities)
-modalityIndicators.modalityIndicatorsHtml("modalityIndicators.html", modalities)
+modalityIndicators.modalityIndicatorsHtml("html/modalityIndicators.html", modalities)
 modalityStudy.modalidades_Graph(modalitiesInfo)
 modalityStudy.mod_graph_AllYears(modalitiesInfo[0])
 
-fitFedIndicators.federatedIndicatorsHTML("federatedIndicators.html", fitAndfed)
-medResultsIndicators.medResultsIndicatorsHtml("medicalResultsIndicators.html", fitAndfed)
+fitFedIndicators.federatedIndicatorsHTML("html/federatedIndicators.html", fitAndfed)
+medResultsIndicators.medResultsIndicatorsHtml("html/medicalResultsIndicators.html", fitAndfed)
 
 index.indexHTML()

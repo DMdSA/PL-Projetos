@@ -29,6 +29,6 @@ def datesGraph(dataset):
     plt.xticks(X_axis, years)
     plt.xlabel("Anos")
     plt.ylabel("Número de Registos")
-    plt.title("Numbero de Registos por Ano")
+    plt.title("Número de Registos, por Ano")
     plt.legend()
-    fig.savefig("Images/Dates_Bar_Graph.png")
+    fig.savefig("graphs/Dates_Bar_Graph.png")
