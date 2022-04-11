@@ -109,42 +109,6 @@ def calculateGenderDetails(genderDetails):
 # Para apresentar a amostragem considerada só é preciso ordená-la segundo um critério, visto que já se encontra agrupada
 
 
-def createMultPieGender(genderDataSet):
-    """Criação de um conjunto de gráficos circulares, um para cada ano presente no dataset
-    
-        Arguments:
-        ---------
-            genderDataSet (dictionary) : estrutura de dados com os registos organizados por género"""
-
-    
-    fig, axes = plt.subplots(1, len(genderDataSet)-1)
-    i = 0
-    genderLabel = []
-    colors = ["#FC3EEB","#0098FF"]
-    genderLabel.append("Female")
-    genderLabel.append("Male")
-
-    sortedYears = [str(x) for x in genderDataSet.keys()]
-    sortedYears.sort()
-
-
-    for year in sortedYears:
-        if year != "allYears":
-            genderArray = []
-
-            nFemale = ((genderDataSet[int(year)])["F"])
-            nMale = ((genderDataSet[int(year)])["M"])
-
-            genderArray.append(nFemale)
-            genderArray.append(nMale)
-
-            axes[i].pie(genderArray, labels = genderLabel, colors = colors, autopct='%1.1f%%', shadow = True, explode=(0, 0.1))
-            axes[i].set_title(str(year), fontsize = 12)
-            i = i + 1
-
-    fig.savefig('graphs/gender_Mult_Pie.png')
-
-
 def allYearsPieGraph(genderDataSet):
     """Criação de um gráfico circular com a informação da quantidade de registos masculinos e femininos na totalidade dos anos
     

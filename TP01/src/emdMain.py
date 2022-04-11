@@ -23,7 +23,6 @@ genderDetais = genderAgeQueries.calculateGenderDetails(ageGenderDetails)
 genderAgeQueries.genderAge_Graph(ageGenderDetails)
 genderAgeQueries.allYearsPieGraph(genderDetais)
 genderAgeQueries.createBarGraphGender(genderDetais)
-genderAgeQueries.createMultPieGender(genderDetais)
 ageGenderIndicators.ageGenderIndicatorsHtml("html/ageGenderIndicators.html", ageGenderSorted)
 
 ## age
@@ -38,8 +37,6 @@ addresStudy.createBarGraphAdress(addresses)
 fitAndfed = fitFederated.findAptosDic(emdDS[0])
 fitFederated.createBarGraphAptos(fitAndfed)
 fitFederated.createBarGraphFed(fitAndfed)
-fitFederated.createMultPieGraphAptos(fitAndfed)
-fitFederated.createMultPieGraphFed(fitAndfed)
 
 ## modality
 modalities = modalityStudy.getModalities(emdDS[0])
