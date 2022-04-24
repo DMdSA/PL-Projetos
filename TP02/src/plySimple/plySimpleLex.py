@@ -1,6 +1,5 @@
 """plySimpleLex.py: classe que arrecadará com toda a informação proveniente do PLY-SIMPLE::LEX"""
 
-
 tokens_key = "tokens"
 literals_key = "literals"
 ignore_key = "ignore"
@@ -11,12 +10,13 @@ comment_key = "comment"
 lineno_key = "lineno"
 
 
-class plySLex:
+class PlySLexObject:
 
     def __init__(my):
-
+        
         my._idCounter = 1                               ## statement id
         my._lexerVariables = []                         ## lex statements, each one is a dictionary
+        my._literals = ""
 
         my._hasLiterals = False                         ## flag control for literals definition
         my._hasTokens = False                           ## flag control for tokens definition
@@ -30,6 +30,18 @@ class plySLex:
     ##----------------- Variables gets/sets/deleters ---
     ##--------------------------------------------------
     
+    ## literals
+    @property
+    def literals(my):
+        return my._literals
+    
+    @literals.setter
+    def literals(my, value):
+        my._literals = value
+    
+    @literals.deleter
+    def literals(my):
+        del my._literals
 
     ## varsFullyDefined
     @property
@@ -166,6 +178,7 @@ class plySLex:
         ## LITERALS KEY
         elif literals_key in newVariable.keys() and my._hasLiterals is False:
             my._hasLiterals = True
+            my._literals = newVariable[literals_key]
         
         ## IGNORE KEY
         elif ignore_key in newVariable.keys() and my._hasIgnore is False:
@@ -232,4 +245,3 @@ class plySLex:
         for var in my._lexerVariables:
             print(str(var))
         
-    
