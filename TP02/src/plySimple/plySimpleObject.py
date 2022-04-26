@@ -2,22 +2,6 @@
 from plySimpleLex import PlySLexObject
 from plySimpleYacc import PlySYaccObject
 
-## lex keys
-tokens_key = "tokens"
-literals_key = "literals"
-ignore_key = "ignore"
-error_key = "error"
-return_key = "return"
-regex_key = "regex"
-
-## yacc keys
-precedence_key = "precedence"
-pythonCode_key = "pythonCode"
-prodRule_key = "productionRule"
-
-## common keys
-lineno_key = "lineno"
-comment_key = "comment"
 
 
 class PlySimple:

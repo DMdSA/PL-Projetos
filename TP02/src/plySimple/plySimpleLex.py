@@ -1,13 +1,21 @@
 """plySimpleLex.py: classe que arrecadará com toda a informação proveniente do PLY-SIMPLE::LEX"""
 
+import sys
+
+## lex keys
 tokens_key = "tokens"
+definedToken_key = "alreadyDefined"
 literals_key = "literals"
 ignore_key = "ignore"
 error_key = "error"
 return_key = "return"
 regex_key = "regex"
-comment_key = "comment"
+states_key = "state"
+
+## common keys
 lineno_key = "lineno"
+comment_key = "comment"
+id_key = "id"
 
 
 class PlySLexObject:
@@ -15,16 +23,22 @@ class PlySLexObject:
     def __init__(my):
         
         my._idCounter = 1                               ## statement id
-        my._lexerVariables = []                         ## lex statements, each one is a dictionary
-        my._literals = ""
 
         my._hasLiterals = False                         ## flag control for literals definition
         my._hasTokens = False                           ## flag control for tokens definition
         my._hasIgnore = False                           ## flag control for ignore definition
-        my._hasError = False                            ## flag control for error definition
+        my._hasError = False
+        my._hasStates = False
 
-        my._varsFullyDefined = {}                       ## flag control for each VAR definition
+        my._literals = {}
+        my._tokens = {}
+        my._ignore = {}
+        my._error = {}
+        my._returns = []
+        my._states = {}
+        my._comments = []
 
+        my._keysOrder = []
 
     ##--------------------------------------------------
     ##----------------- Variables gets/sets/deleters ---
@@ -148,100 +162,193 @@ class PlySLexObject:
     ##--------------------------------------------------
 
 
-    """Para cada um dos tokens definidos pelo utilizador, inicializa a sua existência, para posterior definição de regras"""
-    def initVariable(my, variable):
-        if variable not in my._varsFullyDefined:
-            my._varsFullyDefined[variable] = False
-            return
-        else : raise Exception("Duplicated initialization of var='" + variable + "'!")
+    def addLiterals(my, lit):
+
+        if literals_key in lit.keys():
+
+            line = lit[lineno_key]
+
+            if my._hasLiterals is False:
+                lit[id_key] = my._idCounter
+                my.idCounter_inc()
+                my._hasLiterals = True
+                my._literals = lit
+            else :
+                sys.exit("\n#> duplicate reference of \'literals\' lineno: " + str(line))
+        else:
+            sys.exit("\n#> what you tried to add is not a \'literals\' statement! lineno: " + str(line))
+
+
+    def addTokens(my, tokens):
+
+        if tokens_key in tokens.keys():
+
+            if my._hasTokens is False:
+                #tks = {p[2] : p[5], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[8]}
+                # campo extra em que, para cada token, confirma se já foi definido ou não
+                tokens[definedToken_key] = {}
+                eachToken = tokens[definedToken_key]
+                for s in tokens[tokens_key]:
+                    eachToken[s] = False
+                tokens[id_key] = my._idCounter
+                my.idCounter_inc()
+                my._tokens = tokens
+                my._hasTokens = True
+
+            else :
+                sys.exit("\n#> duplicate reference of \'tokens\'")
+        else:
+            sys.exit("\n#> what you tried to add is not a \'tokens\' statement!")
+
+    def addTokenDefinition(my, variable):
+
+        # se for um valor de retorno
+        if return_key in variable.keys():
+            
+            # get da variável a retornar
+            varToReturn = variable[return_key]
+            # se estiver a ser especificado ANTES de ser definido - erro
+            if my._hasTokens is False:
+                # se os tokens ainda não tiverem sido definidos
+                sys.exit("""\n#> unknown reference to \'{}\'
+                        Have you defined token's list?""".format(varToReturn))
+
+            # se estiver a ser especificado APOS ser definido
+            else:
+                
+                # get do dicionário de variaveis adicionadas no %tokens =
+                varsDict = my._tokens[definedToken_key]
+                # se a variável que estamos a especificar já estava completa - erro
+                if varsDict[varToReturn] is True:
+                    sys.exit("\n#> error! duplicate reference to \'{}'s definition/return value".format(varToReturn))
+                # se for a primeira vez que está a ser especificada, atualizar e adicionar
+                else:
+                    variable[id_key] = my._idCounter
+                    my.idCounter_inc()
+                    my._returns.append(variable)
+                    varsDict[varToReturn] = True
+
+        else:
+            sys.exit("\n#> what you tried to add is not a \'return\' specification!")
     
-    """Ao assegurar que o token já foi previamente inicializado, confirma que o utilizador já definiu a regra desse token"""
-    def concludeVariable(my, variable):
-        if variable in my._varsFullyDefined.keys() and my._varsFullyDefined[variable] is False:
-            my._varsFullyDefined[variable] = True
-        else : raise Exception("Duplicated definition of return value for var='" + variable + "'!")
-
-
-    """Ao adicionar novos parâmetros de ply, assegura que são únicos e não há repetições"""
-    def confirmNewVariable(my, newVariable):
+    
+    def addIgnore(my, ignore):
         
+        if ignore_key in ignore.keys():
+
+            if my._hasIgnore is True:
+                sys.exit("\n#> duplicate reference to \'ignore\' statement")
+            else:
+                ignore[id_key] = my._idCounter
+                my.idCounter_inc()
+                my._ignore = ignore
+                my._hasIgnore = True
+        else:
+            sys.exit("\n#> what you tried to add is not an \'ignore\' statement!")  
+    
+    def addError(my, error):
+        
+        if error_key in error.keys():
+
+            if my._hasError is True:
+                sys.exit("\n#> duplicate reference to \'error\' statement")
+            else:
+                error[id_key] = my._idCounter
+                my.idCounter_inc()
+                my._error = error
+                my._hasError = True
+        else:
+            sys.exit("\n#> what you tried to add is not an \'error\' statement!")
+
+
+    def addStates(my, states):
+
+        if states_key in states.keys():
+
+            if my._hasStates is True:
+                sys.exit("\n#> duplicate reference to \'state\' statement")
+
+            else:
+                states[id_key] = my._idCounter
+                my.idCounter_inc()
+                my._states = states
+                my._hasStates = True
+        else:
+            sys.exit("\n#> what you tried to add is not an \'state\' statement")
+    
+    def addComment(my, comment):
+
+        comment[id_key] = my._idCounter
+        my.idCounter_inc()
+        my._comments.append(comment)
+
+    def addStatement(my, statement):
+
         ## TOKENS KEY
-        if tokens_key in newVariable.keys() and my._hasTokens is False:
-            for tkn in newVariable[tokens_key]:
-                my.initVariable(tkn)
-            my._hasTokens = True
+        if tokens_key in statement.keys():
+            my.addTokens(statement)
+            my._keysOrder.append(tokens_key)
 
         ## RETURN KEY
-        elif return_key in newVariable.keys():
-            my.concludeVariable(newVariable[return_key])
+        elif return_key in statement.keys():
+            my.addTokenDefinition(statement)
+            my._keysOrder.append(return_key)
         
         ## LITERALS KEY
-        elif literals_key in newVariable.keys() and my._hasLiterals is False:
-            my._hasLiterals = True
-            my._literals = newVariable[literals_key]
+        elif literals_key in statement.keys():
+            my.addLiterals(statement)
+            my._keysOrder.append(literals_key)
         
         ## IGNORE KEY
-        elif ignore_key in newVariable.keys() and my._hasIgnore is False:
-            my._hasIgnore = True
+        elif ignore_key in statement.keys():
+            my.addIgnore(statement)
+            my._keysOrder.append(ignore_key)
         
         ## ERROR KEY
-        elif error_key in newVariable.keys() and my._hasError is False:
-            my._hasIgnore = True
+        elif error_key in statement.keys():
+            my.addError(statement)
+            my._keysOrder.append(error_key)
         
-        ## DUPLICATED INFO - ERROR
+        ## STATE KEY
+        elif states_key in statement.keys():
+            my.addStates(statement)
+            my._keysOrder.append(states_key)
+
+        elif comment_key in statement.keys():
+            my.addComment(statement)
+            my._keysOrder.append(comment_key)
+
+        ## UNKNOWN KEY - ERROR
         else:
-            raise Exception("Duplicated ply statement! lineno: " + newVariable.lineno_key)
-        
+            raise Exception("\n#> error: unknown statement!! lineno: " + statement.lineno_key)
 
-    """Preencher este objeto com ID comparável associado a cada nova variável"""
-    def addVariable(my, newVariable):
-        
-        ## Se as variáveis estiverem a ser definidas pela 1ªx no TOKENS:
-        my.confirmNewVariable(newVariable)
-        newVariable["id"] = my.idCounter
-        my.idCounter_inc()
-        my._lexerVariables.append(newVariable)
+
     
-
-    """Verifica se uma VARIAVEL se encontra previamente registada nos tokens da linguagem"""
-    def checkTokenExistance(my, variableName):
-
-        for dic in my._lexerVariables:                  ## para cada dicionário dentro da lista de dicionários
-            
-            if tokens_key in dic.keys():           ## se o dicionário contiver a key:"tokens"
-                tokens = dic[tokens_key]           ## retira a lista de tokens
-                
-                if variableName in tokens:              ## confirma se a variableName faz parte dos tokens pre-definidos
-                    return True
-                return False
-        return False
-
     """Confirma se o LEX do plySimple está completo e pode prosseguir para a configuração do YACC"""
     def isReady(my):
 
         if my._hasLiterals is False:
             raise Exception("PlySimple-error: literals are missing!")
 
-        elif my._hasTokens is True: 
+        elif my._hasTokens is False: 
             raise Exception("PlySimple-error: tokens are missing!")
         
-        elif my._hasIgnore is True:
+        elif my._hasIgnore is False:
             raise Exception("PlySimple-error: ignore characters are missing!")          
         
-        elif my._hasError is True:
+        elif my._hasError is False:
             raise Exception("PlySimple-error: lex error control is missing!")              
         
         else :
-            for elem in my._varsFullyDefined:
-                if my._varsFullyDefined[elem] is False:
-                    raise Exception("PlySimple-error: rule definition for variable \"" + elem + " is missing!")
-
+            varsDict = my._tokens[definedToken_key]
+            for variable in varsDict:
+                if varsDict[variable] is False:
+                    raise Exception("PlySimple-error: rule definition for variable \"" + variable + " is missing!")
         return True                        
 
 
     """Imprime as variáveis que já se encontram guardadas na classe"""
     def printVariables(my):
 
-        for var in my._lexerVariables:
-            print(str(var))
+        print(vars(my))
         

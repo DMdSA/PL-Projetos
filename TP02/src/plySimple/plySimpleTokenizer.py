@@ -96,7 +96,7 @@ class PlySimpleTokenizer:
 
     def t_ignore_newline(my, t):
         r'\n+'
-        t.lexer.lineno += len(t.value)
+        t.lexer.lineno += 1
 
 
     # ------------------------------------------------------------------- STATES IDENTIFIERS
