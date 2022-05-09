@@ -10,7 +10,7 @@ ignore_key = "ignore"
 error_key = "error"
 return_key = "return"
 regex_key = "regex"
-states_key = "state"
+states_key = "states"
 
 ## common keys
 lineno_key = "lineno"
@@ -142,19 +142,32 @@ class PlySLexObject:
     def idCounter_inc(my):
         my._idCounter = my._idCounter + 1
 
-    ## lexerVariables
+    ## literals
     @property
-    def lexerVariables(my):
-        return my._lexerVariables
+    def literals(my):
+        return my._literals
 
-    @lexerVariables.setter
-    def lexerVariables(my, value):
-        my._lexerVariables = value
+    @literals.setter
+    def literals(my, value):
+        my._literals = value
 
-    @lexerVariables.deleter
-    def lexerVariables(my):
-        del my._lexerVariables
+    @literals.deleter
+    def literals(my):
+        del my._literals
 
+
+    ## tokens
+    @property
+    def tokens(my):
+        return my._tokens
+
+    @tokens.setter
+    def tokens(my, value):
+        my._tokens = value
+
+    @tokens.deleter
+    def tokens(my):
+        del my._tokens
 
 
     ##--------------------------------------------------
@@ -282,6 +295,7 @@ class PlySLexObject:
         my.idCounter_inc()
         my._comments.append(comment)
 
+
     def addStatement(my, statement):
 
         ## TOKENS KEY
@@ -320,7 +334,7 @@ class PlySLexObject:
 
         ## UNKNOWN KEY - ERROR
         else:
-            raise Exception("\n#> error: unknown statement!! lineno: " + statement.lineno_key)
+            sys.exit("\n#> error: unknown statement!! lineno: " + str(statement[lineno_key]))
 
 
     
@@ -328,27 +342,28 @@ class PlySLexObject:
     def isReady(my):
 
         if my._hasLiterals is False:
-            raise Exception("PlySimple-error: literals are missing!")
+            sys.exit("PlySimple-error: literals are missing!")
 
         elif my._hasTokens is False: 
-            raise Exception("PlySimple-error: tokens are missing!")
+            sys.exit("PlySimple-error: tokens are missing!")
         
         elif my._hasIgnore is False:
-            raise Exception("PlySimple-error: ignore characters are missing!")          
+            sys.exit("PlySimple-error: ignore characters are missing!")          
         
         elif my._hasError is False:
-            raise Exception("PlySimple-error: lex error control is missing!")              
+            sys.exit("PlySimple-error: lex error control is missing!")              
         
         else :
             varsDict = my._tokens[definedToken_key]
             for variable in varsDict:
                 if varsDict[variable] is False:
-                    raise Exception("PlySimple-error: rule definition for variable \"" + variable + " is missing!")
+                    sys.exit("PlySimple-error: rule definition for variable \"" + variable + " is missing!")
         return True                        
 
 
     """Imprime as variáveis que já se encontram guardadas na classe"""
     def printVariables(my):
 
-        print(vars(my))
+        for v in vars(my):
+            print(v , "->     ", vars(my)[v])
         

@@ -149,10 +149,22 @@ class PlySimpleTokenizer:
         #print("TVALUE")
         return t
 
+    ## 'inclusive'
+    def t_LEX_INCLUSIVE(my, t):
+        r'\'(?i:inclusive)\''
+        t.value = t.value.lower()
+        return t
+    
+    ## 'exclusive'
+    def t_LEX_EXCLUSIVE(my, t):
+        r'\'(?i:exclusive)\''
+        t.value = t.value.lower()
+        return t
+
     ## identify a variable given as a token for ply : 'VARNAME'
     def t_LEX_VAR(my, t):
         r'\'[^\W]+\''
-        t.value = t.value[1:-1]
+        #t.value = t.value[1:-1]
         #print("VAR :: " + t.value)
         return t
 
@@ -186,21 +198,10 @@ class PlySimpleTokenizer:
 
     ## %state
     def t_LEX_STATES(my,t):
-        r'(?i:state)'
+        r'(?i:states)'
         t.value = t.value.lower()
         return t
 
-    ## 'inclusive'
-    def t_LEX_INCLUSIVE(my, t):
-        r'\'(?i:inclusive)\''
-        t.value = t.value.lower()
-        return t
-    
-    ## 'exclusive'
-    def t_LEX_EXCLUSIVE(my, t):
-        r'\'(?i:exclusive)\''
-        t.value = t.value.lower()
-        return t
 
     ## identify "return", case insensitive
     def t_LEX_RETURN(my, t):
@@ -211,7 +212,7 @@ class PlySimpleTokenizer:
     ## identify a sequence of chars given for %literals and %ignore
     def t_LEX_CHARS(my, t):
         r'\"[^\"]+\"'
-        #t.value = t.value[1:-1]
+        t.value = t.value[1:-1]
         #print("CHARS :: " + t.value)
         return t
 

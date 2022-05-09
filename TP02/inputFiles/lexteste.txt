@@ -2,6 +2,12 @@
 
 %literals = "+-/*=()" ## a single char
 
+%states = [
+            ('COISO', 'inclusive'),
+            ('DIOGO', 'EXCLUSIVE'),
+        ]   # grande estado
+
+
 %ignore = " \t\n"
 
 %tokens = [ 'VAR','NUMBER' ]
@@ -10,7 +16,7 @@
 
 '\d+(\.\d+)?' return('NUMBER', float(t.value))
 
-'.' error(f"Illegal character '{t.value[0]}', [{t.lexer.lineno}]", t.lexer.skip(1) )
+
 
 
 %% YACC

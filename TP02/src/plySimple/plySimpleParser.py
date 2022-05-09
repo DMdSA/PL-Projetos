@@ -5,9 +5,9 @@ import sys
 sys.path.append('../')
 from ply import yacc
 
-from plySimpleTokenizer import PlySimpleTokenizer
-from plySimpleLex import *
-from plySimpleYacc import *
+from plySimple.plySimpleTokenizer import PlySimpleTokenizer
+from plySimple.plySimpleLex import *
+from plySimple.plySimpleYacc import *
 
 pythonCode_key = "pythonCode"
 
@@ -114,7 +114,7 @@ class PlySimpleParser:
     def p_init_LITERALS(my, p):
         "init : '%' LITERALS '=' CHARS comment"
         lit = {p[2] : p[4], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[5]}
-        print(lit)
+        #print(lit)
         my._lexObject.addStatement(lit)
         #my._lexObject.printVariables()
 
@@ -122,7 +122,7 @@ class PlySimpleParser:
     def p_init_IGNORE(my, p):
         "init : '%' IGN '=' CHARS comment"
         ign = {p[2] : p[4], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[5]}
-        print(ign)
+        #print(ign)
         my._lexObject.addStatement(ign)
         #my._lexObject.printVariables()
         #print("\n" + str(plyDictionary))
@@ -131,7 +131,7 @@ class PlySimpleParser:
     def p_init_tokens_railing(my, p):
         "init : '%' TKNS '=' OPSQUAREB vars ',' CLSQUAREB comment"
         tks = {p[2] : p[5], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[8]}
-        print(tks)
+        #print(tks)
         my._lexObject.addStatement(tks)
         #my._lexObject.printVariables()
 
@@ -139,7 +139,7 @@ class PlySimpleParser:
     def p_init_tokens(my, p):
         "init : '%' TKNS '=' OPSQUAREB vars CLSQUAREB comment"
         tks = {p[2] : p[5], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[7]}
-        print(tks)
+        #print(tks)
         my._lexObject.addStatement(tks)
         #my._lexObject.printVariables()
 
@@ -161,38 +161,36 @@ class PlySimpleParser:
 
     # state extra form railing comma (python alike!)
     def p_states_railing(my, p):
-        "states : '%' STATES '=' OPCURVEB stateStatements ',' CLCURVEB comment"
+        "states : '%' STATES '=' OPSQUAREB stateStatements ',' CLSQUAREB comment"
         st = {p[2] : p[5], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[8]}
-        print(st)
+        #print(st)
         p[0] = st
         my._lexObject.addStatement(st)
 
     # state format
     def p_states(my, p):
-        "states : '%' STATES '=' OPCURVEB stateStatements CLCURVEB comment"
+        "states : '%' STATES '=' OPSQUAREB stateStatements CLSQUAREB comment"
         st = {p[2] : p[5], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[7]}
         print(st)
         p[0] = st
         my._lexObject.addStatement(st)    
     
-     # state : two statements (maximum allowed)
-    def p_stateStatements_two(my, p):
-        "stateStatements : state ',' state"
-        p[0] = list() + [p[1]] + [p[3]]
-
-    # state : one and only one statement
-    def p_stateStatements_unique(my, p):
+    def p_stateStatementsList(my, p):
+        "stateStatements : stateStatements ',' state"
+        p[0] = p[1] + [p[3]]
+    
+    def p_statements(my, p):
         "stateStatements : state"
         p[0] = [p[1]]
 
     # state INCLUSIVE
     def p_state_inclusive(my, p):
-        "state : VAR ',' INCLUSIVE"
+        "state : OPCURVEB VAR ',' INCLUSIVE CLCURVEB"
         p[0] = (p[2], p[4])
 
     # state EXLCUSIVE
     def p_state_exclusive(my, p):
-        "state : VAR ',' EXCLUSIVE"
+        "state : OPCURVEB VAR ',' EXCLUSIVE CLCURVEB"
         p[0] = (p[2], p[4])
 
 
@@ -212,7 +210,7 @@ class PlySimpleParser:
         variavel = (p[4])[0]
         tipo = (p[4])[1]
         ret = {return_key : variavel, variavel : tipo, regex_key : p[1], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[6]}
-        print(ret)
+        #print(ret)
         my._lexObject.addStatement(ret)
         #my._lexObject.printVariables()
 
@@ -224,7 +222,7 @@ class PlySimpleParser:
         variavel = (p[4])[0]
         tipo = (p[4])[1]
         ret = {return_key : variavel, variavel : tipo, regex_key : p[1], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[6]}
-        print(ret)
+        #print(ret)
         my._lexObject.addStatement(ret)
         #my._lexObject.printVariables()
 
@@ -233,7 +231,7 @@ class PlySimpleParser:
         "regexRules : errorRules comment"
         p[0] = p[1]
         err = {error_key : p[0], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[2]}
-        print(err)
+        #print(err)
         my._lexObject.addStatement(err)
 
     # return('VARNAME')
@@ -256,16 +254,26 @@ class PlySimpleParser:
         "errorRules : REGEX ERROR OPCURVEB errorValues CLCURVEB"
         p[0] = p[4]
 
+
+    def p_errorValuesFSTRRailling(my, p):
+        "errorValues : FSTR ','"
+        p[0] = (p[1], )
+        # o resultado é apenas uma string formatada
+
     # f"..."
     def p_errorValuesFSTR(my, p):
         "errorValues : FSTR"
-        p[0] = p[1]
+        p[0] = (p[1], )
         # o resultado é apenas uma string formatada
+
+    def p_errorValuesSkipRailling(my, p):
+        "errorValues : TSKIP ','"
+        p[0] = (p[1], )
 
     # t.lexer.skip(INT)
     def p_errorValuesSkip(my, p):
         "errorValues : TSKIP"
-        p[0] = p[1]
+        p[0] = (p[1], )
 
     # (f"..." , t.lexer.skip)
     def p_errorValuesMoreV1(my, p):
@@ -287,7 +295,7 @@ class PlySimpleParser:
         "precedence : PRECEDENCE '=' OPSQUAREB precStatements ',' CLSQUAREB comment"
         p[0] = p[4]
         precedence = {p[1] : p[4], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[7]}
-        print(precedence)
+        #print(precedence)
         my._yaccObject.addStatement(precedence)
 
     # precedence format
@@ -295,7 +303,7 @@ class PlySimpleParser:
         "precedence : PRECEDENCE '=' OPSQUAREB precStatements CLSQUAREB comment"
         p[0] = p[4]
         precedence = {p[1] : p[4], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[6]}
-        print(precedence)
+        #print(precedence)
         my._yaccObject.addStatement(precedence)    
     
     # precedence : one and only one statement
@@ -337,7 +345,7 @@ class PlySimpleParser:
         "productionRules : RULENAME RULEFORMAT OPBRACKETS RULECODE CLBRACKETS comment"
         rule = {prodRule_key : p[1], p[1] : p[2], pythonCode_key : p[4], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[6]}
         p[0] = rule
-        print(rule)
+        #print(rule)
         my._yaccObject.addStatement(rule)
 
 
@@ -349,7 +357,7 @@ class PlySimpleParser:
         python = {pythonCode_key : p[1], lineno_key : my._tokenizer.lexer.lineno}
         p[0] = python
         print(python)
-        my._yaccObject.addStatement(python)
+        #my._yaccObject.addStatement(python)
 
     
 
@@ -372,26 +380,28 @@ class PlySimpleParser:
         print(f"Syntax error at '{p.value}', {p}")
 
 
-from plySimpleYacc import PlySYaccObject
-psLexObject = PlySLexObject()
-psYaccObject = PlySYaccObject()
-psParser = PlySimpleParser(psLexObject, psYaccObject)
 
-tokenizer = psParser._tokenizer
-lexer = tokenizer.lexer
-auxString = ""
-
-fHandler = open("lexteste.txt", "rt", encoding="utf-8")
-for line in fHandler:
-
-    lexer.input(line)
-    [x.value for x in lexer]
-
-    auxString = auxString + line
-    if tokenizer.insideMultiline() is False:
-        psParser._parser.parse(auxString)
-        auxString = ""
-    
-fHandler.close()
-
-psLexObject.printVariables()
+# está a funcionar
+#from plySimpleYacc import PlySYaccObject
+#psLexObject = PlySLexObject()
+#psYaccObject = PlySYaccObject()
+#psParser = PlySimpleParser(psLexObject, psYaccObject)
+#
+#tokenizer = psParser._tokenizer
+#lexer = tokenizer.lexer
+#auxString = ""
+#
+#fHandler = open("lexteste.txt", "rt", encoding="utf-8")
+#for line in fHandler:
+#
+#    lexer.input(line)
+#    [x.value for x in lexer]
+#
+#    auxString = auxString + line
+#    if tokenizer.insideMultiline() is False:
+#        psParser._parser.parse(auxString)
+#        auxString = ""
+#    
+#fHandler.close()
+#
+#psLexObject.printVariables()

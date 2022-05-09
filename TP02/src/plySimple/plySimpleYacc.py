@@ -84,11 +84,13 @@ class PlySYaccObject:
         elif comment_key in statement.keys():
             my.addComment(statement)
             my._keysOrder.append(comment_key)
+        
+        else:
+            print(statement)
+            sys.exit("\n#> error: unknown statement!! lineno: " + str(statement[lineno_key]))
 
     """Imprime as variáveis que já se encontram guardadas na classe"""
     def printVariables(my):
-
-        for var in my._yaccStatements:
-            print(str(var))
+        print(vars(my))
 
 
