@@ -196,20 +196,17 @@ class PlySimpleParser:
 
 
 
-
-
-
-
     ## REGEX RULES 
 
-    # '[a-zA-Z]'     return(...) 
+    # '[a-zA-Z]'     return(...)
     def p_regexRules_regex_regex(my, p):
         "regexRules : REGEX RETURN OPCURVEB regexReturn CLCURVEB comment"
        # print("regex01: " + p[1] + ", " + "return: " + str(p[4]))
 
         variavel = (p[4])[0]
         tipo = (p[4])[1]
-        ret = {return_key : variavel, variavel : tipo, regex_key : p[1], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[6]}
+        state = (p[4])[2]
+        ret = {return_key : variavel, variavel : tipo, regex_key : p[1], states_key : state, lineno_key : my._tokenizer.lexer.lineno, comment_key : p[6]}
         #print(ret)
         my._lexObject.addStatement(ret)
         #my._lexObject.printVariables()
@@ -221,7 +218,8 @@ class PlySimpleParser:
 
         variavel = (p[4])[0]
         tipo = (p[4])[1]
-        ret = {return_key : variavel, variavel : tipo, regex_key : p[1], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[6]}
+        state = (p[4])[2]
+        ret = {return_key : variavel, variavel : tipo, regex_key : p[1], states_key : state, lineno_key : my._tokenizer.lexer.lineno, comment_key : p[6]}
         #print(ret)
         my._lexObject.addStatement(ret)
         #my._lexObject.printVariables()
@@ -234,20 +232,106 @@ class PlySimpleParser:
         #print(err)
         my._lexObject.addStatement(err)
 
+
+
     # return('VARNAME')
-    def p_regexReturn_var(my, p):
+    def p_regexReturn_onlyvar(my, p):
         "regexReturn : VAR"
-        p[0] = (p[1], "str")
+        p[0] = (p[1], "str", None)
 
     # return('VARNAME' , t.value)
-    def p_regexReturn_varresult(my, p):
+    def p_regexReturn_varvalue(my, p):
         "regexReturn : VAR ',' PLYTVALUE"
-        p[0] = (p[1], p[3])
+        p[0] = (p[1], p[3], None)
+    
+    # return('VAR', $statename)
+    def p_regexReturn_varState(my, p):
+        "regexReturn : VAR ',' RETSTATE"
+        p[0] = (p[1], "str" , p[3])
 
-    # return('VARNAME' , float(t.value))
+    # return('VAR', float(t.value))
     def p_regexReturn_vartype(my, p):
         "regexReturn : VAR ',' RETTYPE OPCURVEB PLYTVALUE CLCURVEB"
-        p[0] = (p[1], p[3])
+        p[0] = (p[1], p[3], None)
+
+    # return('VAR', t.value, $state)
+    def p_regexReturn_varValueState(my, p):
+        "regexReturn : VAR ',' PLYTVALUE ',' RETSTATE"
+        p[0] = (p[1], p[3], p[5])
+
+    # return('VAR', $state, t.value)
+    def p_regexReturn_varStateValue(my, p):
+        "regexReturn : VAR ',' RETSTATE ',' PLYTVALUE"
+        p[0] = (p[1], p[5], p[3])
+
+    # return('VAR' , list(t.value) , $state)
+    def p_regexReturn_varTypeState(my, p):
+        "regexReturn : VAR ',' RETTYPE OPCURVEB PLYTVALUE CLCURVEB ',' RETSTATE"
+        p[0] = (p[1], p[3], p[8])
+    
+    # return('VAR', $state, float(t.value))
+    def p_regexReturn_varStateType(my, p):
+        "regexReturn : VAR ',' RETSTATE ',' RETTYPE OPCURVEB PLYTVALUE CLCURVEB"
+        p[0] = (p[1], p[5], p[3])
+
+
+    # return(t.value, 'VARNAME')
+    def p_regexReturn_valueVar(my, p):
+        "regexReturn : PLYTVALUE ',' VAR"
+        p[0] = (p[3], p[1], None)
+
+    # return(t.value, 'VAR', $state)
+    def p_regexReturn_valueVarState(my, p):
+        "regexReturn : PLYTVALUE ',' VAR ',' RETSTATE"
+        p[0] = (p[3], p[1], p[5])
+    
+    # return(t.value, $state, 'VAR')
+    def p_regexReturn_valueStateVar(my, p):
+        "regexReturn : PLYTVALUE ',' RETSTATE ',' VAR"
+        p[0] = (p[5], p[1], p[3])
+
+
+    # return(float(t.value), 'VARNAME')
+    def p_regexReturn_typeVar(my, p):
+        "regexReturn : RETTYPE OPCURVEB PLYTVALUE CLCURVEB ',' VAR"
+        p[0] = (p[6], p[1], None)
+
+    # return(float(t.value), 'VAR', $state)
+    def p_regexReturn_typeVarState(my ,p):
+        "regexReturn : RETTYPE OPCURVEB PLYTVALUE CLCURVEB ',' VAR ',' RETSTATE"
+        p[0] = (p[6], p[1], p[8])
+
+    # return(list(t.value), $state, 'VAR')
+    def p_regexReturn_typeStateVar(my, p):
+        "regexReturn : RETTYPE OPCURVEB PLYTVALUE CLCURVEB ',' RETSTATE ',' VAR"
+        p[0] = (p[8], p[1], p[6])
+
+
+    # return($state, 'VAR')
+    def p_regexReturn_stateVar(my, p):
+        "regexReturn : RETSTATE ',' VAR"
+        p[0] = (p[3], "str", p[1])
+    
+    # return($state, 'VAR', t.value)
+    def p_regexReturn_stateVarValue(my, p):
+        "regexReturn : RETSTATE ',' VAR ',' PLYTVALUE"
+        p[0] = (p[3], p[5], p[1])
+
+    # return ($state, 'VAR', float(t.value))
+    def p_regexReturn_stateVarType(my, p):
+        "regexReturn : RETSTATE ',' VAR ',' RETTYPE OPCURVEB PLYTVALUE CLCURVEB"
+        p[0] = (p[3], p[5], p[1])
+
+    # return($state, t.value, 'VAR')
+    def p_regexReturn_stateValueVar(my, p):
+        "regexReturn : RETSTATE ',' PLYTVALUE ',' VAR"
+        p[0] = (p[5], p[3], p[1])
+
+    def p_regexReturn_stateTypeVar(my, p):
+        "regexReturn : RETSTATE ',' RETTYPE OPCURVEB PLYTVALUE CLCURVEB ',' VAR"
+        p[0] = (p[8], p[3], p[1])
+
+
 
     # '.' error(...)
     def p_errorRules(my, p):

@@ -12,9 +12,9 @@
 
 %tokens = [ 'VAR','NUMBER' ]
 
-'[a-zA-Z_][a-zA-Z0-9_]*' return('VAR', t.value)
+'[a-zA-Z_][a-zA-Z0-9_]*' return(t.value, 'VAR')
 
-'\d+(\.\d+)?' return('NUMBER', float(t.value))
+'\d+(\.\d+)?' return($ANY, 'NUMBER', float(t.value))
 
 
 

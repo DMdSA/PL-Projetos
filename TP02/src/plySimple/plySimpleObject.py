@@ -161,7 +161,7 @@ class PlySimple:
         print("tokens = (")
         tkns = (tokensStatement)[tokens_key]
         for tkn in tkns:
-            print(PTAB + PTAB + tkn + "\",")
+            print(PTAB + PTAB + tkn + ",")
         print("\t)")
 
 
@@ -205,7 +205,10 @@ class PlySimple:
             varNameQ = (retStatement[return_key])
             # retirar as \' à variável em questão
             varName = (varNameQ)[1:-1]
-            print("def t_" + varName + "(t):")
+            if retStatement[states_key] is not None:
+                print("def t_" + retStatement[states_key] + "_" + varName + "(t):")
+            else:
+                print("def t_" + varName + "(t):")
             print(PTAB + "r'" + retStatement[regex_key] + "\'")
             if retStatement[varNameQ] != "t.value":
                 print(PTAB + "t.value = " + retStatement[varNameQ] + "(t.value)")

@@ -49,6 +49,7 @@ class PlySimpleTokenizer:
         "RETURN",               # return
         "PLYTVALUE",            # t.value
         "RETTYPE",              # int, float, list, set
+        "RETSTATE",             # $STATENAME
         "ERROR",                # error
         "FSTR",                 # f"something"
         "TSKIP",                # t.lexer.skip(int)
@@ -89,6 +90,7 @@ class PlySimpleTokenizer:
         '\'',
         '%',
         '=',
+        #'$',
     ]
 
     # ------------------------------------------------------------------- IGNORE
@@ -97,7 +99,6 @@ class PlySimpleTokenizer:
     def t_ignore_newline(my, t):
         r'\n+'
         t.lexer.lineno += 1
-
 
     # ------------------------------------------------------------------- STATES IDENTIFIERS
     # lexstate, "%%lex", case insensitive
@@ -207,6 +208,11 @@ class PlySimpleTokenizer:
     def t_LEX_RETURN(my, t):
         r'return'
         #print("RETURN")
+        return t
+
+    def t_LEX_RETSTATE(my, t):
+        r'\$[^ ),\']+'
+        t.value = t.value[1:]
         return t
 
     ## identify a sequence of chars given for %literals and %ignore

@@ -236,6 +236,18 @@ class PlySLexObject:
                     sys.exit("\n#> error! duplicate reference to \'{}'s definition/return value".format(varToReturn))
                 # se for a primeira vez que está a ser especificada, atualizar e adicionar
                 else:
+                    state = variable[states_key]
+                    if state is not None and state != "ANY":
+                        validState = False
+                        states = my._states[states_key]
+                        for st in states:
+                            s = (st[0])[1:-1]
+                            if state == s:
+                                validState = True
+                                break
+                        if validState is False:
+                            sys.exit("\n#> error! unknown reference to state : " + str(state) + ", lineno: " + str(variable[lineno_key]))
+
                     variable[id_key] = my._idCounter
                     my.idCounter_inc()
                     my._returns.append(variable)
