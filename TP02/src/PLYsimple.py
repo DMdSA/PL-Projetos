@@ -8,3 +8,4 @@ plysimple = plySimpleObject.PlySimple("../inputFiles/lexteste.txt")
 plysimple.readPlySimple()
 
 plysimple.transcribeLex()
+plysimple.transcribeYacc()

@@ -91,6 +91,8 @@ class PlySYaccObject:
 
     """Imprime as variáveis que já se encontram guardadas na classe"""
     def printVariables(my):
-        print(vars(my))
+
+        for v in vars(my):
+            print(v , "->     ", vars(my)[v])
 
 

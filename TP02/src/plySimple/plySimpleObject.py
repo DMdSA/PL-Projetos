@@ -14,6 +14,9 @@ error_key = "error"
 return_key = "return"
 regex_key = "regex"
 states_key = "states"
+## yacc keys
+precedence_key = "precedence"
+prodRule_key = "productionRule"
 ## common keys
 lineno_key = "lineno"
 comment_key = "comment"
@@ -86,7 +89,6 @@ class PlySimple:
         tokenizer = parser._tokenizer
         lexer = tokenizer.lexer
         auxString = ""
-
         fHandler = open(my._filename, "rt", encoding="utf-8")
         for line in fHandler:
         
@@ -161,7 +163,7 @@ class PlySimple:
         print("tokens = (")
         tkns = (tokensStatement)[tokens_key]
         for tkn in tkns:
-            print(PTAB + PTAB + tkn + ",")
+            print(PTAB + PTAB + tkn + "\",")
         print("\t)")
 
 
@@ -205,10 +207,7 @@ class PlySimple:
             varNameQ = (retStatement[return_key])
             # retirar as \' à variável em questão
             varName = (varNameQ)[1:-1]
-            if retStatement[states_key] is not None:
-                print("def t_" + retStatement[states_key] + "_" + varName + "(t):")
-            else:
-                print("def t_" + varName + "(t):")
+            print("def t_" + varName + "(t):")
             print(PTAB + "r'" + retStatement[regex_key] + "\'")
             if retStatement[varNameQ] != "t.value":
                 print(PTAB + "t.value = " + retStatement[varNameQ] + "(t.value)")
@@ -228,3 +227,51 @@ class PlySimple:
         else:
             print("def t_error(t):")
             print(PTAB + "pass\n")
+
+
+
+    def transcribeYacc(my):
+
+        yaccContent = my._yaccObject
+        if hasattr(yaccContent, "_hasPrecedence") and yaccContent._hasPrecedence:
+            precedence = yaccContent._precedence
+            my.transc_precedence(precedence)
+        
+        productions = yaccContent._productionRules
+        my.transc_prodRules(productions)
+
+    def transc_precedence(my, precStatements):
+
+        my.transc_comment(precStatements)
+        print("precedence = (")
+        precs = (precStatements)[precedence_key]
+
+        for prec in precs:
+            for i in range (len(prec)):       #Enquanto houver elementos
+
+                if isinstance(prec[i],str):   #Se for uma string
+                    print("(" + prec[i] + ',', end="")
+                else:
+                    for e in range (len(prec[i])):    #Caso seja uma lista
+
+                        if(e == len(prec[i])-1):
+                            print(prec[i][e] + "),")
+                        else:
+                            print(prec[i][e] + ",", end="")
+                        e = e + 1
+                i = i+1
+        print(")")
+    
+    def transc_prodRules(my, prodStatements):
+
+        
+        numberProd = 0
+        for prodRule in prodStatements:
+            my.transc_comment(prodRule)
+            rule = prodRule['productionRule']
+            print("def p_" + rule + str(numberProd) + "(p):")
+            print("\t\"" + rule + " : " + prodRule[rule] + "\"")
+            print("\t" + prodRule['pythonCode'])
+
+            numberProd = numberProd + 1
+            print("\n")
