@@ -26,6 +26,7 @@ class PlySimpleTokenizer:
     states = (
         ('LEX', 'inclusive'),                   # estado utilizado para captar lex tokens
         ('YACC', 'inclusive'),                  # estado utilizado para captar yacc tokens
+        ('GRULE', 'inclusive'),
         ('FREEPYTHON', 'inclusive')             # estado FREE para captar qualquer coisa que seja código python
     )
 
@@ -66,8 +67,8 @@ class PlySimpleTokenizer:
         "RULENAME",             # name of the rule = stat : ...
         "RULEFORMAT",           # rule's format
 
-        "OPBRACKETS",           # '{'
-        "CLBRACKETS",           # '}'
+        #"OPBRACKETS",           # '{'
+        #"CLBRACKETS",           # '}'
 
 
         #   - FREE PYTHON MODE -
@@ -101,6 +102,21 @@ class PlySimpleTokenizer:
         r'\n+'
         t.lexer.lineno += 1
 
+    
+     ### open square brackets, '{'
+    def t_OPBRACKETS(my, t):
+        r'\{'
+        print("VI UM BRACKET")
+        t.lexer.brackets = t.lexer.brackets + 1
+        return t
+    
+    ### close square brackets, '}'
+    def t_CLBRACKETS(my, t):
+        r'}'
+        if t.lexer.brackets > 0:
+            t.lexer.brackets = t.lexer.brackets - 1 
+        return t  
+
     # ------------------------------------------------------------------- STATES IDENTIFIERS
     # lexstate, "%%lex", case insensitive
     def t_LEXSTATE(my, t):
@@ -133,34 +149,39 @@ class PlySimpleTokenizer:
     ## identify a formatted string, f"..."
     def t_LEX_FSTR(my, t):
         r'f\s*\".*\"'
+        #print("string format: " + t.value)
         return t
 
     ## identify t.lexer.skip(INT)
     def t_LEX_TSKIP(my, t):
         r't\.lexer\.skip\(\d+\)'
+        #print("skip: " + t.value)
         return t
 
     ## identify a return type : float, int, list, set
     def t_LEX_RETTYPE(my, t):
         r'float\s*|int\s*|list\s*|set\s*'
+        #print("return type: " + t.value)
         return t
 
     ## identify "t.value"
     def t_LEX_PLYTVALUE(my, t):
         r't.value'
-        #print("TVALUE")
+        #print("TVALUE: " + t.value)
         return t
 
     ## 'inclusive'
     def t_LEX_INCLUSIVE(my, t):
         r'\'(?i:inclusive)\''
         t.value = t.value.lower()
+        #print("inclusive: " + t.value)
         return t
     
     ## 'exclusive'
     def t_LEX_EXCLUSIVE(my, t):
         r'\'(?i:exclusive)\''
         t.value = t.value.lower()
+        #print("exclusive:" + t.value)
         return t
 
     ## identify a variable given as a token for ply : 'VARNAME'
@@ -181,7 +202,7 @@ class PlySimpleTokenizer:
     def t_LEX_LITERALS(my, t):
         r'(?i:literals)'
         t.value = t.value.lower()
-        #print("LITERALS")
+        #print("LITERALS: " + t.value)
         return t
 
     ## identify "ignore", case insensitive
@@ -195,25 +216,27 @@ class PlySimpleTokenizer:
     def t_LEX_TKNS(my, t):
         r'(?i:tokens)'
         t.value = t.value.lower()
-        #print("TOKENS")
+        #print("TOKENS: " + t.value)
         return t
 
     ## %state
     def t_LEX_STATES(my,t):
         r'(?i:states)'
         t.value = t.value.lower()
+        #print("states: " + t.value)
         return t
 
 
     ## identify "return", case insensitive
     def t_LEX_RETURN(my, t):
         r'return'
-        #print("RETURN")
+        #print("RETURN: " + t.value)
         return t
 
     def t_LEX_RETSTATE(my, t):
         r'\$[^ ),\']+'
         t.value = t.value[1:]
+        #print("return state: " + t.value)
         return t
 
     ## identify a sequence of chars given for %literals and %ignore
@@ -224,6 +247,7 @@ class PlySimpleTokenizer:
         return t
 
 # ------------------------------------------------------------------- YACC STATE RULES
+    
     ### "%precedence", case insensitive
     def t_YACC_PRECEDENCE(my, t):
         r'%(?i:precedence)'
@@ -246,41 +270,33 @@ class PlySimpleTokenizer:
         #print("RIGHT :: " + t.value)
         return t
 
-
-    ### open square brackets, '{'
-    def t_YACC_OPBRACKETS(my, t):
-        r'\{'
-        t.lexer.brackets = t.lexer.brackets + 1 
-        return t
-    
-    ### close square brackets, '}'
-    def t_YACC_CLBRACKETS(my, t):
-        r'}'
-        if t.lexer.brackets > 0:
-            t.lexer.brackets = t.lexer.brackets - 1 
-        return t
-
     ### yacc production rule's name, "stat :"
     def t_YACC_RULENAME(my, t):
         r'\w+\s+:'
         split = t.value.split(" ")
         t.value = split[0]
-        #print("NAME : \"" + t.value + "\"")
+        my.lexer.begin('GRULE')
         return t
 
     ### yacc production rule's format, " ..." { code
-    def t_YACC_RULEFORMAT(my, t):
-        r' .+(?={)'
+    def t_GRULE_RULEFORMAT(my, t):
+        r' (.+){'
         catcher = re.compile(r'.+\w')
         t.value = catcher.match(t.value).group()
         #print("RULE: \"" + t.value + "\"")
         return t
     
     ### yacc production rule's python code, { code }
-    def t_YACC_RULECODE(my, t):
-        r'[\w\W]+(?=})'
-        #print("RULECODE : \"" + t.value + "\"")
+    def t_GRULE_RULECODE(my, t):
+        r'(.+)}'
+        t.value = t.value[:-1]
+        catcher = re.compile(r'\s*(.+)\s*')
+        print("RULECODE : \"" + t.value + "\"")
+        t.value = catcher.match(t.value).group()
+        my.lexer.begin('YACC')
         return t
+
+
 
     ### precedence tokens = '+', 'UMINUS', etc
     def t_YACC_PRECTOKEN(my, t):
@@ -288,11 +304,6 @@ class PlySimpleTokenizer:
         #print("PRECTOKEN :: " + t.value)
         return t
 
-
-    # ------------------------------------------------------------------- FREE STATE RULES
-    def t_FREEPYTHON_PYTHON(my, t):
-        r'[^%].+'
-        return t
     
 
     # ------------------------------------------------------------------- COMMON STATE RULES
@@ -323,12 +334,24 @@ class PlySimpleTokenizer:
             t.lexer.roundBracket = t.lexer.roundBracket - 1 
         return t
 
+    
+
     # comment statement, # ...
     def t_COMMENT(my, t):
         r'\#.*\n$'
         split = t.value.split('\n')
         t.value = split[0]
         return t
+
+
+    # ------------------------------------------------------------------- FREE STATE RULES
+    def t_PYTHON(my, t):
+        r'[^%\'"#=,].+'
+        print("python: " + t.value)
+        return t
+
+    def t_FREEPYTHON_PYTHON(my, t):
+        r'.+'
 
     def t_error(my, t):
         print("Illegal char: '%s'" % t.value[0])
@@ -357,7 +380,7 @@ class PlySimpleTokenizer:
 #simPly.build()
 #
 #appendString = ""
-#fHandler = open("lexteste.txt", "rt", encoding="utf-8")
+#fHandler = open("../../inputFiles/lexteste.txt", "rt", encoding="utf-8")
 #
 #for line in fHandler:
 #    
@@ -372,7 +395,8 @@ class PlySimpleTokenizer:
 #        simPly.lexer.input(appendString)
 #        final = [x.value for x in simPly.lexer]
 #        if final:
-#            print(final)
+#            pass
+#            #print(final)
 #        appendString = ""
 #
 #fHandler.close()

@@ -21,11 +21,12 @@
 
 %% YACC
 %precedence = [
-('left','+','-'),
-('left','*','/'),
-('right','UMINUS'),
+    ('left','+','-'),
+    ('left','*','/'),
+    ('right','UMINUS'),
 ]
 
+ts = { }
 
 stat : VAR '=' exp { ts[t[1]] = t[3] }
 stat : exp { print(t[1]) }
@@ -38,7 +39,7 @@ exp : '(' exp ')' { t[0] = t[2] }
 exp : NUMBER { t[0] = t[1] }
 exp : VAR { t[0] = getval(t[1]) }
 
-%%
+%% 
 # symboltable : dictionary of variables
 ts = { }
 def p_error(t):

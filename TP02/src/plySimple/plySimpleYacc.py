@@ -23,7 +23,6 @@ class PlySYaccObject:
 
         my._keysOrder = []
 
-        # não é preciso mais nada?..
     
     ## idCounter
     @property

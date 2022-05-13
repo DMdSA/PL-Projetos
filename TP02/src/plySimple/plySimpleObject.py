@@ -244,6 +244,7 @@ class PlySimple:
         productions = yaccContent._productionRules
         my.transc_prodRules(productions)
 
+
     def transc_precedence(my, precStatements):
 
         my.transc_comment(precStatements)
@@ -254,7 +255,7 @@ class PlySimple:
             for i in range (len(prec)):       #Enquanto houver elementos
 
                 if isinstance(prec[i],str):   #Se for uma string
-                    print("(" + prec[i] + ',', end="")
+                    print("\t(" + prec[i] + ',', end="")
                 else:
                     for e in range (len(prec[i])):    #Caso seja uma lista
 
@@ -264,7 +265,7 @@ class PlySimple:
                             print(prec[i][e] + ",", end="")
                         e = e + 1
                 i = i+1
-        print(")")
+        print(")\n")
     
     def transc_prodRules(my, prodStatements):
 
@@ -273,7 +274,7 @@ class PlySimple:
         for prodRule in prodStatements:
             my.transc_comment(prodRule)
             rule = prodRule['productionRule']
-            print("def p_" + rule + str(numberProd) + "(p):")
+            print("def p_" + rule + str(numberProd) + "(t):")
             print("\t\"" + rule + " : " + prodRule[rule] + "\"")
             print("\t" + prodRule['pythonCode'])
 
