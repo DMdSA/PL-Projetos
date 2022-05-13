@@ -378,4 +378,20 @@ class PlySLexObject:
 
         for v in vars(my):
             print(v , "->     ", vars(my)[v])
-        
+    
+
+
+        #my._literals = {}
+        #my._tokens = {}
+        #my._ignore = {}
+        #my._error = {}
+        #my._returns = []
+        #my._states = {}
+        #my._comments = []
+        #my._keysOrder = []
+    
+    def transcribe_sorted(my):
+
+        for key in my._keysOrder:
+
+            print(key)

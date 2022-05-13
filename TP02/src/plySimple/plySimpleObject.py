@@ -150,16 +150,20 @@ class PlySimple:
 
 
     """Transcreve um comentário, caso exista"""
-    def transc_comment(my, something):
+    def transc_stat_comment(my, something):
         
         if len(something[comment_key]) > 0:
             print(something[comment_key])
+
+    def transc_comment(my, comment):
+
+        print(comment)
 
 
     """Transcrição de tokens"""
     def transc_tokens(my, tokensStatement):
         
-        my.transc_comment(tokensStatement)
+        my.transc_stat_comment(tokensStatement)
         print("tokens = (")
         tkns = (tokensStatement)[tokens_key]
         for tkn in tkns:
@@ -170,7 +174,7 @@ class PlySimple:
     """Transcrição de literals"""
     def transc_literals(my, literalsStatement):
 
-        my.transc_comment(literalsStatement)
+        my.transc_stat_comment(literalsStatement)
         print("literals = [")
         lits = (literalsStatement)[literals_key]
         for lit in lits:
@@ -181,7 +185,7 @@ class PlySimple:
     """Transcrição de states"""
     def transc_states(my, statesStatement):
 
-        my.transc_comment(statesStatement)
+        my.transc_stat_comment(statesStatement)
         print("states = (")
         stats = (statesStatement)[states_key]
         for stat in stats:
@@ -192,7 +196,7 @@ class PlySimple:
     """Transcrição de ignore"""
     def transc_ignore(my, ignoreStatement):
 
-        my.transc_comment(ignoreStatement)
+        my.transc_stat_comment(ignoreStatement)
         igns = (ignoreStatement)[ignore_key]
         print("ignore = \"" + igns + "\"")
 
@@ -203,7 +207,7 @@ class PlySimple:
         # cada recStatement é um dicionário
         for retStatement in returnStatement:
             
-            my.transc_comment(retStatement)
+            my.transc_stat_comment(retStatement)
             varNameQ = (retStatement[return_key])
             # retirar as \' à variável em questão
             varName = (varNameQ)[1:-1]
@@ -221,7 +225,7 @@ class PlySimple:
     def transc_error(my, errorStatement=None):
 
         if errorStatement:
-            my.transc_comment(errorStatement)
+            my.transc_stat_comment(errorStatement)
             errorTuple = errorStatement[error_key]
             print("def t_error(t):")
             print(PTAB + errorTuple[0])
@@ -247,7 +251,7 @@ class PlySimple:
 
     def transc_precedence(my, precStatements):
 
-        my.transc_comment(precStatements)
+        my.transc_stat_comment(precStatements)
         print("precedence = (")
         precs = (precStatements)[precedence_key]
 
@@ -272,7 +276,7 @@ class PlySimple:
         
         numberProd = 0
         for prodRule in prodStatements:
-            my.transc_comment(prodRule)
+            my.transc_stat_comment(prodRule)
             rule = prodRule['productionRule']
             print("def p_" + rule + str(numberProd) + "(t):")
             print("\t\"" + rule + " : " + prodRule[rule] + "\"")
@@ -280,3 +284,49 @@ class PlySimple:
 
             numberProd = numberProd + 1
             print("\n")
+
+
+    """Transcreve plySimple para PLY, conforma a ordem explicitada no ficheiro plySimple"""
+    def transcribe_sorted(my):
+
+        sortedKeys = my._lexObject._keysOrder
+        id = 1
+        returnFlag = False
+        for key in sortedKeys:
+
+            if key == literals_key:
+                if my._lexObject._literals[id_key] == id:
+                    my.transc_literals(my._lexObject._literals)
+                    id = id + 1
+
+            if key == states_key:
+                if my._lexObject._states[id_key] == id:
+                    my.transc_states(my._lexObject._states)
+                    id = id + 1
+
+            if key == ignore_key:
+                if my._lexObject._ignore[id_key] == id:
+                    my.transc_ignore(my._lexObject._ignore)
+                    id = id + 1
+            
+            if key == error_key:
+                if my._lexObject._error[id_key] == id:
+                    my.transc_error(my._lexObject._error)
+                    id = id + 1
+
+            if key == tokens_key:
+                if my._lexObject._tokens[id_key] == id:
+                    my.transc_tokens(my._lexObject._tokens)
+                    id = id + 1
+            
+            if key == return_key:
+                if not returnFlag:
+                    my.transc_returns(my._lexObject._returns)
+                    id = id + len(my._lexObject._returns)
+                    returnFlag = True
+            
+            if key == comment_key:
+                for c in my._lexObject._comments:
+                    if c[id_key] == id:
+                        my.transc_comment(c)
+            

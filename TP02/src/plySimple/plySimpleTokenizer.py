@@ -291,7 +291,7 @@ class PlySimpleTokenizer:
         r'(.+)}'
         t.value = t.value[:-1]
         catcher = re.compile(r'\s*(.+)\s*')
-        print("RULECODE : \"" + t.value + "\"")
+        #print("RULECODE : \"" + t.value + "\"")
         t.value = catcher.match(t.value).group()
         my.lexer.begin('YACC')
         return t
@@ -347,7 +347,7 @@ class PlySimpleTokenizer:
     # ------------------------------------------------------------------- FREE STATE RULES
     def t_PYTHON(my, t):
         r'[^%\'"#=,].+'
-        print("python: " + t.value)
+        #print("python: " + t.value)
         return t
 
     def t_FREEPYTHON_PYTHON(my, t):
