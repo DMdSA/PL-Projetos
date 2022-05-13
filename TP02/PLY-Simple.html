@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <title> PLY-Simple Editor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<style> 
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: lightgray;
+    color: black;
+}
+
+/* Setting up the first bar that will contain the name/logo and Menu/Tabs to navigate */
+.topBar {
+    overflow: hidden;
+    background-color: #333;
+}
+
+/* Adding different groups with differente settings, so we can rearrange positions easier 
+group a would be allign to the left, while b will be align to the right (in this case it's just for the dark mode feature) */
+.topBar a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topBar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.topBar a.active {
+    background-color: #04AA6D;
+    color: white;
+}
+
+.topBar b {
+    float: right;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/*This will be a bar between the header and the text boxes to allow us to add some buttons or text.
+It will be split in two. (Width: 50%)
+Exemple: "Write your code here" + Run button. "Visualize your result" */
+.midBar {
+    width: 50%;
+    height: 7%;
+    box-sizing: border-box;
+    position: absolute;
+    overflow: auto;  
+    background-color: lightgray;
+    padding-left: 14px;
+}
+.left { 
+    left: 0;
+    color: black;  
+}
+.right { 
+    right: 0;
+    color: black;  
+}
+
+
+/*Container to have both text boxes, one for the editor one for the results */
+.boxContainer { 
+    width: 100%;
+    height: 86%; /*So it sits bellow the midbar*/
+    bottom: 0; /*Starts at the bottom*/
+    margin-left: 8px;
+    margin-right: 8px; 
+    overflow: hidden;
+    line-height: 1.5;
+    position: absolute;
+    box-sizing: border-box;
+}
+
+/* Editor text box. Write your code here and will be on the left side */
+.editorContainer {
+    left: 0;  
+    width: 49%; /* To keep a small edge between editor and result containers */   
+    background-color: lightgray; /*Visually this will be the slight boarder around the text box*/ 
+    color: black;  
+}
+/* Container to present the result from the code */
+.resultContainer{
+    right: 0; 
+    width: 49%; /* To keep a small edge between editor and result containers */  
+    background-color: whitesmoke; /*Visually this will be the slight boarder around the text box*/ 
+    color: black;
+}
+/*text settings*/
+.textarea,  .result {
+    height: 100%;
+    width: 100%;
+    padding-bottom: 10px;
+    padding-top: 1px;
+    overflow: auto;
+}
+.textarea{
+    padding-left: 10px;
+    padding-right: 5px;
+}
+
+.result{
+    padding-left: 5px;
+    padding-right: 10px;
+}
+ 
+
+/* Editor text box settings */
+.textareaTextBox{  
+    font-size: 15px;
+    height: 100%;
+    width: 100%;
+    padding: 15px;
+    resize: none;
+    border: none;
+    line-height: normal;  
+    outline: none; 
+    background-color: whitesmoke;
+}
+
+/* Settings in case dark-mode is turnned on */
+.dark-mode{
+    background-color: black;
+    color: white;
+}
+
+</style>
+</head>
+
+<body>
+    <div class="topBar">
+        <a href="#home">PLY-Simple Editor</a>
+        <a class="active" href="#token">Token Sandbox</a>
+        <a href="#grammar">Grammar Sandbox</a>
+        <a href="#about">About</a>
+        <b href="toggle"> <button onclick="toggle()">Dark Mode</button> </b>
+    </div>
+    
+    <div class="midBar left">
+        <p>Write your PLY-Simple code: 
+        <button style = "float:right;">Compile</button> </p>
+    </div>
+
+    <div class="midBar right">
+        <p>Results: </p>
+    </div> 
+  
+    <div class="boxContainer editorContainer">              
+            <textarea class="textareaTextBox" autocomplete="off" spellcheck="false" wrap="logical" > Start typing here ... </textarea>
+    </div>
+
+    <div class="boxContainer resultContainer">
+            <div class = "result">
+                
+                <p>INSERIR RESULTADO</p>
+            </div>
+    </div>
+  
+ 
+    <!-- Script to activate Dark Mode after pressing the button -->
+    <script>
+        function toggle() {
+           var element = document.body;
+           element.classList.toggle("dark-mode");
+        }
+    </script>
+
+</body>
+</html>
