@@ -271,20 +271,14 @@ class PlySimple:
                         e = e + 1
                 i = i+1
         print(")\n")
-    
-    def transc_prodRules(my, prodStatements):
 
-        
-        numberProd = 0
-        for prodRule in prodStatements:
-            my.transc_stat_comment(prodRule)
-            rule = prodRule['productionRule']
-            print("def p_" + rule + str(numberProd) + "(t):")
-            print("\t\"" + rule + " : " + prodRule[rule] + "\"")
-            print("\t" + prodRule['pythonCode'])
 
-            numberProd = numberProd + 1
-            print("\n")
+    def transc_prodRule(my, prodStatements, id):
+        rule = prodStatements['productionRule']
+        print("def p_" + rule + str(id) + "(t):")
+        print("\t\"" + rule + " : " + prodStatements[rule] + "\"")
+        print("\t" + prodStatements['pythonCode'] + "\n")
+
 
 
     """Transcreve plySimple para PLY, conforma a ordem explicitada no ficheiro plySimple"""
@@ -328,6 +322,30 @@ class PlySimple:
             
             if key == comment_key:
                 for c in my._lexObject._comments:
+                    if c[id_key] == id:
+                        my.transc_comment(c)
+    
+    def transcribe_yacc_sorted(my):
+
+        sortedKeys = my._yaccObject._keysOrder
+        id = 1
+        ruleNumber = 0
+        for key in sortedKeys:
+
+            if key == precedence_key:
+                if my._yaccObject._precedence[id_key] == id:
+                    my.transc_precedence(my._yaccObject._precedence)
+                    id = id + 1
+            
+            if key == prodRule_key:
+                for prod in my._yaccObject._productionRules:
+                    if prod[id_key] == id:
+                        my.transc_prodRule(prod, ruleNumber)
+                ruleNumber = ruleNumber + 1
+                id = id + 1
+            
+            if key == comment_key:
+                for c in my._yaccObject._comments:
                     if c[id_key] == id:
                         my.transc_comment(c)
             
