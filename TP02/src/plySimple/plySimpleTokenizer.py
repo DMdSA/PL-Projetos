@@ -100,20 +100,24 @@ class PlySimpleTokenizer:
         r'%%\s*(?i:lex)'
         t.value = t.value.upper()
         t.lexer.begin('LEX')
-        print("\n#> STATE CHANGE : [LEX STATE]")
+        return t
+        #print("\n#> STATE CHANGE : [LEX STATE]")
 
     # staccstate, "%%yacc", case insensitive
     def t_YACCSTATE(my, t):
         r'%%\s*(?i:yacc)'
         t.value = t.value.upper()
+        my.lexer.begin('YACC')
         t.lexer.begin('YACC')
-        print("\n#> STATE CHANGE : [YACC STATE]")
+        return t
+        #print("\n#> STATE CHANGE : [YACC STATE]")
 
     # freepython, "%%"
     def t_FREESTATE(my, t):
         r'%%\s'
         t.lexer.begin('FREEPYTHON')
-        print("\n#> STATE CHANGE : [FREE STATE]")
+        return t
+        #print("\n#> STATE CHANGE : [FREE STATE]")
 
 
     # ------------------------------------------------------------------- LEX STATE RULES
@@ -228,8 +232,7 @@ class PlySimpleTokenizer:
     ### "%precedence", case insensitive
     def t_YACC_PRECEDENCE(my, t):
         r'precedence'
-        #t.value = t.value[1:]
-        print("PRECEDENCE :: " + t.value)
+        #print("PRECEDENCE :: " + t.value)
         return t
 
     ### 'left', case insensitive
@@ -323,7 +326,7 @@ class PlySimpleTokenizer:
     # ------------------------------------------------------------------- FREE STATE RULES
     def t_PYTHON(my, t):
         r'[^%\'"#=,].+'
-        print("python: " + t.value)
+        #print("python: " + t.value)
         return t
 
     def t_FREEPYTHON_PYTHON(my, t):

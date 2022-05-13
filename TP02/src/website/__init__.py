@@ -1,5 +1,12 @@
 from flask import Flask
 
+__all__ = [
+
+    "models",
+    "views",
+
+]
+
 #inicializing flask
 def create_html():
     app = Flask(__name__)
