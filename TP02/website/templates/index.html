@@ -2,9 +2,23 @@
 <html>
  
 <head>
-    <title> PLY-Simple Editor</title>
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<style> 
+
+    <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+        crossorigin="anonymous"
+    />
+    <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        crossorigin="anonymous"
+    />
+
+ 
+    <title>  PLY-Simple Editor   </title>
+
+    <style> 
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
@@ -139,34 +153,44 @@ Exemple: "Write your code here" + Run button. "Visualize your result" */
 </head>
 
 <body>
+
+    <!-- TOP BAR WITH THE MENUS -->
     <div class="topBar">
-        <a href="#home">PLY-Simple Editor</a>
-        <a class="active" href="#token">Token Sandbox</a>
-        <a href="#grammar">Grammar Sandbox</a>
-        <a href="#about">About</a>
+        <a href="/home">PLY-Simple Editor</a>
+        <a class="active" href="/token">Token Sandbox</a>
+        <a href="/grammar">Grammar Sandbox</a>
+        <a href="/about">About</a>
         <b href="toggle"> <button onclick="toggle()">Dark Mode</button> </b>
     </div>
     
-    <div class="midBar left">
-        <p>Write your PLY-Simple code: 
-        <button style = "float:right;">Compile</button> </p>
-    </div>
+    <!-- Middle bar containing the compile button
+         and indicating what are the containers for-->
+        
+    <form method="POST">
 
+        <div class="midBar left">
+            <p>Write your PLY-Simple code: <button type = "compile" style = "float:right;" >Compile</button>  </p>
+        </div>
+        <!-- Container for the input -->
+        <div class="boxContainer editorContainer">     
+            <textarea name="editorTexto" id="editorTexto" class="textareaTextBox" autocomplete="off" spellcheck="false" wrap="logical"> Start typing here ...  </textarea>
+        </div>      
+
+    </form>
+ 
     <div class="midBar right">
-        <p>Results: </p>
+        <p>Results: </p>  
     </div> 
-  
-    <div class="boxContainer editorContainer">              
-            <textarea class="textareaTextBox" autocomplete="off" spellcheck="false" wrap="logical" > Start typing here ... </textarea>
-    </div>
 
+
+
+    <!-- Container for the result -->
     <div class="boxContainer resultContainer">
-            <div class = "result">
-                
-                <p>INSERIR RESULTADO</p>
+            <div class = "result"> 
+                <p>{{ result }}</p>
             </div>
     </div>
-  
+
  
     <!-- Script to activate Dark Mode after pressing the button -->
     <script>
