@@ -18,11 +18,6 @@ class PlySimpleTokenizer:
         my.lexer.roundBracket = 0
         my.lexer.brackets = 0
 
-
-    #def __init__(my):
-        #my.lexer = lex.lex(module=my)          # precisa de estar abaixo das restantes variáveis!
-        #my.lexer.multilineBlock = 0
-
     states = (
         ('LEX', 'inclusive'),                   # estado utilizado para captar lex tokens
         ('YACC', 'inclusive'),                  # estado utilizado para captar yacc tokens
@@ -46,6 +41,7 @@ class PlySimpleTokenizer:
         "STATES",
         "INCLUSIVE",
         "EXCLUSIVE",
+
         #   - LEX return -
         "REGEX",                # regex format
         "RETURN",               # return
@@ -55,7 +51,6 @@ class PlySimpleTokenizer:
         "ERROR",                # error
         "FSTR",                 # f"something"
         "TSKIP",                # t.lexer.skip(int)
-        # falta states
 
         #   - YACC -
         "PRECEDENCE",           # %precedence
@@ -63,19 +58,18 @@ class PlySimpleTokenizer:
         "RIGHT",                # right
         "PRECTOKEN",            # precedence tokens = '+', 'UMINUS'
 
-        "RULECODE",             # rule code inside brackets = { code }
         "RULENAME",             # name of the rule = stat : ...
-        "RULEFORMAT",           # rule's format
 
-        #"OPBRACKETS",           # '{'
-        #"CLBRACKETS",           # '}'
+        #   - GRULE -
+        "RULEFORMAT",           # rule's format
+        "RULECODE",             # rule code inside brackets = { code }
 
 
         #   - FREE PYTHON MODE -
         "PYTHON",               # anything : python code
 
 
-        #   - INCLUSIVE -
+        #   - COMMON -
         "COMMENT",              # python's comment signature
         "OPSQUAREB",            # '['
         "CLSQUAREB",            # ']'
@@ -85,14 +79,11 @@ class PlySimpleTokenizer:
 
     literals = [
 
-        #'[', ']',
-        #'(', ')',
         ',',
         '\"',
         '\'',
         '%',
         '=',
-        #'$',
     ]
 
     # ------------------------------------------------------------------- IGNORE
@@ -103,19 +94,6 @@ class PlySimpleTokenizer:
         t.lexer.lineno += 1
 
     
-     ### open square brackets, '{'
-    def t_OPBRACKETS(my, t):
-        r'\{'
-        print("VI UM BRACKET")
-        t.lexer.brackets = t.lexer.brackets + 1
-        return t
-    
-    ### close square brackets, '}'
-    def t_CLBRACKETS(my, t):
-        r'}'
-        if t.lexer.brackets > 0:
-            t.lexer.brackets = t.lexer.brackets - 1 
-        return t  
 
     # ------------------------------------------------------------------- STATES IDENTIFIERS
     # lexstate, "%%lex", case insensitive
