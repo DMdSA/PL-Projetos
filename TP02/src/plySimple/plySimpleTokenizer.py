@@ -3,6 +3,7 @@
 import sys
 sys.path.append('../')
 from ply import lex
+import re
 
 class PlySimpleTokenizer:
 
@@ -270,6 +271,8 @@ class PlySimpleTokenizer:
     ### yacc production rule's format, " ..." { code
     def t_YACC_RULEFORMAT(my, t):
         r' .+(?={)'
+        catcher = re.compile(r'.+\w')
+        t.value = catcher.match(t.value).group()
         #print("RULE: \"" + t.value + "\"")
         return t
     

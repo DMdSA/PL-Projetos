@@ -102,11 +102,11 @@ class PlySimple:
 
         fHandler.close()
 
-        print("\n#>\n")
-        my._lexObject.printVariables()
-        print("\n#>\n")
-        my._yaccObject.printVariables()
-        print("\n\n\n\n")
+        #print("\n#>\n")
+        #my._lexObject.printVariables()
+        #print("\n#>\n")
+        #my._yaccObject.printVariables()
+        #print("\n\n\n\n")
 
 
 
@@ -207,7 +207,11 @@ class PlySimple:
             varNameQ = (retStatement[return_key])
             # retirar as \' à variável em questão
             varName = (varNameQ)[1:-1]
-            print("def t_" + varName + "(t):")
+            if retStatement[states_key] is not None:
+                print("def t_" + retStatement[states_key] + "_" + varName + "(t):")
+            else:
+                print("def t_" + varName + "(t):")
+            
             print(PTAB + "r'" + retStatement[regex_key] + "\'")
             if retStatement[varNameQ] != "t.value":
                 print(PTAB + "t.value = " + retStatement[varNameQ] + "(t.value)")
