@@ -2,6 +2,8 @@
 
 
 import sys
+
+from plySimple import plySimpleTokenizer
 sys.path.append('../')
 from ply import yacc
 
@@ -39,6 +41,7 @@ class PlySimpleParser:
 
     ## get tokens from tokenizer
     tokens = PlySimpleTokenizer.tokens
+    literals = PlySimpleTokenizer.literals
     start = "start"
 
     ##START OPTIONS
@@ -82,16 +85,16 @@ class PlySimpleParser:
 
     def p_start_changeLex(my, p):
         "start : LEXSTATE comment"
-        my._tokenizer.lexer.begin('LEX')
+        p.lexer.begin('LEX')
 
     def p_start_changeYacc(my, p):
         "start : YACCSTATE comment"
-        my._tokenizer.lexer.begin('YACC')
+        p.lexer.begin('YACC')
         print("\n#> YACC STATE")
     
     def p_start_changeFree(my, p):
         "start : FREESTATE comment"
-        my._tokenizer.lexer.begin('FREEPYTHON')
+        p.lexer.begin('FREEPYTHON')
         print("\n#> FREE STATE")
 
     # comments
@@ -142,8 +145,6 @@ class PlySimpleParser:
         my._lexObject.addStatement(tks)
         #my._lexObject.printVariables()
 
-    #! def p_init_fim(my, p):
-    #!     "init : "
     
     # ... , 'VARNAME'
     def p_vars_variaveis(my, p):
@@ -375,17 +376,17 @@ class PlySimpleParser:
 
     # precedence extra form railing comma (python alike!)
     def p_precedence_railing(my, p):
-        "precedence : PRECEDENCE '=' OPSQUAREB precStatements ',' CLSQUAREB comment"
-        p[0] = p[4]
-        precedence = {p[1] : p[4], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[7]}
+        "precedence : '%' PRECEDENCE '=' OPSQUAREB precStatements ',' CLSQUAREB comment"
+        precedence = {p[2] : p[5], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[8]}
+        p[0] = precedence
         #print(precedence)
         my._yaccObject.addStatement(precedence)
 
     # precedence format
     def p_precedence(my, p):
-        "precedence : PRECEDENCE '=' OPSQUAREB precStatements CLSQUAREB comment"
-        p[0] = p[4]
-        precedence = {p[1] : p[4], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[6]}
+        "precedence : '%' PRECEDENCE '=' OPSQUAREB precStatements CLSQUAREB comment"
+        precedence = {p[2] : p[5], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[7]}
+        p[0] = precedence
         #print(precedence)
         my._yaccObject.addStatement(precedence)    
     
@@ -427,22 +428,19 @@ class PlySimpleParser:
     def p_productionRules(my, p):
         #"productionRules : RULENAME RULEFORMAT OPBRACKETS RULECODE CLBRACKETS comment"
         "productionRules : RULENAME format"
+        #p.lexer.begin('GRULE')
+
         rule = {prodRule_key : p[1], p[1] : (p[2])[0]}
         rule.update((p[2])[1])
         p[0] = rule
-        #print("rule -> " + str(rule))
-        my._tokenizer.lexer.begin('GRULE')
-        #rule = {prodRule_key : p[1], p[1] : p[2], pythonCode_key : p[4], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[6]}
-        #p[0] = rule
-        #print(rule)
         my._yaccObject.addStatement(rule)
 
 
     def p_ruleFormat(my, p):
         "format : RULEFORMAT RULECODE comment"
-
+        p.lexer.begin('YACC')
         p[0] = (p[1], {pythonCode_key : p[2], comment_key : p[3]})
-        my._tokenizer.lexer.begin('YACC')
+
 
 
 

@@ -24,7 +24,7 @@ class PlySimpleTokenizer:
         ('GRULE', 'inclusive'),
         ('FREEPYTHON', 'inclusive')             # estado FREE para captar qualquer coisa que seja código python
     )
-
+    
     tokens = (
         
         #   - states -
@@ -93,27 +93,26 @@ class PlySimpleTokenizer:
         r'\n+'
         t.lexer.lineno += 1
 
-    
 
     # ------------------------------------------------------------------- STATES IDENTIFIERS
     # lexstate, "%%lex", case insensitive
     def t_LEXSTATE(my, t):
         r'%%\s*(?i:lex)'
         t.value = t.value.upper()
-        my.lexer.begin('LEX')
+        t.lexer.begin('LEX')
         print("\n#> STATE CHANGE : [LEX STATE]")
 
     # staccstate, "%%yacc", case insensitive
     def t_YACCSTATE(my, t):
         r'%%\s*(?i:yacc)'
         t.value = t.value.upper()
-        my.lexer.begin('YACC')
+        t.lexer.begin('YACC')
         print("\n#> STATE CHANGE : [YACC STATE]")
 
     # freepython, "%%"
     def t_FREESTATE(my, t):
         r'%%\s'
-        my.lexer.begin('FREEPYTHON')
+        t.lexer.begin('FREEPYTHON')
         print("\n#> STATE CHANGE : [FREE STATE]")
 
 
@@ -228,10 +227,9 @@ class PlySimpleTokenizer:
     
     ### "%precedence", case insensitive
     def t_YACC_PRECEDENCE(my, t):
-        r'%(?i:precedence)'
-        t.value = t.value.lower()
-        t.value = t.value[1:]
-        #print("PRECEDENCE :: " + t.value)
+        r'precedence'
+        #t.value = t.value[1:]
+        print("PRECEDENCE :: " + t.value)
         return t
 
     ### 'left', case insensitive
@@ -253,7 +251,7 @@ class PlySimpleTokenizer:
         r'\w+\s+:'
         split = t.value.split(" ")
         t.value = split[0]
-        my.lexer.begin('GRULE')
+        t.lexer.begin('GRULE')
         return t
 
     ### yacc production rule's format, " ..." { code
@@ -271,7 +269,7 @@ class PlySimpleTokenizer:
         catcher = re.compile(r'\s*(.+)\s*')
         #print("RULECODE : \"" + t.value + "\"")
         t.value = catcher.match(t.value).group()
-        my.lexer.begin('YACC')
+        t.lexer.begin('YACC')
         return t
 
 
@@ -325,11 +323,12 @@ class PlySimpleTokenizer:
     # ------------------------------------------------------------------- FREE STATE RULES
     def t_PYTHON(my, t):
         r'[^%\'"#=,].+'
-        #print("python: " + t.value)
+        print("python: " + t.value)
         return t
 
     def t_FREEPYTHON_PYTHON(my, t):
         r'.+'
+        return t
 
     def t_error(my, t):
         print("Illegal char: '%s'" % t.value[0])

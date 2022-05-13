@@ -11,6 +11,7 @@ def home():
 
 @views.route('/token', methods=['GET','POST'])
 def token():
+    token = ""
     if request.method == 'POST':
         inputToken = request.form.get('editorTexto')
         print(inputToken)
@@ -20,6 +21,7 @@ def token():
 
 @views.route('/grammar', methods=['GET','POST'])
 def grammar():
+    grammar = ""
     if request.method == 'POST':
         inputGrammar = request.form.get('editorTexto')
         print(inputGrammar)

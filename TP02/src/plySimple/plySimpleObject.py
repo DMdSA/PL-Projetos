@@ -94,9 +94,10 @@ class PlySimple:
         
             lexer.input(line)
             [x.value for x in lexer]
-
             auxString = auxString + line
+
             if tokenizer.insideMultiline() is False:
+                #print("FRASE:\"" + auxString + "\"")
                 parser._parser.parse(auxString)
                 auxString = ""
 
