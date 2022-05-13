@@ -124,7 +124,6 @@ class PlySimpleParser:
         ign = {p[2] : p[4], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[5]}
         #print(ign)
         my._lexObject.addStatement(ign)
-        #my._lexObject.printVariables()
         #print("\n" + str(plyDictionary))
 
     # extra: railing comma acceptance, %tokens = [ 'VARNAME' ,]
@@ -426,11 +425,25 @@ class PlySimpleParser:
     # PRODUCTION RULES
 
     def p_productionRules(my, p):
-        "productionRules : RULENAME RULEFORMAT OPBRACKETS RULECODE CLBRACKETS comment"
-        rule = {prodRule_key : p[1], p[1] : p[2], pythonCode_key : p[4], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[6]}
+        #"productionRules : RULENAME RULEFORMAT OPBRACKETS RULECODE CLBRACKETS comment"
+        "productionRules : RULENAME format"
+        rule = {prodRule_key : p[1], p[1] : (p[2])[0]}
+        rule.update((p[2])[1])
         p[0] = rule
+        #print("rule -> " + str(rule))
+        my._tokenizer.lexer.begin('GRULE')
+        #rule = {prodRule_key : p[1], p[1] : p[2], pythonCode_key : p[4], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[6]}
+        #p[0] = rule
         #print(rule)
         my._yaccObject.addStatement(rule)
+
+
+    def p_ruleFormat(my, p):
+        "format : RULEFORMAT RULECODE comment"
+
+        p[0] = (p[1], {pythonCode_key : p[2], comment_key : p[3]})
+        my._tokenizer.lexer.begin('YACC')
+
 
 
     ##-------------------------------------------------------------- FREE GRAMMAR
@@ -440,7 +453,7 @@ class PlySimpleParser:
         "pythonCode : PYTHON"
         python = {pythonCode_key : p[1], lineno_key : my._tokenizer.lexer.lineno}
         p[0] = python
-        print(python)
+        #print(python)
         #my._yaccObject.addStatement(python)
 
     

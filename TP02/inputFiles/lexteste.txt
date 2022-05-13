@@ -21,11 +21,12 @@
 
 %% YACC
 %precedence = [
-('left','+','-'),
-('left','*','/'),
-('right','UMINUS'),
+    ('left','+','-'),
+    ('left','*','/'),
+    ('right','UMINUS'),
 ]
 
+ts = { }
 
 stat : VAR '=' exp { ts[t[1]] = t[3] }
 stat : exp { print(t[1]) }
