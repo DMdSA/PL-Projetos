@@ -168,7 +168,7 @@ class PlySimple:
         print("tokens = (")
         tkns = (tokensStatement)[tokens_key]
         for tkn in tkns:
-            print(PTAB + PTAB + tkn + "\",")
+            print(PTAB + PTAB + tkn + ",")
         print("\t)")
 
 
@@ -325,6 +325,7 @@ class PlySimple:
                     if c[id_key] == id:
                         my.transc_comment(c)
     
+
     def transcribe_yacc_sorted(my):
 
         sortedKeys = my._yaccObject._keysOrder
