@@ -95,7 +95,7 @@ class PlySimpleTokenizer:
     t_ignore = " \r\t"
 
     def t_ignore_newline(my, t):
-        r'\r?\n'
+        r'\n'
         t.lexer.lineno += 1
 
 
@@ -320,8 +320,8 @@ class PlySimpleTokenizer:
 
     # comment statement, # ...
     def t_COMMENT(my, t):
-        r'\#.*\n$'
-        split = t.value.split('\n')
+        r'\#[^\r]*'
+        split = t.value.split('\r\n')
         t.value = split[0]
         return t
 
@@ -333,7 +333,7 @@ class PlySimpleTokenizer:
         return t
 
     def t_FREEPYTHON_PYTHON(my, t):
-        r'.+'
+        r'[^%\'"#=,].+'
         return t
 
     def t_error(my, t):

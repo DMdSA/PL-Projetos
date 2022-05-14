@@ -72,7 +72,6 @@ def about():
 def htmlTokenizer(line):
     answer = ""
     tokenizer.lexer.input(line)
-
     tokens = [(x.type, x.value) for x in tokenizer.lexer]
     if tokens:
         for tok in tokens:

@@ -1,5 +1,7 @@
-from ply import lex
-from ply import yacc
+import sys
+sys.path.append('../')
+from src.ply import lex
+from src.ply import yacc
 
 ## a single char
 literals = [
@@ -18,7 +20,6 @@ states = (
 		('DIOGO', 'exclusive'),
 	)
 
-b = "rebelo"
 ignore = " \t\n"
 
 tokens = (
@@ -35,8 +36,6 @@ def t_ANY_NUMBER(t):
 	t.value = float(t.value)
 	return t
 
-a = "diogo"
-
 def t_error(t):
 	pass
 
@@ -45,39 +44,39 @@ def p_stat0(t):
 	"stat : VAR '=' exp"
 	ts[t[1]] = t[3] 
 
-def p_stat0(t):
+def p_stat1(t):
 	"stat : exp"
 	print(t[1]) 
 
-def p_exp0(t):
+def p_exp2(t):
 	"exp : exp '+' exp"
 	t[0] = t[1] + t[3] 
 
-def p_exp0(t):
+def p_exp3(t):
 	"exp : exp '-' exp"
 	t[0] = t[1] - t[3] 
 
-def p_exp0(t):
+def p_exp4(t):
 	"exp : exp '*' exp"
 	t[0] = t[1] * t[3] 
 
-def p_exp0(t):
+def p_exp5(t):
 	"exp : exp '/' exp"
 	t[0] = t[1] / t[3] 
 
-def p_exp0(t):
+def p_exp6(t):
 	"exp : '-' exp %prec UMINUS"
 	t[0] = -t[2] 
 
-def p_exp0(t):
+def p_exp7(t):
 	"exp : '(' exp"
 	t[0] = t[2] 
 
-def p_exp0(t):
+def p_exp8(t):
 	"exp : NUMBER"
 	t[0] = t[1] 
 
-def p_exp0(t):
+def p_exp9(t):
 	"exp : VAR"
 	t[0] = getval(t[1]) 
 
@@ -94,5 +93,6 @@ def p_error(t):
 def getval(n):
     if n not in ts: print(f"Undefined name '{n}'")
     return ts.get(n,0)
-y=yacc()
+lexer = lex.lex()
+y=yacc.yacc()
 y.parse("3+4*7")
