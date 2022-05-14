@@ -16,7 +16,7 @@ states_key = "states"
 lineno_key = "lineno"
 comment_key = "comment"
 id_key = "id"
-
+python_key = "pythonCode"
 
 class PlySLexObject:
 
@@ -38,8 +38,25 @@ class PlySLexObject:
         my._states = {}
         my._comments = []
 
+        my._pythonCode = []
         my._keysOrder = []
 
+    def reset(my):
+        my._idCounter = 1                               ## statement id
+        my._hasLiterals = False                         ## flag control for literals definition
+        my._hasTokens = False                           ## flag control for tokens definition
+        my._hasIgnore = False                           ## flag control for ignore definition
+        my._hasError = False
+        my._hasStates = False
+        my._literals = {}
+        my._tokens = {}
+        my._ignore = {}
+        my._error = {}
+        my._returns = []
+        my._states = {}
+        my._comments = []
+        my._pythonCode = []
+        my._keysOrder = []
     ##--------------------------------------------------
     ##----------------- Variables gets/sets/deleters ---
     ##--------------------------------------------------
@@ -308,6 +325,12 @@ class PlySLexObject:
         my._comments.append(comment)
 
 
+    def addPyhtonCode(my, python):
+        python[id_key] = my._idCounter
+        my.idCounter_inc()
+        my._pythonCode.append(python)
+
+
     def addStatement(my, statement):
 
         ## TOKENS KEY
@@ -340,9 +363,15 @@ class PlySLexObject:
             my.addStates(statement)
             my._keysOrder.append(states_key)
 
+        ## COMMENT KEY
         elif comment_key in statement.keys():
             my.addComment(statement)
             my._keysOrder.append(comment_key)
+
+        ## PYTHON KEY
+        elif python_key in statement.keys():
+            my.addPyhtonCode(statement)
+            my._keysOrder.append(python_key)
 
         ## UNKNOWN KEY - ERROR
         else:

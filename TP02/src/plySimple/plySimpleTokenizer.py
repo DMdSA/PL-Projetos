@@ -13,10 +13,11 @@ class PlySimpleTokenizer:
 
     def build(my):
         my.lexer = lex.lex(module=my)
-        my.lexer.begin('INITIAL')
+        my.lexer.begin('LEX')
         my.lexer.squareBracket = 0
         my.lexer.roundBracket = 0
         my.lexer.brackets = 0
+        my.lexer.lineno = 0
 
     states = (
         ('LEX', 'inclusive'),                   # estado utilizado para captar lex tokens
@@ -33,10 +34,10 @@ class PlySimpleTokenizer:
         "FREESTATE",            ## %%
         
         #   - LEX init -
-        "LITERALS",             # literals = "+-"
-        "IGN",                  # ignore = " \n\r\t"
+        "LITERALS",             # literals
+        "IGN",                  # ignore
         "CHARS",                # "+-*/"
-        "TKNS",                 # tokens = [ 'VARNAME', ...]
+        "TKNS",                 # tokens
         "VAR",                  # 'VARNAME'
         "STATES",
         "INCLUSIVE",
@@ -87,10 +88,14 @@ class PlySimpleTokenizer:
     ]
 
     # ------------------------------------------------------------------- IGNORE
-    t_ignore = " \t"
+    t_LEX_ignore = " \t\r"
+    t_YACC_ignore = " \t\r"
+    t_GRULE_ignore = " \t\r"
+    t_FREEPYTHON_ignore = ""
+    t_ignore = " \r\t"
 
     def t_ignore_newline(my, t):
-        r'\n+'
+        r'\r?\n'
         t.lexer.lineno += 1
 
 
@@ -107,7 +112,6 @@ class PlySimpleTokenizer:
     def t_YACCSTATE(my, t):
         r'%%\s*(?i:yacc)'
         t.value = t.value.upper()
-        my.lexer.begin('YACC')
         t.lexer.begin('YACC')
         return t
         #print("\n#> STATE CHANGE : [YACC STATE]")
@@ -116,7 +120,6 @@ class PlySimpleTokenizer:
     def t_FREESTATE(my, t):
         r'%%\s'
         t.lexer.begin('FREEPYTHON')
-        return t
         #print("\n#> STATE CHANGE : [FREE STATE]")
 
 
@@ -215,7 +218,7 @@ class PlySimpleTokenizer:
         return t
 
     def t_LEX_RETSTATE(my, t):
-        r'\$[^ ),\']+'
+        r'\$\s*[^ ),\']+'
         t.value = t.value[1:]
         #print("return state: " + t.value)
         return t

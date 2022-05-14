@@ -4,11 +4,10 @@ sys.path.append('../')
 
 from plySimple import plySimpleObject
 
-plysimple = plySimpleObject.PlySimple("../inputFiles/lexteste.txt")
+plysimple = plySimpleObject.PlySimple("../inputFiles/lexteste.txt","../outputFiles/lexteste.py")
 plysimple.readPlySimple()
 
 
-plysimple.transcribe_sorted()
-plysimple.transcribe_yacc_sorted()
+plysimple.transcribe_plySimple()
 
 #exec(open("test.py").read())
