@@ -4,25 +4,13 @@ from plySimple.plySimpleYacc import PlySYaccObject
 from plySimple.plySimpleParser import PlySimpleParser
 import sys
 
-
 ## lex keys
-tokens_key = "tokens"
-definedToken_key = "alreadyDefined"
-literals_key = "literals"
-ignore_key = "ignore"
-error_key = "error"
-return_key = "return"
-regex_key = "regex"
-states_key = "states"
-## yacc keys
-precedence_key = "precedence"
-prodRule_key = "productionRule"
-## common keys
-lineno_key = "lineno"
-comment_key = "comment"
-id_key = "id"
+from plySimple.plySimpleLex import tokens_key, definedToken_key, literals_key, ignore_key, error_key, return_key, regex_key, states_key
+## yacc keys (2) + common ones (4)
+from plySimple.plySimpleYacc import precedence_key, prodRule_key, lineno_key, comment_key, id_key, python_key
 
-PTAB = '\t'                                 # python tab
+
+PTAB = '\t'     # python tab
 
 class PlySimple:
 
@@ -103,51 +91,10 @@ class PlySimple:
 
         fHandler.close()
 
-        #print("\n#>\n")
-        #my._lexObject.printVariables()
-        #print("\n#>\n")
-        #my._yaccObject.printVariables()
-        #print("\n\n\n\n")
 
-
-
-    """Transcreve a gramática recolhida da parte do LEX e traduz para python"""
-    def transcribeLex(my):
-
-        lexContent = my._lexObject
-        if hasattr(lexContent, "_hasTokens") and lexContent._hasTokens:
-            tokens = lexContent._tokens
-            my.transc_tokens(tokens)
-
-        else:
-            sys.exit("\n#> error! tokens have not been defined!")
-
-        if hasattr(lexContent, "_hasLiterals") and lexContent._hasLiterals:
-            literals = lexContent._literals
-            my.transc_literals(literals)
-
-        if hasattr(lexContent, "_hasStates") and lexContent._hasStates:
-            states = lexContent._states
-            my.transc_states(states)
-
-        if hasattr(lexContent, "_hasIgnore") and lexContent._hasIgnore:
-            ignore = lexContent._ignore
-            my.transc_ignore(ignore)
-        
-        else:
-            print("\n#> warning: ignore rule not defined")
-
-        if hasattr(lexContent, "_hasTokens") and lexContent._hasTokens:
-            returns = lexContent._returns
-            my.transc_returns(returns)
-        
-        if hasattr(lexContent, "_hasError") and lexContent._hasError:
-            error = lexContent._error
-            my.transc_error(error)
-        
-        else:
-            print("\n#> warning: error rule not defined")
-            my.transc_error()
+    def transcribe_plySimple(my):
+        my.transcribe_lex_sorted()
+        my.transcribe_yacc_sorted()
 
 
     """Transcreve um comentário, caso exista"""
@@ -259,7 +206,7 @@ class PlySimple:
         for prec in precs:
             for i in range (len(prec)):       #Enquanto houver elementos
 
-                if isinstance(prec[i],str):   #Se for uma string
+                if isinstance(prec[i], str):   #Se for uma string
                     print("\t(" + prec[i] + ',', end="")
                 else:
                     for e in range (len(prec[i])):    #Caso seja uma lista
@@ -280,13 +227,24 @@ class PlySimple:
         print("\t" + prodStatements['pythonCode'] + "\n")
 
 
+    """Transcreve código python - não há necessidade de tratamento extra"""
+    def transc_pythonCode(my, pythonCode):
+        print(pythonCode)
+
 
     """Transcreve plySimple para PLY, conforma a ordem explicitada no ficheiro plySimple"""
-    def transcribe_sorted(my):
+    def transcribe_lex_sorted(my):
 
+        hasError = my._lexObject._hasError
+        hasIgnore = my._lexObject._hasIgnore
         sortedKeys = my._lexObject._keysOrder
+        if hasIgnore is False:
+            print("\n#> Warning: ignore rule not defined...")
+        if hasError not in sortedKeys:
+            print("\n#> Warning: error rule not defined...")
+
         id = 1
-        returnFlag = False
+        returnTranscribed = False
         for key in sortedKeys:
 
             if key == literals_key:
@@ -294,37 +252,46 @@ class PlySimple:
                     my.transc_literals(my._lexObject._literals)
                     id = id + 1
 
-            if key == states_key:
+            elif key == states_key:
                 if my._lexObject._states[id_key] == id:
                     my.transc_states(my._lexObject._states)
                     id = id + 1
 
-            if key == ignore_key:
+            elif key == ignore_key:
                 if my._lexObject._ignore[id_key] == id:
                     my.transc_ignore(my._lexObject._ignore)
                     id = id + 1
             
-            if key == error_key:
+            elif key == error_key:
                 if my._lexObject._error[id_key] == id:
                     my.transc_error(my._lexObject._error)
                     id = id + 1
 
-            if key == tokens_key:
+            elif key == tokens_key:
                 if my._lexObject._tokens[id_key] == id:
                     my.transc_tokens(my._lexObject._tokens)
                     id = id + 1
             
-            if key == return_key:
-                if not returnFlag:
+            elif key == return_key:
+                if not returnTranscribed:
                     my.transc_returns(my._lexObject._returns)
                     id = id + len(my._lexObject._returns)
-                    returnFlag = True
+                    returnTranscribed = True
             
-            if key == comment_key:
+            elif key == comment_key:
                 for c in my._lexObject._comments:
                     if c[id_key] == id:
                         my.transc_comment(c)
     
+            elif key == python_key:
+                for p in my._lexObject._pythonCode:
+                    if p[id_key] == id:
+                        my.transc_python(p)
+
+        # mesmo que não esteja definido, deve ser adicionado
+        if hasError is False:
+            my.transc_error()
+
 
     def transcribe_yacc_sorted(my):
 
@@ -338,15 +305,24 @@ class PlySimple:
                     my.transc_precedence(my._yaccObject._precedence)
                     id = id + 1
             
-            if key == prodRule_key:
+            elif key == prodRule_key:
                 for prod in my._yaccObject._productionRules:
                     if prod[id_key] == id:
                         my.transc_prodRule(prod, ruleNumber)
                 ruleNumber = ruleNumber + 1
                 id = id + 1
             
-            if key == comment_key:
+            elif key == comment_key:
                 for c in my._yaccObject._comments:
                     if c[id_key] == id:
                         my.transc_comment(c)
             
+            elif key == python_key:
+                for p in my._lexObject._pythonCode:
+                    if p[id_key] == id:
+                        my.transc_python(p)
+            
+    
+    def transcribe_plySimple(my):
+        my.transcribe_lex_sorted()
+        my.transcribe_yacc_sorted()

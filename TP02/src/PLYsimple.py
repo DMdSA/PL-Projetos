@@ -8,7 +8,6 @@ plysimple = plySimpleObject.PlySimple("../inputFiles/lexteste.txt")
 plysimple.readPlySimple()
 
 
-plysimple.transcribe_sorted()
-plysimple.transcribe_yacc_sorted()
+plysimple.transcribe_plySimple()
 
 #exec(open("test.py").read())

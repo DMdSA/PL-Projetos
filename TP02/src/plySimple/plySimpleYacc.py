@@ -10,6 +10,7 @@ prodRule_key = "productionRule"
 lineno_key = "lineno"
 comment_key = "comment"
 id_key = "id"
+python_key = "pythonCode"
 
 class PlySYaccObject:
 
@@ -20,7 +21,7 @@ class PlySYaccObject:
         my._precedence = {}
         my._productionRules = []
         my._comments = []
-
+        my._pythonCode = []
         my._keysOrder = []
 
     
@@ -40,7 +41,6 @@ class PlySYaccObject:
     """Incrementar o valor do ID do ticket atual do objeto"""
     def idCounter_inc(my):
         my._idCounter = my._idCounter + 1
-
 
 
     def addPrecedence(my, precedence):
@@ -68,6 +68,13 @@ class PlySYaccObject:
         my.idCounter_inc()
         my._comments.append(comment)
 
+    
+    def addPyhtonCode(my, python):
+        python[id_key] = my._idCounter
+        my.idCounter_inc()
+        my._pythonCode.append(python)
+
+
     def addStatement(my, statement):
 
         ## PRECEDENCE KEY
@@ -84,9 +91,14 @@ class PlySYaccObject:
             my.addComment(statement)
             my._keysOrder.append(comment_key)
         
+        elif python_key in statement.keys():
+            my.addPyhtonCode(statement)
+            my._keysOrder.append(python_key)
+
         else:
             print(statement)
             sys.exit("\n#> error: unknown statement!! lineno: " + str(statement[lineno_key]))
+
 
     """Imprime as variáveis que já se encontram guardadas na classe"""
     def printVariables(my):

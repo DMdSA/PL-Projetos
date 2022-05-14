@@ -17,6 +17,7 @@ class PlySimpleTokenizer:
         my.lexer.squareBracket = 0
         my.lexer.roundBracket = 0
         my.lexer.brackets = 0
+        my.lexer.lineno = 0
 
     states = (
         ('LEX', 'inclusive'),                   # estado utilizado para captar lex tokens
@@ -90,7 +91,7 @@ class PlySimpleTokenizer:
     t_ignore = " \t"
 
     def t_ignore_newline(my, t):
-        r'\n+'
+        r'\r?\n'
         t.lexer.lineno += 1
 
 
@@ -107,7 +108,6 @@ class PlySimpleTokenizer:
     def t_YACCSTATE(my, t):
         r'%%\s*(?i:yacc)'
         t.value = t.value.upper()
-        my.lexer.begin('YACC')
         t.lexer.begin('YACC')
         return t
         #print("\n#> STATE CHANGE : [YACC STATE]")
