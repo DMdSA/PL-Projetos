@@ -23,7 +23,7 @@
     <div class="boxContainer resultContainer">
             <div class = "result"> 
                 <textarea name="editorTexto" id="editorTexto" class="textareaTextBox" 
-                 autocomplete="off" spellcheck="false" wrap="logical" readonly> {{ result }} </textarea>
+                 autocomplete="off" spellcheck="false" wrap="logical" readonly>{{ result|safe }}</textarea>
             </div>
     </div>
 {% endblock %}
