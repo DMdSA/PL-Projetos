@@ -88,11 +88,11 @@ class PlySimpleTokenizer:
     ]
 
     # ------------------------------------------------------------------- IGNORE
-    t_LEX_ignore = " \t"
-    t_YACC_ignore = " \t"
-    t_GRULE_ignore = " \t"
+    t_LEX_ignore = " \t\r"
+    t_YACC_ignore = " \t\r"
+    t_GRULE_ignore = " \t\r"
     t_FREEPYTHON_ignore = ""
-    t_ignore = " \t"
+    t_ignore = " \r\t"
 
     def t_ignore_newline(my, t):
         r'\r?\n'
