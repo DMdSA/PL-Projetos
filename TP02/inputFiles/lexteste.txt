@@ -7,7 +7,6 @@
             ('DIOGO', 'EXCLUSIVE'),
         ]   # grande estado
 
-b = "rebelo"
 
 %ignore = " \t\n"
 
@@ -16,8 +15,6 @@ b = "rebelo"
 '[a-zA-Z_][a-zA-Z0-9_]*' return(t.value, 'VAR')
 
 '\d+(\.\d+)?' return($ANY, 'NUMBER', float(t.value))
-
-a = "diogo"
 
 
 
@@ -54,6 +51,8 @@ def p_error(t):
 def getval(n):
     if n not in ts: print(f"Undefined name '{n}'")
     return ts.get(n,0)
-y=yacc()
+
+lexer = lex.lex()
+y=yacc.yacc()
 y.parse("3+4*7")
 
