@@ -107,8 +107,8 @@ class PlySimpleParser:
     # comments
     def p_start_comment(my, p):
         "start : comment"
-        p[0] = p[1]
-        comment = {comment_key : p[0], lineno_key : my._tokenizer.lexer.lineno}
+        comment = {comment_key : p[1], lineno_key : my._tokenizer.lexer.lineno}
+        p[0] = comment
         my._yaccObject.addStatement(comment)
 
     # FIM
@@ -482,8 +482,10 @@ class PlySimpleParser:
 
     ## PARSER ERROR
     def p_error(my, p):
-        print(f"Syntax error at '{p.value}', {p}")
-
+        if p:
+            print(f"Syntax error at '{p.value}', {p}")
+        else:
+            print("\n#> error parsing object: None")
 
 
 # está a funcionar

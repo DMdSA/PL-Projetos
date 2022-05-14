@@ -118,8 +118,9 @@ class PlySimpleTokenizer:
 
     # freepython, "%%"
     def t_FREESTATE(my, t):
-        r'%%\s'
+        r'%%\s*\n?'
         t.lexer.begin('FREEPYTHON')
+        return t
         #print("\n#> STATE CHANGE : [FREE STATE]")
 
 

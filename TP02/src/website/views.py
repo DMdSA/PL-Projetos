@@ -1,9 +1,10 @@
 #-------------------------------------------------------------------------------
 import sys
+sys.path.append('../')
+import re
 from plySimple.plySimpleLex import PlySLexObject
 from plySimple.plySimpleParser import PlySimpleParser
 from plySimple.plySimpleYacc import PlySYaccObject
-sys.path.append('../')
 from plySimple.plySimpleTokenizer import PlySimpleTokenizer
 
 ##-------------------------------------tokenizer
@@ -83,25 +84,42 @@ def htmlTokenizer(line):
 
 
 """Recolhe input do website e devolve a frase se reconhecida pela gramática PlySimple"""
-def htmlGrammarChecker(line):
+
+
+
+
+def htmlGrammarChecker(text):
+
     answer = ""
-    lexer.input(line)
-    parseResult = parser._parser.parse(line)
+    eachLine = re.findall(r'.+\n?', text)
+    eachLine = [re.sub(r'\r?\n', "", x) for x in eachLine]
+    print(eachLine)
+
+    auxString = ""
+
+    for l in eachLine:
+
+        if l:
+            lexer.input(l)
+            [x.value for x in lexer]
+            auxString = auxString + l
+
+            if parser.tokenizer.insideMultiline() is False:
+                parseResult = parser._parser.parse(auxString)
+                print(str(type(parseResult)) + " " + str(parseResult))
+                # se apenas for um pedaço de código python:
+                if parseResult is not None:
+                    if "pythonCode" in parseResult.keys():
+                        if "productionRule" not in parseResult.keys():
+                            answer = answer + "(probably python code): " + str(parseResult) + "\n"
+                        else:
+                            answer = answer + str(parseResult) + "\n"
+                    else:
+                         answer = answer + str(parseResult) + "\n"
+                else:
+                    answer = answer + "#> error: could not parse... probably wrong state\n"
+                auxString = ""
+
+
     lex.reset()
-
-    # se apenas for um pedaço de código python:
-    if parseResult is not None:
-        if "pythonCode" in parseResult.keys():
-            if "productionRule" not in parseResult.keys():
-                answer = answer + "(probably python code): " + str(parseResult)
-            else:
-                answer = answer + str(parseResult)
-        else:
-             answer = answer + str(parseResult)
-
-    else:
-        answer = answer + "#> error: could not parse... probably wrong state"
-    
     return answer
-
-
