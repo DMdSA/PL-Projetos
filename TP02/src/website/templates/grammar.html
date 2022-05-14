@@ -12,7 +12,7 @@
         <!-- Container for the input -->
         <div class="boxContainer editorContainer">     
             <textarea name="editorTexto" id="editorTexto" class="textareaTextBox" placeholder="Type here ..." 
-                    autocomplete="off" spellcheck="false" wrap="logical"></textarea>
+                    autocomplete="off" spellcheck="false" wrap="logical">{{ original }}</textarea>
         </div>      
     </form>
 
@@ -23,7 +23,7 @@
     <div class="boxContainer resultContainer">
             <div class = "result"> 
                 <textarea name="editorTexto" id="editorTexto" class="textareaTextBox" 
-                 autocomplete="off" spellcheck="false" wrap="logical" readonly> {{ result }}</textarea>
+                 autocomplete="off" spellcheck="false" wrap="logical" readonly> {{ result|safe }}</textarea>
             </div>
     </div>
 {% endblock %}
