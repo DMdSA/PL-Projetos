@@ -54,7 +54,7 @@ def htmlTokenizer(line):
     if tokens:
         for tok in tokens:
             if tok[0] == "PYTHON":
-                answer = answer + "<br>Probably python code...: " + str(tok)
+                answer = answer + "Probably python code ... : " + str(tok) + "\n"
             else:
-                answer = answer + str(tok)
+                answer = answer + str(tok) +"\n"
     return answer
