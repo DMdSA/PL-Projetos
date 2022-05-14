@@ -9,7 +9,9 @@ from plySimple.plySimpleTokenizer import PlySimpleTokenizer
 from plySimple.plySimpleLex import *
 from plySimple.plySimpleYacc import *
 
-pythonCode_key = "pythonCode"
+lexState = "LEX"
+yaccState = "YACC"
+freeState = "FREE"
 
 class PlySimpleParser:
 
@@ -20,6 +22,7 @@ class PlySimpleParser:
         self._parser = yacc.yacc(module=self)       ## parser
         self._yaccObject = yaccObject               ## yacc object
         self._lexObject = lexObject                 ## lex object
+        self._currentState = lexState
         
 
     
@@ -84,17 +87,20 @@ class PlySimpleParser:
     def p_start_changeLex(my, p):
         "start : LEXSTATE comment"
         p.lexer.begin('LEX')
+        my._currentState = lexState
         p[0] = {"LEXSTATE" : p[1], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[2]}
 
     def p_start_changeYacc(my, p):
         "start : YACCSTATE comment"
         p.lexer.begin('YACC')
+        my._currentState = yaccState
         #print("\n#> YACC STATE")
         p[0] = {"YACCSTATE" : p[1], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[2]}
     
     def p_start_changeFree(my, p):
         "start : FREESTATE comment"
         p.lexer.begin('FREEPYTHON')
+        my._currentState = freeState
         #print("\n#> FREE STATE")
         p[0] = {"FREESTATE" : p[1], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[2]}
 
@@ -439,7 +445,7 @@ class PlySimpleParser:
     def p_ruleFormat(my, p):
         "format : RULEFORMAT RULECODE comment"
         p.lexer.begin('YACC')
-        p[0] = (p[1], {pythonCode_key : p[2], lineno_key: my._tokenizer.lexer.lineno, comment_key : p[3]})
+        p[0] = (p[1], {python_key : p[2], lineno_key: my._tokenizer.lexer.lineno, comment_key : p[3]})
 
 
 
@@ -449,10 +455,13 @@ class PlySimpleParser:
     # python code
     def p_pythonCode(my, p):
         "pythonCode : PYTHON"
-        python = {pythonCode_key : p[1], lineno_key : my._tokenizer.lexer.lineno}
+        python = {python_key : p[1], lineno_key : my._tokenizer.lexer.lineno}
         p[0] = python
         #print(python)
-        #my._yaccObject.addStatement(python)
+        if my._currentState == lexState:
+            my._lexObject.addStatement(python)
+        else:
+            my._yaccObject.addStatement(python)
 
     
 

@@ -13,7 +13,7 @@ class PlySimpleTokenizer:
 
     def build(my):
         my.lexer = lex.lex(module=my)
-        my.lexer.begin('INITIAL')
+        my.lexer.begin('LEX')
         my.lexer.squareBracket = 0
         my.lexer.roundBracket = 0
         my.lexer.brackets = 0
@@ -34,10 +34,10 @@ class PlySimpleTokenizer:
         "FREESTATE",            ## %%
         
         #   - LEX init -
-        "LITERALS",             # literals = "+-"
-        "IGN",                  # ignore = " \n\r\t"
+        "LITERALS",             # literals
+        "IGN",                  # ignore
         "CHARS",                # "+-*/"
-        "TKNS",                 # tokens = [ 'VARNAME', ...]
+        "TKNS",                 # tokens
         "VAR",                  # 'VARNAME'
         "STATES",
         "INCLUSIVE",
@@ -215,7 +215,7 @@ class PlySimpleTokenizer:
         return t
 
     def t_LEX_RETSTATE(my, t):
-        r'\$[^ ),\']+'
+        r'\$\s*[^ ),\']+'
         t.value = t.value[1:]
         #print("return state: " + t.value)
         return t

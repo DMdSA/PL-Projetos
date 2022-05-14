@@ -363,10 +363,12 @@ class PlySLexObject:
             my.addStates(statement)
             my._keysOrder.append(states_key)
 
+        ## COMMENT KEY
         elif comment_key in statement.keys():
             my.addComment(statement)
             my._keysOrder.append(comment_key)
 
+        ## PYTHON KEY
         elif python_key in statement.keys():
             my.addPyhtonCode(statement)
             my._keysOrder.append(python_key)
