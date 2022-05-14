@@ -17,13 +17,13 @@
     </form>
 
     <div class="midBar right">
-        <p>Results: </p>  
+        <p>Results (Token Name, Token Value): </p>  
     </div> 
     <!-- Container for the result -->
     <div class="boxContainer resultContainer">
             <div class = "result"> 
                 <textarea name="editorTexto" id="editorTexto" class="textareaTextBox" 
-                 autocomplete="off" spellcheck="false" wrap="logical" readonly> {{ result }}</textarea>
+                 autocomplete="off" spellcheck="false" wrap="logical" readonly>{{ result|safe }}</textarea>
             </div>
     </div>
 {% endblock %}
