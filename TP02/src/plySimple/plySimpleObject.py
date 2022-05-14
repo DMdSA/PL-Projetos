@@ -1,4 +1,5 @@
 
+from black import out
 from plySimple.plySimpleLex import PlySLexObject
 from plySimple.plySimpleYacc import PlySYaccObject
 from plySimple.plySimpleParser import PlySimpleParser
@@ -14,9 +15,10 @@ PTAB = '\t'     # python tab
 
 class PlySimple:
 
-    def __init__(self, filename):
+    def __init__(self, filename, output):
         
         self._filename = filename
+        self._output = output
         self._lexObject = PlySLexObject()       # lex object
         self._yaccObject = PlySYaccObject()     # yacc object
 
@@ -37,7 +39,19 @@ class PlySimple:
     def filename(my):
         del my._filename
 
+    ## output file
+    @property
+    def output(my):
+        return my._output
     
+    @output.setter
+    def output(my,value):
+        my._output = value
+    
+    @output.deleter
+    def output(my):
+        del my._output
+
     ## lexObject
     @property
     def lexObject(my):
@@ -93,147 +107,143 @@ class PlySimple:
 
 
     def transcribe_plySimple(my):
-        my.transcribe_lex_sorted()
-        my.transcribe_yacc_sorted()
+
+        f = open(my._output, "w")
+        f.write("from ply import lex\nfrom ply import yacc\n\n")
+        my.transcribe_lex_sorted(f)
+        my.transcribe_yacc_sorted(f)
+        f.close()
 
 
     """Transcreve um comentário, caso exista"""
-    def transc_stat_comment(my, something):
+    def transc_stat_comment(my, something,f):
         
         if len(something[comment_key]) > 0:
-            print(something[comment_key])
+            f.write(something[comment_key] + "\n")
 
-    def transc_comment(my, comment):
+    def transc_comment(my, comment,f):
 
-        print(comment)
+         f.write(comment + "\n")
 
 
     """Transcrição de tokens"""
-    def transc_tokens(my, tokensStatement):
+    def transc_tokens(my, tokensStatement,f):
         
-        my.transc_stat_comment(tokensStatement)
-        print("tokens = (")
+        my.transc_stat_comment(tokensStatement,f)
+        f.write("tokens = (\n")
         tkns = (tokensStatement)[tokens_key]
         for tkn in tkns:
-            print(PTAB + PTAB + tkn + ",")
-        print("\t)")
+            f.write(PTAB + PTAB + tkn + ",\n")
+        f.write("\t)\n\n")
 
 
     """Transcrição de literals"""
-    def transc_literals(my, literalsStatement):
+    def transc_literals(my, literalsStatement,f):
 
-        my.transc_stat_comment(literalsStatement)
-        print("literals = [")
+        my.transc_stat_comment(literalsStatement,f)
+        f.write("literals = [\n")
         lits = (literalsStatement)[literals_key]
         for lit in lits:
-            print(PTAB + PTAB + "\'" + lit + "\',")
-        print("\t]")
+            f.write(PTAB + PTAB + "\'" + lit + "\',\n")
+        f.write("\t]\n\n")
 
 
     """Transcrição de states"""
-    def transc_states(my, statesStatement):
+    def transc_states(my, statesStatement,f):
 
-        my.transc_stat_comment(statesStatement)
-        print("states = (")
+        my.transc_stat_comment(statesStatement,f)
+        f.write("states = (\n")
         stats = (statesStatement)[states_key]
         for stat in stats:
-            print(PTAB + PTAB + "(" + stat[0] + ", " + stat[1] + "),")
-        print("\t)")
+            f.write(PTAB + PTAB + "(" + stat[0] + ", " + stat[1] + "),\n")
+        f.write("\t)\n\n")
     
 
     """Transcrição de ignore"""
-    def transc_ignore(my, ignoreStatement):
+    def transc_ignore(my, ignoreStatement,f):
 
-        my.transc_stat_comment(ignoreStatement)
+        my.transc_stat_comment(ignoreStatement,f)
         igns = (ignoreStatement)[ignore_key]
-        print("ignore = \"" + igns + "\"")
+        f.write("ignore = \"" + igns + "\"\n\n")
 
     
 
-    def transc_returns(my, returnStatement):
+    def transc_returns(my, returnStatement,f):
         
         # cada recStatement é um dicionário
         for retStatement in returnStatement:
             
-            my.transc_stat_comment(retStatement)
+            my.transc_stat_comment(retStatement,f)
             varNameQ = (retStatement[return_key])
             # retirar as \' à variável em questão
             varName = (varNameQ)[1:-1]
             if retStatement[states_key] is not None:
-                print("def t_" + retStatement[states_key] + "_" + varName + "(t):")
+                f.write("def t_" + retStatement[states_key] + "_" + varName + "(t):\n")
             else:
-                print("def t_" + varName + "(t):")
+                f.write("def t_" + varName + "(t):\n")
             
-            print(PTAB + "r'" + retStatement[regex_key] + "\'")
+            f.write(PTAB + "r'" + retStatement[regex_key] + "\'\n")
             if retStatement[varNameQ] != "t.value":
-                print(PTAB + "t.value = " + retStatement[varNameQ] + "(t.value)")
-            print(PTAB + "return t\n\n")
+                f.write(PTAB + "t.value = " + retStatement[varNameQ] + "(t.value)\n")
+            f.write(PTAB + "return t\n\n")
     
 
-    def transc_error(my, errorStatement=None):
+    def transc_error(my,f, errorStatement=None):
 
         if errorStatement:
-            my.transc_stat_comment(errorStatement)
+            my.transc_stat_comment(errorStatement,f)
             errorTuple = errorStatement[error_key]
-            print("def t_error(t):")
-            print(PTAB + errorTuple[0])
+            f.write("def t_error(t):\n")
+            f.write(PTAB + errorTuple[0] + "\n")
             if len(errorTuple) > 1:
                 print(PTAB + errorTuple[1])
             print()
         else:
-            print("def t_error(t):")
-            print(PTAB + "pass\n")
+            f.write("def t_error(t):\n")
+            f.write(PTAB + "pass\n\n")
 
 
+    def transc_precedence(my, precStatements,f):
 
-    def transcribeYacc(my):
-
-        yaccContent = my._yaccObject
-        if hasattr(yaccContent, "_hasPrecedence") and yaccContent._hasPrecedence:
-            precedence = yaccContent._precedence
-            my.transc_precedence(precedence)
-        
-        productions = yaccContent._productionRules
-        my.transc_prodRules(productions)
-
-
-    def transc_precedence(my, precStatements):
-
-        my.transc_stat_comment(precStatements)
-        print("precedence = (")
+        my.transc_stat_comment(precStatements,f)
+        f.write("precedence = (\n")
         precs = (precStatements)[precedence_key]
 
         for prec in precs:
-            for i in range (len(prec)):       #Enquanto houver elementos
+            for i in prec:       #Enquanto houver elementos
 
-                if isinstance(prec[i], str):   #Se for uma string
-                    print("\t(" + prec[i] + ',', end="")
+                if isinstance(i,str):   #Se for uma string
+                    f.write("\t(" + i + ',')
                 else:
-                    for e in range (len(prec[i])):    #Caso seja uma lista
+                    for e in range (len(i)):    #Caso seja uma lista
 
-                        if(e == len(prec[i])-1):
-                            print(prec[i][e] + "),")
+                        if(e == len(i)-1):
+                            f.write(i[e] + "),\n")
                         else:
-                            print(prec[i][e] + ",", end="")
+                            f.write(i[e] + ",")
                         e = e + 1
-                i = i+1
-        print(")\n")
+               
+        f.write(")\n\n")
 
 
-    def transc_prodRule(my, prodStatements, id):
+    def transc_prodRule(my, prodStatements, id,f):
+        my.transc_stat_comment(prodStatements,f)
         rule = prodStatements['productionRule']
-        print("def p_" + rule + str(id) + "(t):")
-        print("\t\"" + rule + " : " + prodStatements[rule] + "\"")
-        print("\t" + prodStatements['pythonCode'] + "\n")
+        f.write("def p_" + rule + str(id) + "(t):\n")
+        f.write("\t\"" + rule + " : " + prodStatements[rule] + "\"\n")
+        f.write("\t" + prodStatements['pythonCode'] + "\n\n")
 
 
     """Transcreve código python - não há necessidade de tratamento extra"""
-    def transc_pythonCode(my, pythonCode):
+    def transc_pythonCode(my, pythonCode, f):
+        print("TOU AQUI")
         print(pythonCode)
+        f.write(pythonCode)
+        f.write("\n\n")
 
 
     """Transcreve plySimple para PLY, conforma a ordem explicitada no ficheiro plySimple"""
-    def transcribe_lex_sorted(my):
+    def transcribe_lex_sorted(my,f):
 
         hasError = my._lexObject._hasError
         hasIgnore = my._lexObject._hasIgnore
@@ -249,51 +259,51 @@ class PlySimple:
 
             if key == literals_key:
                 if my._lexObject._literals[id_key] == id:
-                    my.transc_literals(my._lexObject._literals)
+                    my.transc_literals(my._lexObject._literals,f)
                     id = id + 1
 
             elif key == states_key:
                 if my._lexObject._states[id_key] == id:
-                    my.transc_states(my._lexObject._states)
+                    my.transc_states(my._lexObject._states,f)
                     id = id + 1
 
             elif key == ignore_key:
                 if my._lexObject._ignore[id_key] == id:
-                    my.transc_ignore(my._lexObject._ignore)
+                    my.transc_ignore(my._lexObject._ignore,f)
                     id = id + 1
             
             elif key == error_key:
                 if my._lexObject._error[id_key] == id:
-                    my.transc_error(my._lexObject._error)
+                    my.transc_error(my._lexObject._error,f)
                     id = id + 1
 
             elif key == tokens_key:
                 if my._lexObject._tokens[id_key] == id:
-                    my.transc_tokens(my._lexObject._tokens)
+                    my.transc_tokens(my._lexObject._tokens,f)
                     id = id + 1
             
             elif key == return_key:
                 if not returnTranscribed:
-                    my.transc_returns(my._lexObject._returns)
+                    my.transc_returns(my._lexObject._returns,f)
                     id = id + len(my._lexObject._returns)
                     returnTranscribed = True
             
             elif key == comment_key:
                 for c in my._lexObject._comments:
                     if c[id_key] == id:
-                        my.transc_comment(c)
+                        my.transc_comment(c,f)
     
             elif key == python_key:
                 for p in my._lexObject._pythonCode:
                     if p[id_key] == id:
-                        my.transc_python(p)
+                        my.transc_python(p,f)
 
         # mesmo que não esteja definido, deve ser adicionado
         if hasError is False:
-            my.transc_error()
+            my.transc_error(f)
 
 
-    def transcribe_yacc_sorted(my):
+    def transcribe_yacc_sorted(my,f):
 
         sortedKeys = my._yaccObject._keysOrder
         id = 1
@@ -302,27 +312,24 @@ class PlySimple:
 
             if key == precedence_key:
                 if my._yaccObject._precedence[id_key] == id:
-                    my.transc_precedence(my._yaccObject._precedence)
+                    my.transc_precedence(my._yaccObject._precedence,f)
                     id = id + 1
             
             elif key == prodRule_key:
                 for prod in my._yaccObject._productionRules:
                     if prod[id_key] == id:
-                        my.transc_prodRule(prod, ruleNumber)
+                        my.transc_prodRule(prod, ruleNumber,f)
                 ruleNumber = ruleNumber + 1
                 id = id + 1
             
             elif key == comment_key:
                 for c in my._yaccObject._comments:
                     if c[id_key] == id:
-                        my.transc_comment(c)
+                        my.transc_comment(c,f)
             
             elif key == python_key:
                 for p in my._lexObject._pythonCode:
                     if p[id_key] == id:
-                        my.transc_python(p)
-            
-    
-    def transcribe_plySimple(my):
-        my.transcribe_lex_sorted()
-        my.transcribe_yacc_sorted()
+                        my.transc_python(p,f)
+        
+
