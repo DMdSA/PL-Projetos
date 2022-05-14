@@ -1,0 +1,81 @@
+/*This will be a bar between the header and the text boxes to allow us to add some buttons or text.
+It will be split in two. (Width: 50%)
+Exemple: "Write your code here" + Run button. "Visualize your result" */
+.midBar {
+    width: 50%;
+    height: 91%;
+    box-sizing: border-box;
+    position: absolute;
+    overflow: auto;  
+    background-color: lightgray;
+    padding-left: 14px;
+    padding-top: 4px;
+}
+.left { 
+    left: 0;
+    color: black;  
+}
+.right { 
+    right: 0;
+    color: black;  
+}
+
+
+/*Container to have both text boxes, one for the editor one for the results */
+.boxContainer { 
+    width: 100%;
+    height: 86%; /*So it sits bellow the midbar*/
+    bottom: 0; /*Starts at the bottom*/
+    margin-left: 8px;
+    margin-right: 8px; 
+    overflow: hidden;
+    line-height: 1.5;
+    position: absolute;
+    box-sizing: border-box; 
+}
+
+/* Editor text box. Write your code here and will be on the left side */
+.editorContainer {
+    left: 0;  
+    width: 49%; /* To keep a small edge between editor and result containers */   
+    background-color: lightgray; /*Visually this will be the slight boarder around the text box*/ 
+    color: black;  
+}
+/* Container to present the result from the code */
+.resultContainer{
+    right: 0; 
+    width: 49%; /* To keep a small edge between editor and result containers */  
+    background-color: whitesmoke; /*Visually this will be the slight boarder around the text box*/ 
+    color: black;
+}
+/*text settings*/
+.textarea,  .result {
+    height: 100%;
+    width: 100%;
+    padding-bottom: 10px;
+    padding-top: 1px;
+    overflow: auto;
+}
+.textarea{
+    padding-left: 10px;
+    padding-right: 5px;
+}
+
+.result{
+    padding-left: 5px;
+    padding-right: 10px;
+}
+ 
+
+/* Editor text box settings */
+.textareaTextBox{  
+    font-size: 15px;
+    height: 100%;
+    width: 100%;
+    padding: 15px;
+    resize: none;
+    border: none;
+    line-height: normal;  
+    outline: none; 
+    background-color: whitesmoke;
+}

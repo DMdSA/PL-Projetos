@@ -1,0 +1,29 @@
+{% extends "base.html" %} Grammar {% block activeLink %}   
+<a class="nav-item nav-link" id="home" href="/"> PLY-Simple Editor</a>
+<a class="nav-item nav-link" id="token" href="/token">Token</a> 
+<a class="nav-item nav-link active" id="grammar" href="/grammar">Grammar</a>
+<a class="nav-item nav-link" id="about" href="/about">About</a> {% endblock %}
+
+{% block container %}
+    <form method="POST">
+        <div class="midBar left">
+            <p>Write your PLY-Simple code: <button type ="Compile"  class="btn btn-link" style = "float:right;" >Compile</button>  </p>
+        </div>
+        <!-- Container for the input -->
+        <div class="boxContainer editorContainer">     
+            <textarea name="editorTexto" id="editorTexto" class="textareaTextBox" placeholder="Type here ..." 
+                    autocomplete="off" spellcheck="false" wrap="logical"></textarea>
+        </div>      
+    </form>
+
+    <div class="midBar right">
+        <p>Results: </p>  
+    </div> 
+    <!-- Container for the result -->
+    <div class="boxContainer resultContainer">
+            <div class = "result"> 
+                <textarea name="editorTexto" id="editorTexto" class="textareaTextBox" 
+                 autocomplete="off" spellcheck="false" wrap="logical" readonly> {{ result }}</textarea>
+            </div>
+    </div>
+{% endblock %}
