@@ -4,7 +4,7 @@ sys.path.append('../')
 
 from plySimple import plySimpleObject
 
-plysimple = plySimpleObject.PlySimple("../inputFiles/lexteste.txt","ply_file.py")
+plysimple = plySimpleObject.PlySimple("../inputFiles/lexteste.txt","../outputFiles/lexteste.py")
 plysimple.readPlySimple()
 
 

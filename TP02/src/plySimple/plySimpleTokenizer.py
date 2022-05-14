@@ -88,6 +88,10 @@ class PlySimpleTokenizer:
     ]
 
     # ------------------------------------------------------------------- IGNORE
+    t_LEX_ignore = " \t"
+    t_YACC_ignore = " \t"
+    t_GRULE_ignore = " \t"
+    t_FREEPYTHON_ignore = ""
     t_ignore = " \t"
 
     def t_ignore_newline(my, t):
@@ -116,7 +120,6 @@ class PlySimpleTokenizer:
     def t_FREESTATE(my, t):
         r'%%\s'
         t.lexer.begin('FREEPYTHON')
-        return t
         #print("\n#> STATE CHANGE : [FREE STATE]")
 
 

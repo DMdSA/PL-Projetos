@@ -236,10 +236,8 @@ class PlySimple:
 
     """Transcreve código python - não há necessidade de tratamento extra"""
     def transc_pythonCode(my, pythonCode, f):
-        print("TOU AQUI")
-        print(pythonCode)
-        f.write(pythonCode)
-        f.write("\n\n")
+        f.write(pythonCode[python_key])
+        f.write("\n")
 
 
     """Transcreve plySimple para PLY, conforma a ordem explicitada no ficheiro plySimple"""
@@ -292,12 +290,13 @@ class PlySimple:
                 for c in my._lexObject._comments:
                     if c[id_key] == id:
                         my.transc_comment(c,f)
+                        id = id + 1
     
             elif key == python_key:
                 for p in my._lexObject._pythonCode:
                     if p[id_key] == id:
-                        my.transc_python(p,f)
-
+                        my.transc_pythonCode(p,f)
+                        id = id + 1
         # mesmo que não esteja definido, deve ser adicionado
         if hasError is False:
             my.transc_error(f)
@@ -305,7 +304,10 @@ class PlySimple:
 
     def transcribe_yacc_sorted(my,f):
 
+        #precedence é só um
+
         sortedKeys = my._yaccObject._keysOrder
+        print(sortedKeys)
         id = 1
         ruleNumber = 0
         for key in sortedKeys:
@@ -319,17 +321,21 @@ class PlySimple:
                 for prod in my._yaccObject._productionRules:
                     if prod[id_key] == id:
                         my.transc_prodRule(prod, ruleNumber,f)
+                        id = id + 1
+
                 ruleNumber = ruleNumber + 1
-                id = id + 1
             
             elif key == comment_key:
                 for c in my._yaccObject._comments:
                     if c[id_key] == id:
                         my.transc_comment(c,f)
+                        id = id + 1
+                    
             
             elif key == python_key:
-                for p in my._lexObject._pythonCode:
+                for p in my._yaccObject._pythonCode:
                     if p[id_key] == id:
-                        my.transc_python(p,f)
+                        my.transc_pythonCode(p,f)
+                        id = id + 1
         
 

@@ -458,10 +458,11 @@ class PlySimpleParser:
         python = {python_key : p[1], lineno_key : my._tokenizer.lexer.lineno}
         p[0] = python
         #print(python)
-        if my._currentState == lexState:
-            my._lexObject.addStatement(python)
-        else:
-            my._yaccObject.addStatement(python)
+        if p[1] != "%%":
+            if my._currentState == lexState:
+                my._lexObject.addStatement(python)
+            else:
+                my._yaccObject.addStatement(python)
 
     
 
