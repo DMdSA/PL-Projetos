@@ -109,7 +109,7 @@ class PlySimple:
     def transcribe_plySimple(my):
 
         f = open(my._output, "w")
-        f.write("from ply import lex\nfrom ply import yacc\n\n")
+        f.write("import sys\nsys.path.append('../')\nfrom src.ply import lex\nfrom src.ply import yacc\n\n")
         my.transcribe_lex_sorted(f)
         my.transcribe_yacc_sorted(f)
         f.close()
@@ -307,7 +307,6 @@ class PlySimple:
         #precedence é só um
 
         sortedKeys = my._yaccObject._keysOrder
-        print(sortedKeys)
         id = 1
         ruleNumber = 0
         for key in sortedKeys:
@@ -322,8 +321,7 @@ class PlySimple:
                     if prod[id_key] == id:
                         my.transc_prodRule(prod, ruleNumber,f)
                         id = id + 1
-
-                ruleNumber = ruleNumber + 1
+                        ruleNumber = ruleNumber + 1
             
             elif key == comment_key:
                 for c in my._yaccObject._comments:
