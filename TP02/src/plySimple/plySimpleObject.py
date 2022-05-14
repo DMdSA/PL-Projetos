@@ -1,14 +1,12 @@
 
-from black import out
 from plySimple.plySimpleLex import PlySLexObject
 from plySimple.plySimpleYacc import PlySYaccObject
 from plySimple.plySimpleParser import PlySimpleParser
-import sys
 
 ## lex keys
-from plySimple.plySimpleLex import tokens_key, definedToken_key, literals_key, ignore_key, error_key, return_key, regex_key, states_key
+from plySimple.plySimpleLex import tokens_key, literals_key, ignore_key, error_key, return_key, regex_key, states_key
 ## yacc keys (2) + common ones (4)
-from plySimple.plySimpleYacc import precedence_key, prodRule_key, lineno_key, comment_key, id_key, python_key
+from plySimple.plySimpleYacc import precedence_key, prodRule_key, comment_key, id_key, python_key
 
 
 PTAB = '\t'     # python tab
@@ -99,7 +97,6 @@ class PlySimple:
             auxString = auxString + line
 
             if tokenizer.insideMultiline() is False:
-                #print("FRASE:\"" + auxString + "\"")
                 parser._parser.parse(auxString)
                 auxString = ""
 
