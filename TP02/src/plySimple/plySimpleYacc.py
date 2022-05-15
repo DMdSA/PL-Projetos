@@ -102,15 +102,10 @@ class PlySYaccObject:
             sys.exit("\n#> error: unknown statement!! lineno: " + str(statement[lineno_key]))
 
     def isReady(my):
-
-        if my._hasPrecedence is False:
-            sys.exit("PlySimple-error: precedence is missing!")
-            # precisa terminar?
-
-        elif my._hasProdRules is False: 
-            sys.exit("PlySimple-error: ProductION Rules are missing!")       
-        else:   
-            return True 
+        
+        if my._hasProdRules is False: 
+            sys.exit("PlySimple-error: Production Rules are missing!") 
+        return True       
 
     """Imprime as variáveis que já se encontram guardadas na classe"""
     def printVariables(my):

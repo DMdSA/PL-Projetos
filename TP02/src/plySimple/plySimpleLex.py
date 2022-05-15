@@ -382,28 +382,23 @@ class PlySLexObject:
     """Confirma se o LEX do plySimple está completo e pode prosseguir para a configuração do YACC"""
     def isReady(my):
 
-        if my._hasLiterals is False:
-            sys.exit("PlySimple-error: literals are missing!")
-            # precisa terminar?
-
-        elif my._hasTokens is False: 
+        if my._hasTokens is False: 
             sys.exit("PlySimple-error: tokens are missing!")
             # precisa terminar!
         
         elif my._hasIgnore is False:
-            sys.exit("PlySimple-error: ignore characters are missing!")
-            # precisa terminar?          
+            print("#> Warning: ignore characters are missing!")
+            # não precisa terminar! 
+
+        if my._hasError is False:
+            print("#> Warning: error rule is missing!")             
+            # não precisa terminar!
         
-        elif my._hasError is False:
-            sys.exit("PlySimple-error: lex error control is missing!")
-            # não precisa terminar...           
-        
-        else :
-            varsDict = my._tokens[definedToken_key]
-            for variable in varsDict:
-                if varsDict[variable] is False:
-                    sys.exit("PlySimple-error: rule definition for variable \"" + variable + " is missing!")
-                    # precisa terminar!
+        varsDict = my._tokens[definedToken_key]
+        for variable in varsDict:
+            if varsDict[variable] is False:
+                sys.exit("PlySimple-error: rule definition for variable \"" + variable + " is missing!")
+                # precisa terminar!
         return True                        
 
 

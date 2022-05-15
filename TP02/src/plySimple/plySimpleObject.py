@@ -241,10 +241,7 @@ class PlySimple:
         hasError = my._lexObject._hasError
         hasIgnore = my._lexObject._hasIgnore
         sortedKeys = my._lexObject._keysOrder
-        if hasIgnore is False:
-            print("\n#> Warning: ignore rule not defined...")
-        if error_key not in sortedKeys:
-            print("\n#> Warning: error rule not defined...")
+        my._lexObject.isReady()
 
         id = 1
         returnTranscribed = False
@@ -303,9 +300,7 @@ class PlySimple:
         id = 1
         ruleNumber = 0
 
-        number_precedence = sortedKeys.count("precendence")     #ISTO NUNCA ACONTECE
-        if number_precedence > 1:
-            print("#> Warning: More than one precedence defined")
+        my._yaccObject.isReady()
 
         for key in sortedKeys:
 
