@@ -12,7 +12,7 @@ elif len(sys.argv) == 2:
         print("site")
         exit(0)
     else: 
-        inputname = "TP02/inputFiles/" + sys.argv[1]
+        inputname = "../inputFiles/" + sys.argv[1]
 
 elif len(sys.argv) == 3:
     inputname = "../inputFiles/" + sys.argv[1]
