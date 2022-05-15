@@ -191,7 +191,7 @@ class PlySLexObject:
     ##----------------- PLYSIMPLELEX FUNCTIONS ---------
     ##--------------------------------------------------
 
-
+    """Adiciona os literals"""
     def addLiterals(my, lit):
 
         if literals_key in lit.keys():
@@ -208,7 +208,7 @@ class PlySLexObject:
         else:
             sys.exit("\n#> what you tried to add is not a \'literals\' statement! lineno: " + str(line))
 
-
+    """Adiciona as tokens"""
     def addTokens(my, tokens):
 
         if tokens_key in tokens.keys():
@@ -230,6 +230,7 @@ class PlySLexObject:
         else:
             sys.exit("\n#> what you tried to add is not a \'tokens\' statement!")
 
+    """Adiciona Definição de tokens"""
     def addTokenDefinition(my, variable):
 
         # se for um valor de retorno
@@ -273,7 +274,7 @@ class PlySLexObject:
         else:
             sys.exit("\n#> what you tried to add is not a \'return\' specification!")
     
-    
+    """Adiciona ignore"""
     def addIgnore(my, ignore):
         
         if ignore_key in ignore.keys():
@@ -288,6 +289,7 @@ class PlySLexObject:
         else:
             sys.exit("\n#> what you tried to add is not an \'ignore\' statement!")  
     
+    """Adiciona Error"""
     def addError(my, error):
         
         if error_key in error.keys():
@@ -302,7 +304,7 @@ class PlySLexObject:
         else:
             sys.exit("\n#> what you tried to add is not an \'error\' statement!")
 
-
+    """Adiciona States"""
     def addStates(my, states):
 
         if states_key in states.keys():
@@ -318,19 +320,20 @@ class PlySLexObject:
         else:
             sys.exit("\n#> what you tried to add is not an \'state\' statement")
     
+    """Adiciona Comments"""
     def addComment(my, comment):
 
         comment[id_key] = my._idCounter
         my.idCounter_inc()
         my._comments.append(comment)
 
-
+    """Adiciona PythonCode"""
     def addPyhtonCode(my, python):
         python[id_key] = my._idCounter
         my.idCounter_inc()
         my._pythonCode.append(python)
 
-
+    """Adiciona o statement encontrado a lista correta"""
     def addStatement(my, statement):
 
         ## TOKENS KEY
