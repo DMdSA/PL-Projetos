@@ -2,27 +2,17 @@
 
 %literals = "+-/*=()" ## a single char
 
-%states = [
-            ('COISO', 'inclusive'),
-            ('DIOGO', 'EXCLUSIVE'),
-        ]   # grande estado
-
-
 %ignore = " \t\n"
 
 %tokens = [ 'VAR','NUMBER' ]
 
 '[a-zA-Z_][a-zA-Z0-9_]*' return(t.value, 'VAR')
-
 '\d+(\.\d+)?' return($ANY, 'NUMBER', float(t.value))
-
-
+'.' error(f"Illegal character ’{t.value[0]}’, [{t.lexer.lineno}]", t.lexer.skip(1) )
 
 %% YACC
 
 ts = { }
-
-
 
 stat : VAR '=' exp { ts[t[1]] = t[3] }
 stat : exp { print(t[1]) }

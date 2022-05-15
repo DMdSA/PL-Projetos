@@ -233,8 +233,8 @@ class PlySimpleParser:
     # error (...)
     def p_regexRules_error(my, p):
         "regexRules : errorRules comment"
-        p[0] = p[1]
-        err = {error_key : p[0], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[2]}
+        err = {error_key : p[1], lineno_key : my._tokenizer.lexer.lineno, comment_key : p[2]}
+        p[0] = err
         #print(err)
         my._lexObject.addStatement(err)
 
