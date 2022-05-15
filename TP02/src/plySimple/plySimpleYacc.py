@@ -19,6 +19,7 @@ class PlySYaccObject:
         my._idCounter = 1
         my._hasPrecedence = False
         my._precedence = {}
+        my._hasProdRules = False
         my._productionRules = []
         my._comments = []
         my._pythonCode = []
@@ -42,7 +43,7 @@ class PlySYaccObject:
     def idCounter_inc(my):
         my._idCounter = my._idCounter + 1
 
-
+    """Adiciona Precedencias, se houverem duas precendencias dá error"""
     def addPrecedence(my, precedence):
 
         if my._hasPrecedence is False:
@@ -54,27 +55,28 @@ class PlySYaccObject:
         else:
             sys.exit("\n#> duplicate reference to \'precedence\' statement")
 
-
+    """Adiciona uma Regra de Produção"""
     def addProductionRule(my, rule):
 
         rule[id_key] = my._idCounter
         my.idCounter_inc()
         my._productionRules.append(rule)
+        my._hasProdRules = True
 
-
+    """Adiciona comentários"""
     def addComment(my, comment):
 
         comment[id_key] = my._idCounter
         my.idCounter_inc()
         my._comments.append(comment)
 
-    
+    """Adiciona código Python"""
     def addPyhtonCode(my, python):
         python[id_key] = my._idCounter
         my.idCounter_inc()
         my._pythonCode.append(python)
 
-
+    """Adiciona o statement encontrado a lista correta"""
     def addStatement(my, statement):
 
         ## PRECEDENCE KEY
@@ -99,6 +101,16 @@ class PlySYaccObject:
             print(statement)
             sys.exit("\n#> error: unknown statement!! lineno: " + str(statement[lineno_key]))
 
+    def isReady(my):
+
+        if my._hasPrecedence is False:
+            sys.exit("PlySimple-error: precedence is missing!")
+            # precisa terminar?
+
+        elif my._hasProdRules is False: 
+            sys.exit("PlySimple-error: ProductION Rules are missing!")       
+        else:   
+            return True 
 
     """Imprime as variáveis que já se encontram guardadas na classe"""
     def printVariables(my):

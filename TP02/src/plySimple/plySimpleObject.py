@@ -102,7 +102,7 @@ class PlySimple:
 
         fHandler.close()
 
-
+    """Escreve tudo num ficheiro pela ordem que aparece no ficheiro PlySimple"""
     def transcribe_plySimple(my):
 
         f = open(my._output, "w")
@@ -118,9 +118,9 @@ class PlySimple:
         if len(something[comment_key]) > 0:
             f.write(something[comment_key] + "\n")
 
+    """Transcrição de comment"""
     def transc_comment(my, comment,f):
-
-         f.write(comment + "\n")
+        f.write(comment[comment_key] + "\n")
 
 
     """Transcrição de tokens"""
@@ -164,7 +164,7 @@ class PlySimple:
         f.write("ignore = \"" + igns + "\"\n\n")
 
     
-
+    """Transcrição de returns"""
     def transc_returns(my, returnStatement,f):
         
         # cada recStatement é um dicionário
@@ -184,7 +184,7 @@ class PlySimple:
                 f.write(PTAB + "t.value = " + retStatement[varNameQ] + "(t.value)\n")
             f.write(PTAB + "return t\n\n")
     
-
+    """Transcrição de erros"""
     def transc_error(my,f, errorStatement=None):
 
         if errorStatement:
@@ -199,13 +199,12 @@ class PlySimple:
             f.write("def t_error(t):\n")
             f.write(PTAB + "pass\n\n")
 
-
+    """Transcrição de precedentes"""
     def transc_precedence(my, precStatements,f):
 
         my.transc_stat_comment(precStatements,f)
         f.write("precedence = (\n")
         precs = (precStatements)[precedence_key]
-
         for prec in precs:
             for i in prec:       #Enquanto houver elementos
 
@@ -222,7 +221,7 @@ class PlySimple:
                
         f.write(")\n\n")
 
-
+    """Transcrição das Production Rules"""
     def transc_prodRule(my, prodStatements, id,f):
         my.transc_stat_comment(prodStatements,f)
         rule = prodStatements['productionRule']
@@ -298,14 +297,17 @@ class PlySimple:
         if hasError is False:
             my.transc_error(f)
 
-
+    """Transcreve plySimple para PLY, conforma a ordem explicitada no ficheiro plySimple"""
     def transcribe_yacc_sorted(my,f):
-
-        #precedence é só um
 
         sortedKeys = my._yaccObject._keysOrder
         id = 1
         ruleNumber = 0
+
+        number_precedence = sortedKeys.count("precendence")     #ISTO NUNCA ACONTECE
+        if number_precedence > 1:
+            print("#> Warning: More than one precedence defined")
+
         for key in sortedKeys:
 
             if key == precedence_key:
