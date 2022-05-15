@@ -14,7 +14,7 @@ elif len(sys.argv) == 2:
         exit(0)
     else: 
         inputname = "../inputFiles/" + sys.argv[1]
-        outputname = "../outputFiles/output.py"
+        outputname = "../outputFiles/" + sys.argv[1].rpartition('.')[0] + ".py"
 
 elif len(sys.argv) == 3:
     inputname = "../inputFiles/" + sys.argv[1]
