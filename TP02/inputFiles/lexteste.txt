@@ -55,4 +55,3 @@ def getval(n):
 lexer = lex.lex()
 y=yacc.yacc()
 y.parse("3+4*7")
-

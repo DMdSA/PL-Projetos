@@ -76,45 +76,6 @@ def htmlTokenizer(line):
                 answer = answer + str(tok) + "\n"
     return answer
 
-
-"""Recolhe input do website e devolve a frase se reconhecida pela gramática PlySimple"""
-#def htmlGrammarChecker(text):
-#
-#    answer = ""
-#    eachLine = re.findall(r'.+\n?', text)
-#    eachLine = [re.sub(r'\r?\n', "", x) for x in eachLine]
-#    print(eachLine)
-#
-#    auxString = ""
-#
-#    for l in eachLine:
-#
-#        if l:
-#            lexer.input(l)
-#            [x.value for x in lexer]
-#            auxString = auxString + l
-#
-#            if parser.tokenizer.insideMultiline() is False:
-#                parseResult = parser._parser.parse(auxString)
-#                print(str(type(parseResult)) + " " + str(parseResult))
-#                # se apenas for um pedaço de código python:
-#                if parseResult is not None:
-#                    if "pythonCode" in parseResult.keys():
-#                        if "productionRule" not in parseResult.keys():
-#                            answer = answer + "(probably python code): " + str(parseResult) + "\n"
-#                        else:
-#                            answer = answer + str(parseResult) + "\n"
-#                    else:
-#                         answer = answer + str(parseResult) + "\n"
-#                else:
-#                    answer = answer + "#> error: could not parse... probably wrong state\n"
-#                auxString = ""
-#
-#
-#    lex.reset()
-#    return answer
-#
-
 """Recolhe input do website e devolve a frase se reconhecida pela gramática PlySimple"""
 def htmlGrammarChecker(text):
 
@@ -132,11 +93,10 @@ def htmlGrammarChecker(text):
 
     for line in list_of_lines:
         if line: 
-              
             if not re.match(r'^\s*$', line):
                 lexer.input(line)
                 [x.value for x in lexer]
-                auxString = auxString + line  
+                auxString = auxString + line.rstrip("\r\n")  
 
                 if parser.tokenizer.insideMultiline() is False:
                     parseResult = parser._parser.parse(auxString)
