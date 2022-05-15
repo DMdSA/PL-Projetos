@@ -299,8 +299,8 @@ class PlySimple:
         sortedKeys = my._yaccObject._keysOrder
         id = 1
         ruleNumber = 0
-
-        my._yaccObject.isReady()
+        if sortedKeys:
+            my._yaccObject.isReady()
 
         for key in sortedKeys:
 
