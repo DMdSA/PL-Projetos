@@ -1,4 +1,5 @@
 
+from encodings import utf_8
 from plySimple.plySimpleLex import PlySLexObject
 from plySimple.plySimpleYacc import PlySYaccObject
 from plySimple.plySimpleParser import PlySimpleParser
@@ -105,7 +106,7 @@ class PlySimple:
     """Escreve tudo num ficheiro pela ordem que aparece no ficheiro PlySimple"""
     def transcribe_plySimple(my):
 
-        f = open(my._output, "w")
+        f = open(my._output, "wt", encoding="utf_8")
         f.write("import sys\nsys.path.append('../')\nfrom src.ply import lex\nfrom src.ply import yacc\n\n")
         my.transcribe_lex_sorted(f)
         my.transcribe_yacc_sorted(f)
@@ -113,8 +114,7 @@ class PlySimple:
 
 
     """Transcreve um comentário, caso exista"""
-    def transc_stat_comment(my, something,f):
-        
+    def transc_stat_comment(my, something,f): 
         if len(something[comment_key]) > 0:
             f.write(something[comment_key] + "\n")
 
@@ -185,7 +185,7 @@ class PlySimple:
             f.write(PTAB + "return t\n\n")
     
     """Transcrição de erros"""
-    def transc_error(my,f, errorStatement=None):
+    def transc_error(my, f, errorStatement=None):
 
         if errorStatement:
             my.transc_stat_comment(errorStatement,f)
@@ -193,8 +193,7 @@ class PlySimple:
             f.write("def t_error(t):\n")
             f.write(PTAB + errorTuple[0] + "\n")
             if len(errorTuple) > 1:
-                print(PTAB + errorTuple[1])
-            print()
+                f.write(PTAB + errorTuple[1] + "\n") 
         else:
             f.write("def t_error(t):\n")
             f.write(PTAB + "pass\n\n")
@@ -244,7 +243,7 @@ class PlySimple:
         sortedKeys = my._lexObject._keysOrder
         if hasIgnore is False:
             print("\n#> Warning: ignore rule not defined...")
-        if hasError not in sortedKeys:
+        if error_key not in sortedKeys:
             print("\n#> Warning: error rule not defined...")
 
         id = 1
@@ -268,7 +267,7 @@ class PlySimple:
             
             elif key == error_key:
                 if my._lexObject._error[id_key] == id:
-                    my.transc_error(my._lexObject._error,f)
+                    my.transc_error(f, my._lexObject._error)
                     id = id + 1
 
             elif key == tokens_key:

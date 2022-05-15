@@ -16,7 +16,7 @@ elif len(sys.argv) == 2:
 
 elif len(sys.argv) == 3:
     inputname = "../inputFiles/" + sys.argv[1]
-    outputname = "../outputFiles/" + sys.argv[2] + ".py"
+    outputname = "../outputFiles/" + sys.argv[2] 
 
 else:
     print("#> Error, demasiados argumentos")
