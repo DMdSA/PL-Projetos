@@ -1,3 +1,159 @@
-{% extends "base.html" %} Home {% block content
-    %} 
-    {% endblock %}
+{% extends "base.html" %} {% block activeLink %}   
+<a class="nav-item nav-link active" id="home" href="/"> PLY-Simple Editor</a>
+<a class="nav-item nav-link" id="token" href="/token">Token</a> 
+<a class="nav-item nav-link" id="grammar" href="/grammar">Grammar</a>
+<a class="nav-item nav-link" id="about" href="/about">About</a> {% endblock %}
+{% block container %} 
+# < TOKENS >            < REGEX >
+# - States -           
+"LEXSTATE",             r'%%\s*(?i:lex)'
+"YACCSTATE",            r'%%\s*(?i:yacc)'
+"FREESTATE",            r'%%\s*\n?'
+
+# - LEX Init -
+"LITERALS",             r'(?i:literals)'
+"IGN",                  r'(?i:ignore)
+"CHARS",                r'\"[^\"]+\"'
+"TKNS",                 r'(?i:tokens)'
+"VAR",                  r'\'[^\W]+\''
+"STATES",               r'(?i:states)'
+"INCLUSIVE",            r'\'(?i:inclusive)\''
+"EXCLUSIVE",            r'\'(?i:exclusive)\''
+
+# - LEX Return -
+"REGEX",                r'\'.+\'\s+'
+"RETURN",               r'return'
+"PLYTVALUE",            r't.value'
+"RETTYPE",              r'float\s*|int\s*|list\s*|set\s*'
+"RETSTATE",             r'\$\s*[^ ),\']+'
+"ERROR",                r'error'
+"FSTR",                 r'f\s*\".*\"'
+"TSKIP",                r't\.lexer\.skip\(\d+\)'
+
+# - YACC -
+"PRECEDENCE",           r'precedence'
+"LEFT",                 r'\'(?i:left)\''
+"RIGHT",                r'\'(?i:right)\''
+"PRECTOKEN",            r'\'[^\']+\''
+
+"RULENAME",             r'\w+\s+:'
+
+# - GRULE -
+"RULEFORMAT",           r' (.+){'
+"RULECODE",             r'(.+)}'
+
+
+# - FREE PYTHON MODE -
+"PYTHON",               r'[^%\'"#=,].+'
+
+
+# - COMMON -
+"COMMENT",              r'\#[^\r]*'
+"OPSQUAREB",            r'\['
+"CLSQUAREB",            r']'
+"OPCURVEB",             r'\('
+"CLCURVEB",             r'\)'
+
+T = { 'LEXSTATE', 'YACCSTATE' , 'FREESTATE',
+	'LITERALS', 'IGN', 'CHARS', 'TKNS', 'VAR', 'STATES', 'INCLUSIVE', 'EXCLUSIVE', 
+	'REGEX', 'RETURN', 'PLYTVALUE', 'RETSTATE', 'RETTYPE', 'ERROR', 'FSTR', 'TSKIP', 
+	'PRECEDENCE', 'LEFT', 'RIGHT', 'PRECTOKEN', 'RULECODE', 'RULENAME', 'RULEFORMAT', 'OPBRACKETS', 'CLBRACKETS', 
+	'PYTHON', 'COMMENT', 'OPSQUAREB', 'CLSQUAREB', 'OPCURVEB', 'CLCURVEB', '%', '=', , ','}
+
+start -> init
+	| regexRules
+	| states
+	| precedence
+	| productionRules
+	| pythonCode
+	| LEXSTATE comment
+	| YACCSTATE comment
+	| FREESTATE comment
+	| comment
+	|  
+
+-------------------------------------------------------
+
+init -> '%' LITERALS '=' CHARS comment
+	| '%' IGN '=' CHARS comment
+	| '%' TKNS '=' OPSQUAREB vars ',' CLSQUAREB comment
+	| '%' TKNS '=' OPSQUAREB vars CLSQUAREB comment
+
+vars -> vars ',' VAR
+	| VAR
+
+----------------------------------------------------------
+
+regexRules -> REGEX RETURN OPCURVEB regexReturn CLCURVEB comment
+		| VAR RETURN OPCURVEB regexReturn CLCURVEB comment
+		| errorRules comment
+
+regexReturn -> VAR
+		| VAR ',' PLYTVALUE
+		| VAR ',' RETSTATE
+		| VAR ',' RETTYPE OPCURVEB PLYTVALUE CLCURVEB
+		| VAR ',' PLYTVALUE ',' RETSTATE
+		| VAR ',' RETSTATE ',' PLYTVALUE
+		| VAR ',' RETTYPE OPCURVEB PLYTVALUE CLCURVEB ',' RETSTATE
+		| VAR ',' RETSTATE ',' RETTYPE OPCURVEB PLYTVALUE CLCURVEB
+		| PLYTVALUE ',' VAR
+		| PLYTVALUE ',' VAR ',' RETSTATE
+		| PLYTVALUE ',' RETSTATE ',' VAR
+		| RETTYPE OPCURVEB PLYTVALUE CLCURVEB ',' VAR
+		| RETTYPE OPCURVEB PLYTVALUE CLCURVEB ',' VAR ',' RETSTATE
+		| RETTYPE OPCURVEB PLYTVALUE CLCURVEB ',' RETSTATE ',' VAR
+		| RETSTATE ',' VAR
+		| RETSTATE ',' VAR ',' PLYTVALUE
+		| RETSTATE ',' VAR ',' RETTYPE OPCURVEB PLYTVALUE CLCURVEB
+		| RETSTATE ',' PLYTVALUE ',' VAR
+		| RETSTATE ',' RETTYPE OPCURVEB PLYTVALUE CLCURVEB ',' VAR
+
+errorRules -> REGEX ERROR OPCURVEB errorValues CLCURVEB
+
+errorValues -> FSTR ','
+		| FSTR
+		| TSKIP ','
+		| TSKIP
+		| FSTR ',' TSKIP
+		| TSKIP ',' FSTR
+
+---------------------------------------------------------------------
+
+states -> '%' STATES '=' OPSQUAREB stateStatements ',' CLSQUAREB comment
+        | '%' STATES '=' OPSQUAREB stateStatements CLSQUAREB comment
+
+stateStatements -> stateStatements ',' state
+        | state
+
+state -> OPCURVEB VAR ',' INCLUSIVE CLCURVEB
+        | OPCURVEB VAR ',' EXCLUSIVE CLCURVEB
+		
+----------------------------------------------------------------------
+
+precedence -> '%' PRECEDENCE '=' OPSQUAREB precStatements ',' CLSQUAREB comment
+        | '%' PRECEDENCE '=' OPSQUAREB precStatements CLSQUAREB comment
+
+precStatements -> precStatements ',' precStatement
+        | precStatement
+
+precStatement -> OPCURVEB LEFT ',' precTokens CLCURVEB
+        | OPCURVEB RIGHT ',' precTokens CLCURVEB
+
+precTokens -> precTokens ',' PRECTOKEN"
+        | PRECTOKEN
+
+------------------------------------------------------------------------
+
+productionRules -> RULENAME format
+
+format -> RULEFORMAT RULECODE comment
+
+------------------------------------------------------------------------
+
+pythonCode : PYTHON
+
+------------------------------------------------------------------------
+
+comment -> COMMENT
+        | 
+{% endblock %}

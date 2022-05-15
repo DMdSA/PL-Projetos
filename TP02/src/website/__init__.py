@@ -1,10 +1,7 @@
 from flask import Flask
 
 __all__ = [
-
-    "models",
     "views",
-
 ]
 
 #inicializing flask
