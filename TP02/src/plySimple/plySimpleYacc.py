@@ -101,6 +101,8 @@ class PlySYaccObject:
             print(statement)
             sys.exit("\n#> error: unknown statement!! lineno: " + str(statement[lineno_key]))
 
+
+    """Confirma se o yacc está completo e se pode prosseguir"""
     def isReady(my):
         
         if my._hasProdRules is False: 

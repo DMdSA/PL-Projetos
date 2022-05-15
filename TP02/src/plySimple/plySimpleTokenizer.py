@@ -355,32 +355,3 @@ class PlySimpleTokenizer:
         elif my.lexer.roundBracket != 0: return True
         elif my.lexer.brackets != 0: return True
         else: return False
-
-
-
-
-
-#simPly = PlySimpleTokenizer()
-#simPly.build()
-#
-#appendString = ""
-#fHandler = open("../../inputFiles/lexteste.txt", "rt", encoding="utf-8")
-#
-#for line in fHandler:
-#    
-#    simPly.lexer.input(line)
-#    [x.value for x in simPly.lexer]
-#
-#    if simPly.insideMultiline():
-#        appendString = appendString + line
-#    
-#    else:
-#        appendString = appendString + line
-#        simPly.lexer.input(appendString)
-#        final = [x.value for x in simPly.lexer]
-#        if final:
-#            pass
-#            #print(final)
-#        appendString = ""
-#
-#fHandler.close()
