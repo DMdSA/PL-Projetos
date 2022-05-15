@@ -384,21 +384,26 @@ class PlySLexObject:
 
         if my._hasLiterals is False:
             sys.exit("PlySimple-error: literals are missing!")
+            # precisa terminar?
 
         elif my._hasTokens is False: 
             sys.exit("PlySimple-error: tokens are missing!")
+            # precisa terminar!
         
         elif my._hasIgnore is False:
-            sys.exit("PlySimple-error: ignore characters are missing!")          
+            sys.exit("PlySimple-error: ignore characters are missing!")
+            # precisa terminar?          
         
         elif my._hasError is False:
-            sys.exit("PlySimple-error: lex error control is missing!")              
+            sys.exit("PlySimple-error: lex error control is missing!")
+            # não precisa terminar...           
         
         else :
             varsDict = my._tokens[definedToken_key]
             for variable in varsDict:
                 if varsDict[variable] is False:
                     sys.exit("PlySimple-error: rule definition for variable \"" + variable + " is missing!")
+                    # precisa terminar!
         return True                        
 
 
