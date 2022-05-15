@@ -1,7 +1,7 @@
 
 T = { 'LEXSTATE', 'YACCSTATE' , 'FREESTATE', 
 	'LITERALS', 'IGN', 'CHARS', 'TKNS', 'VAR', 'STATES', 'INCLUSIVE', 'EXCLUSIVE', 
-	'REGEX', 'RETURN', 'PLYTVALUE', 'RETTYPE', 'ERROR', 'FSTR', 'TSKIP', 
+	'REGEX', 'RETURN', 'PLYTVALUE', 'RETSTATE', 'RETTYPE', 'ERROR', 'FSTR', 'TSKIP', 
 	'PRECEDENCE', 'LEFT', 'RIGHT', 'PRECTOKEN', 'RULECODE', 'RULENAME', 'RULEFORMAT', 'OPBRACKETS', 'CLBRACKETS', 
 	'PYTHON', 'COMMENT', 'OPSQUAREB', 'CLSQUAREB', 'OPCURVEB', 'CLCURVEB', '%', '=', , ','}
 
@@ -37,7 +37,24 @@ regexRules -> REGEX RETURN OPCURVEB regexReturn CLCURVEB comment
 
 regexReturn -> VAR
 		| VAR ',' PLYTVALUE
+		| VAR ',' RETSTATE
 		| VAR ',' RETTYPE OPCURVEB PLYTVALUE CLCURVEB
+		| VAR ',' PLYTVALUE ',' RETSTATE
+		| VAR ',' RETSTATE ',' PLYTVALUE
+		| VAR ',' RETTYPE OPCURVEB PLYTVALUE CLCURVEB ',' RETSTATE
+		| VAR ',' RETSTATE ',' RETTYPE OPCURVEB PLYTVALUE CLCURVEB
+		| PLYTVALUE ',' VAR
+		| PLYTVALUE ',' VAR ',' RETSTATE
+		| PLYTVALUE ',' RETSTATE ',' VAR
+		| RETTYPE OPCURVEB PLYTVALUE CLCURVEB ',' VAR
+		| RETTYPE OPCURVEB PLYTVALUE CLCURVEB ',' VAR ',' RETSTATE
+		| RETTYPE OPCURVEB PLYTVALUE CLCURVEB ',' RETSTATE ',' VAR
+		| RETSTATE ',' VAR
+		| RETSTATE ',' VAR ',' PLYTVALUE
+		| RETSTATE ',' VAR ',' RETTYPE OPCURVEB PLYTVALUE CLCURVEB
+		| RETSTATE ',' PLYTVALUE ',' VAR
+		| RETSTATE ',' RETTYPE OPCURVEB PLYTVALUE CLCURVEB ',' VAR
+
 
 errorRules -> REGEX ERROR OPCURVEB errorValues CLCURVEB
 
@@ -61,8 +78,8 @@ state -> OPCURVEB VAR ',' INCLUSIVE CLCURVEB
 		
 ----------------------------------------------------------------------
 
-precedence -> PRECEDENCE '=' OPSQUAREB precStatements ',' CLSQUAREB comment
-		| PRECEDENCE '=' OPSQUAREB precStatements CLSQUAREB comment
+precedence -> '%' PRECEDENCE '=' OPSQUAREB precStatements ',' CLSQUAREB comment
+		| '%' PRECEDENCE '=' OPSQUAREB precStatements CLSQUAREB comment
 
 precStatements -> precStatements ',' precStatement
 		    | precStatement
@@ -76,7 +93,9 @@ precTokens -> precTokens ',' PRECTOKEN"
 
 ------------------------------------------------------------------------
 
-productionRules -> RULENAME RULEFORMAT OPBRACKETS RULECODE CLBRACKETS comment
+productionRules -> RULENAME format
+
+format -> RULEFORMAT RULECODE comment
 
 ------------------------------------------------------------------------
 
