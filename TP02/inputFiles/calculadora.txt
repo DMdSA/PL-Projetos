@@ -1,0 +1,48 @@
+%% LEX
+
+%literals = "+*-/()=" #literals
+
+%ignore = " \t\n\r" #ignora isto
+
+%tokens = [ 'ID', 'PRINT', 'READ', 'INT', 'DUMP']
+
+'(print|PRINT)' return(t.value, 'PRINT')
+'(read|READ)' return(t.value, 'READ')
+'(dump|DUMP)' return(t.value, 'DUMP')
+'[a-zA-Z_]\w*' return(t.value, 'ID')
+'\d+' return('INT', int(t.value))
+'.' error(f"Illegal character '{t.value[0]}', [{t.lexer.lineno}]", t.lexer.skip(1))
+
+%% YACC
+
+ts = {}
+
+prog : comandos {}
+comandos : {}
+comandos : comandos comando {}
+comando : ID '=' exp { ts[t[1]] = t[3] }
+comando : PRINT exp { print(t[2]) }
+comando : READ ID {ts[t[2]] = int(input()) }
+comando : DUMP { print(ts) }
+exp : aexp { t[0] = t[1] }
+aexp : termo { t[0] = t[1] }
+aexp : aexp '+' termo { t[0] = t[1] + t[3] }
+aexp : aexp '-' termo { t[0] = t[1] - t[3] }
+termo : fator { t[0] = t[1] }
+termo : termo '*' fator { t[0] = t[1] * t[3] }
+termo : termo '/' fator { t[0] = t[1] / t[3] }
+fator : INT { t[0] = int(t[1]) }
+fator : ID { if t[1] in ts: t[0] = ts[t[1]] }
+fator : '(' aexp ')' { t[0] = t[2] }
+
+%%
+def p_error(t):
+    print(f"Syntax error at '{t.value}', [{t.lexer.lineno}]")
+
+lexer = lex.lex()
+parser = yacc.yacc()
+
+for line in sys.stdin:
+    res = parser.parse(line)
+
+
