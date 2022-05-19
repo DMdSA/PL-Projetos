@@ -263,17 +263,20 @@ class PlySimpleTokenizer:
 
     ### yacc production rule's format, " ..." { code
     def t_GRULE_RULEFORMAT(my, t):
-        r' (.+){'
-        catcher = re.compile(r'.+\w')
-        t.value = catcher.match(t.value).group()
-        #print("RULE: \"" + t.value + "\"")
-        return t
+        r' (.*){'
+        catcher = re.compile(r'.*[^ {]')
+        if t.value == '{':
+            t.value = ''
+            return t
+        else:
+            t.value = catcher.match(t.value).group()
+            return t
     
     ### yacc production rule's python code, { code }
     def t_GRULE_RULECODE(my, t):
-        r'(.+)}'
+        r'(.*)}'
         t.value = t.value[:-1]
-        catcher = re.compile(r'\s*(.+)\s*')
+        catcher = re.compile(r'\s*(.*)\s*')
         #print("RULECODE : \"" + t.value + "\"")
         t.value = catcher.match(t.value).group()
         t.lexer.begin('YACC')
