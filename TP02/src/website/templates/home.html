@@ -3,92 +3,247 @@
 <a class="nav-item nav-link" id="token" href="/token">Token</a> 
 <a class="nav-item nav-link" id="grammar" href="/grammar">Grammar</a>
 <a class="nav-item nav-link" id="about" href="/about">About</a> {% endblock %}
-{% block container %} 
-# < TOKENS >            < REGEX >
-# - States -           
-"LEXSTATE",             r'%%\s*(?i:lex)'
-"YACCSTATE",            r'%%\s*(?i:yacc)'
-"FREESTATE",            r'%%\s*\n?'
 
-# - LEX Init -
-"LITERALS",             r'(?i:literals)'
-"IGN",                  r'(?i:ignore)
-"CHARS",                r'\"[^\"]+\"'
-"TKNS",                 r'(?i:tokens)'
-"VAR",                  r'\'[^\W]+\''
-"STATES",               r'(?i:states)'
-"INCLUSIVE",            r'\'(?i:inclusive)\''
-"EXCLUSIVE",            r'\'(?i:exclusive)\''
+{% block container %}
 
-# - LEX Return -
-"REGEX",                r'\'.+\'\s+'
-"RETURN",               r'return'
-"PLYTVALUE",            r't.value'
-"RETTYPE",              r'float\s*|int\s*|list\s*|set\s*'
-"RETSTATE",             r'\$\s*[^ ),\']+'
-"ERROR",                r'error'
-"FSTR",                 r'f\s*\".*\"'
-"TSKIP",                r't\.lexer\.skip\(\d+\)'
+<div class="container-fluid bg-light">
+	<div class="row align-items-start">
 
-# - YACC -
-"PRECEDENCE",           r'precedence'
-"LEFT",                 r'\'(?i:left)\''
-"RIGHT",                r'\'(?i:right)\''
-"PRECTOKEN",            r'\'[^\']+\''
+		<div class="row">
+			<div class="col">
+				<table class="table table-striped">
 
-"RULENAME",             r'\w+\s+:'
+					<thead>
+						<tr>
+							<th scope="col"> TOKENS </th> 
+							<th scope="col"> REGEX  </th>
+						</tr>
+					</thead>
 
-# - GRULE -
-"RULEFORMAT",           r' (.+){'
-"RULECODE",             r'(.+)}'
+					<tbody>
+						<tr class="table-info">
+							<td colspan="2">## States ##</td>
+						</tr>
+						<tr>
+							<td>"LEXSTATE"</td>
+							<td>r'%%\s*(?i:lex)'</td>
+						</tr>
+						<tr>
+							<td>"YACCSTATE"</td>
+							<td>r'%%\s*(?i:yacc)'</td>
+						</tr>
+						<tr>
+							<td>"FREESTATE"</td>
+							<td>r'%%\s*\n?'</td>
+						</tr>
+					</tbody>
+
+					<tbody>
+						<tr class="table-info">
+							<td colspan="2">## LEX Init ##</td>
+						</tr>
+						<tr>
+							<td>"LITERALS"</td>
+							<td>r'(?i:literals)'</td>
+						</tr>
+						<tr>
+							<td>"IGN"</td>
+							<td>r'(?i:ignore)'</td>              
+						</tr>
+						<tr>
+							<td>"CHARS" </td>
+							<td>r'\"[^\"]+\"'</td>
+						</tr>
+						<tr>
+							<td>"TKNS"</td>               
+							<td>r'(?i:tokens)'</td>
+						</tr>
+						<tr>
+							<td>"VAR"</td>
+							<td>r'\'[^\W]+\'</td>
+						</tr>
+						<tr>
+							<td>"STATES"</td>
+							<td>r'(?i:states)'</td>
+						</tr>
+						<tr>
+							<td>"INCLUSIVE"</td>
+							<td>r'\'(?i:inclusive)\''</td>
+						</tr>
+						<tr>
+							<td>"EXCLUSIVE"</td>
+							<td> r'\'(?i:exclusive)\''</td>
+						</tr>
+					</tbody>
+
+					<tbody>
+						<tr class="table-info">
+							<td colspan="2">## LEX Return ##</td>
+						</tr>
+						<tr>
+							<td>"REGEX"</td>
+							<td>r'\'.+\'\s+'</td>
+						</tr>
+						<tr>
+							<td>"RETURN"</td>
+							<td>r'return'</td>
+						</tr>
+						<tr>
+							<td>"PLYTVALUE"</td>
+							<td> r't.value'</td>
+						</tr>
+						<tr>
+							<td>"RETTYPE"</td>
+							<td>r'float\s*|int\s*|list\s*|set\s*'</td>
+						</tr>
+						<tr>
+							<td>"RETSTATE"</td>
+							<td>r'\$\s*[^ ),\']+'</td>
+						</tr>
+						<tr>
+							<td>"ERROR"</td>
+							<td>r'error'</td>
+						</tr>
+						<tr>
+							<td>"FSTR"</td>
+							<td>r'f\s*\".*\"'</td>
+						</tr>
+						<tr>
+							<td>"TSKIP"</td>
+							<td>r't\.lexer\.skip\(\d+\)'</td>
+						</tr>
+					</tbody>
+
+					<tbody>
+						<tr class="table-info">
+							<td colspan="2">## YACC ##</td>
+						</tr>
+						<tr>
+							<td>"PRECEDENCE"</td>
+							<td>r'precedence'</td>
+						</tr>
+						<tr>
+							<td>"LEFT"</td>
+							<td>r'\'(?i:left)\''</td>
+						</tr>
+						<tr>
+							<td>"RIGHT"</td>
+							<td>r'\'(?i:right)\''</td>
+						</tr>
+						<tr>
+							<td>"PRECTOKEN"</td>
+							<td> r'\'[^\']+\'</td>
+						</tr>
+						<tr>
+							<td>"RULENAME"</td>
+							<td>r'\w+\s+:'</td>
+						</tr>
+					</tbody>
+
+					<tbody>
+						<tr class="table-info">
+							<td colspan="2">## GRULE ##</td>
+						</tr>
+						<tr>
+							<td>"RULEFORMAT"</td>
+							<td>r' (.+){'</td>
+						</tr>
+						<tr>
+							<td>"RULECODE"</td>
+							<td>r'(.+)}'</td>
+						</tr>
+					</tbody>
+
+					<tbody>
+						<tr class="table-info">
+							<td colspan="2">## FREE PYTHON MODE ##</td>
+						</tr>	
+						<tr>
+							<td>"PYTHON"</td>
+							<td>r'[^%\'"#=,].+'</td>
+						</tr>	
+					</tbody>
+
+					<tbody>
+						<tr class="table-info">
+							<td colspan="2">## COMMON ##</td>
+						</tr>				
+						<tr>
+							<td>"COMMENT</td>
+							<td>r'\#[^\r]*'</td>
+						</tr>
+						<tr>
+							<td>"OPSQUAREB"</td>
+							<td>r'\['</td>
+						</tr>
+						<tr>
+							<td>"CLSQUAREB"</td>
+							<td>r']'</td>
+						</tr>
+						<tr>
+							<td>"OPCURVEB"</td>
+							<td>r'\('</td>
+						</tr>
+						<tr>
+							<td>"CLCURVEB"</td>
+							<td>r'\)'</td>
+						</tr>
+					</tbody>
+				</table>   
+			</div>	 
 
 
-# - FREE PYTHON MODE -
-"PYTHON",               r'[^%\'"#=,].+'
+			<div class="col-7">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col"> GRAMMAR </th> 
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="2"><pre>T = { 'LEXSTATE', 'YACCSTATE' , 'FREESTATE', 'LITERALS', 'IGN', 'CHARS', 'TKNS', 'VAR', 
+      'STATES', 'INCLUSIVE', 'EXCLUSIVE', 'REGEX', 'RETURN', 'PLYTVALUE', 'RETSTATE', 
+      'RETTYPE', 'ERROR', 'FSTR', 'TSKIP', 'PRECEDENCE', 'LEFT', 'RIGHT', 'PRECTOKEN', 
+      'RULECODE', 'RULENAME', 'RULEFORMAT', 'OPBRACKETS', 'CLBRACKETS', 'PYTHON', 
+      'COMMENT', 'OPSQUAREB', 'CLSQUAREB', 'OPCURVEB', 'CLCURVEB', '%', '=', , ',' }</pre></td>
+						</tr>
 
+						<tr>
+							<td><pre>  start -> init
+	 | regexRules
+	 | states
+	 | precedence
+	 | productionRules
+	 | pythonCode
+	 | LEXSTATE comment
+	 | YACCSTATE comment
+	 | FREESTATE comment
+	 | comment
+	 | </pre>
+							</td>
 
-# - COMMON -
-"COMMENT",              r'\#[^\r]*'
-"OPSQUAREB",            r'\['
-"CLSQUAREB",            r']'
-"OPCURVEB",             r'\('
-"CLCURVEB",             r'\)'
+							<td><pre>
+   init -> '%' LITERALS '=' CHARS comment
+	 | '%' IGN '=' CHARS comment
+	 | '%' TKNS '=' OPSQUAREB vars ',' CLSQUAREB comment
+	 | '%' TKNS '=' OPSQUAREB vars CLSQUAREB comment 
 
-T = { 'LEXSTATE', 'YACCSTATE' , 'FREESTATE',
-	'LITERALS', 'IGN', 'CHARS', 'TKNS', 'VAR', 'STATES', 'INCLUSIVE', 'EXCLUSIVE', 
-	'REGEX', 'RETURN', 'PLYTVALUE', 'RETSTATE', 'RETTYPE', 'ERROR', 'FSTR', 'TSKIP', 
-	'PRECEDENCE', 'LEFT', 'RIGHT', 'PRECTOKEN', 'RULECODE', 'RULENAME', 'RULEFORMAT', 'OPBRACKETS', 'CLBRACKETS', 
-	'PYTHON', 'COMMENT', 'OPSQUAREB', 'CLSQUAREB', 'OPCURVEB', 'CLCURVEB', '%', '=', , ','}
+   vars -> vars ',' VAR
+	 | VAR </pre>
+							</td>
+						</tr>
 
-start -> init
-	| regexRules
-	| states
-	| precedence
-	| productionRules
-	| pythonCode
-	| LEXSTATE comment
-	| YACCSTATE comment
-	| FREESTATE comment
-	| comment
-	|  
-
--------------------------------------------------------
-
-init -> '%' LITERALS '=' CHARS comment
-	| '%' IGN '=' CHARS comment
-	| '%' TKNS '=' OPSQUAREB vars ',' CLSQUAREB comment
-	| '%' TKNS '=' OPSQUAREB vars CLSQUAREB comment
-
-vars -> vars ',' VAR
-	| VAR
-
-----------------------------------------------------------
-
-regexRules -> REGEX RETURN OPCURVEB regexReturn CLCURVEB comment
+						<tr>
+							<td colspan="2"><pre>
+    regexRules -> REGEX RETURN OPCURVEB regexReturn CLCURVEB comment
 		| VAR RETURN OPCURVEB regexReturn CLCURVEB comment
-		| errorRules comment
-
-regexReturn -> VAR
+		| errorRules comment </pre>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2"><pre>
+   regexReturn -> VAR
 		| VAR ',' PLYTVALUE
 		| VAR ',' RETSTATE
 		| VAR ',' RETTYPE OPCURVEB PLYTVALUE CLCURVEB
@@ -106,54 +261,79 @@ regexReturn -> VAR
 		| RETSTATE ',' VAR ',' PLYTVALUE
 		| RETSTATE ',' VAR ',' RETTYPE OPCURVEB PLYTVALUE CLCURVEB
 		| RETSTATE ',' PLYTVALUE ',' VAR
-		| RETSTATE ',' RETTYPE OPCURVEB PLYTVALUE CLCURVEB ',' VAR
+		| RETSTATE ',' RETTYPE OPCURVEB PLYTVALUE CLCURVEB ',' VAR </pre>
+							</td>
+						</tr>
 
-errorRules -> REGEX ERROR OPCURVEB errorValues CLCURVEB
+						<tr>
+							<td colspan="2"><pre>
+   errorRules -> REGEX ERROR OPCURVEB errorValues CLCURVEB
 
-errorValues -> FSTR ','
-		| FSTR
+   errorValues -> FSTR ','
+		| FSTR 
 		| TSKIP ','
 		| TSKIP
 		| FSTR ',' TSKIP
-		| TSKIP ',' FSTR
+		| TSKIP ',' FSTR </pre>
+							</td>
+						</tr>
 
----------------------------------------------------------------------
+						<tr>
+							<td colspan="2"><pre>
+   states -> '%' STATES '=' OPSQUAREB stateStatements ',' CLSQUAREB comment
+	   | '%' STATES '=' OPSQUAREB stateStatements CLSQUAREB comment
 
-states -> '%' STATES '=' OPSQUAREB stateStatements ',' CLSQUAREB comment
-        | '%' STATES '=' OPSQUAREB stateStatements CLSQUAREB comment
+   stateStatements -> stateStatements ',' state 
+		    | state 
 
-stateStatements -> stateStatements ',' state
-        | state
+   state -> OPCURVEB VAR ',' INCLUSIVE CLCURVEB 
+	  | OPCURVEB VAR ',' EXCLUSIVE CLCURVEB </pre>
+							</td>
+						</tr>
 
-state -> OPCURVEB VAR ',' INCLUSIVE CLCURVEB
-        | OPCURVEB VAR ',' EXCLUSIVE CLCURVEB
-		
-----------------------------------------------------------------------
+						<tr>
+							<td colspan="2"><pre>
+    precedence -> '%' PRECEDENCE '=' OPSQUAREB precStatements ',' CLSQUAREB comment
+		| '%' PRECEDENCE '=' OPSQUAREB precStatements CLSQUAREB comment
 
-precedence -> '%' PRECEDENCE '=' OPSQUAREB precStatements ',' CLSQUAREB comment
-        | '%' PRECEDENCE '=' OPSQUAREB precStatements CLSQUAREB comment
+   precStatements -> precStatements ',' precStatement 
+		   | precStatement 
 
-precStatements -> precStatements ',' precStatement
-        | precStatement
+   precStatement -> OPCURVEB LEFT ',' precTokens CLCURVEB
+		  | OPCURVEB RIGHT ',' precTokens CLCURVEB
+   
+   precTokens -> precTokens ',' PRECTOKEN"
+	       | PRECTOKEN	</pre>
+							</td>
+						</tr>
 
-precStatement -> OPCURVEB LEFT ',' precTokens CLCURVEB
-        | OPCURVEB RIGHT ',' precTokens CLCURVEB
+						<tr>
+							<td colspan="2"><pre>   productionRules -> RULENAME format</pre>
+							</td>
+						</tr>
+						
+						<tr>
+							<td colspan="2"><pre>   format -> RULEFORMAT RULECODE comment</pre>
+							</td>
+						</tr>
+						
+						<tr>
+							<td colspan="2"><pre>   pythonCode -> PYTHON</pre>
+							</td>
+						</tr>
 
-precTokens -> precTokens ',' PRECTOKEN"
-        | PRECTOKEN
+						<tr>
+							<td colspan="2"><pre>   comment -> COMMENT</pre>
+							</td>
+						</tr>
 
-------------------------------------------------------------------------
+					</tbody>
+				</table>
 
-productionRules -> RULENAME format
+			</div>  
+		</div>
+	</div>
+</div>
 
-format -> RULEFORMAT RULECODE comment
 
-------------------------------------------------------------------------
-
-pythonCode : PYTHON
-
-------------------------------------------------------------------------
-
-comment -> COMMENT
-        | 
 {% endblock %}

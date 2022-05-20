@@ -33,6 +33,18 @@ Exemple: "Write your code here" + Run button. "Visualize your result" */
     position: absolute;
     box-sizing: border-box; 
 }
+.boxHome { 
+    width: 100%;
+    height: 92.5%;
+    bottom: 0;
+    overflow: hidden;
+    line-height: 1.5;
+    position: absolute;
+    box-sizing: border-box; 
+}
+.bg-color{
+    background-color: lightgrey;
+}
 
 /* Editor text box. Write your code here and will be on the left side */
 .editorContainer {
@@ -78,4 +90,8 @@ Exemple: "Write your code here" + Run button. "Visualize your result" */
     line-height: normal;  
     outline: none; 
     background-color: whitesmoke;
+}
+
+pre{
+    font-size: 16px;
 }
