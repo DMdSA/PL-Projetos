@@ -12,8 +12,6 @@
 
 %% YACC
 
-ts = { }
-
 stat : VAR '=' exp { ts[t[1]] = t[3] }
 stat : exp { print(t[1]) }
 exp : exp '+' exp { t[0] = t[1] + t[3] }
@@ -44,4 +42,4 @@ def getval(n):
 
 lexer = lex.lex()
 y=yacc.yacc()
-y.parse("3+4*7")
+y.parse("3+4*7-2")

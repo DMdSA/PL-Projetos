@@ -193,7 +193,7 @@ class PlySimple:
             f.write("def t_error(t):\n")
             f.write(PTAB + errorTuple[0] + "\n")
             if len(errorTuple) > 1:
-                f.write(PTAB + errorTuple[1] + "\n") 
+                f.write(PTAB + errorTuple[1] + "\n\n") 
         else:
             f.write("def t_error(t):\n")
             f.write(PTAB + "pass\n\n")
